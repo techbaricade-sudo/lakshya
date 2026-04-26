@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Lakshya Academy | Step Towards Success | Saharsa</title>
+  <title>Lakshya Academy | Quality Education | Saharsa</title>
   <!-- SEO Meta -->
-  <meta name="description" content="Lakshya Academy in Saharsa, Bihar - Best coaching for Class 6 to 9 in Maths, Science, English, Social Science. Admissions open, scholarship & demo class available.">
-  <meta name="keywords" content="Lakshya Academy, Saharsa, coaching, class 6 to 9, Maths, Science, Tech Baricade, scholarship">
+  <meta name="description" content="Lakshya Academy Saharsa - Board of Directors: Amit Kumar, Shivam Kr. Singh, Nikhil Jha. Concept-based learning for Class 6-9. Admissions open.">
+  <meta name="keywords" content="Lakshya Academy, Board Members, Saharsa, coaching, admission, Tech Baricade, faculty login">
   <meta name="author" content="Tech Baricade">
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- AOS Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -28,18 +28,15 @@
       overflow-x: hidden;
     }
 
-    /* Premium Color Palette */
+    /* Premium Color Scheme: Trust Blue + Vibrant Green */
     :root {
       --primary-deep: #0a2b3e;
-      --primary-blue: #1e5a7a;
+      --primary-blue: #1e4a76;
       --blue-accent: #2c7da0;
       --green-success: #0f7b3a;
-      --green-soft: #2ecc71;
-      --gray-bg: #f8fafc;
-      --card-border: #eef2f8;
-      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 30px 40px -18px rgba(0, 0, 0, 0.15);
+      --green-light: #e8f3ed;
+      --card-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.02);
+      --shadow-hover: 0 25px 35px -12px rgba(0, 0, 0, 0.12);
     }
 
     .container {
@@ -48,62 +45,39 @@
       padding: 0 24px;
     }
 
-    /* ========= MODERN NAVBAR (Mobile First) ========= */
+    /* ========= NAVBAR with Login ========= */
     nav {
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      border-bottom: 1px solid #eef2f6;
+      padding: 12px 0;
     }
 
     .nav-flex {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 0;
+      flex-wrap: wrap;
     }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-img {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 14px;
-      background: white;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .logo-text h2 {
-      font-size: 1.35rem;
+    .logo h1 {
+      font-size: 1.8rem;
       font-weight: 800;
-      background: linear-gradient(130deg, #0a2b3e, #1e5a7a);
+      background: linear-gradient(135deg, #0a2b3e, #1e5a7a);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.5px;
     }
 
-    .logo-text p {
-      font-size: 0.65rem;
-      font-weight: 600;
+    .logo span {
+      font-size: 0.7rem;
+      font-weight: 500;
       color: var(--green-success);
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: var(--primary-deep);
-      background: none;
-      border: none;
+      display: block;
     }
 
     .nav-links {
@@ -117,289 +91,242 @@
       font-weight: 600;
       color: #1f2a44;
       transition: 0.2s;
-      font-size: 0.95rem;
     }
 
     .nav-links a:hover {
       color: var(--green-success);
     }
 
-    .btn-prospectus {
-      background: linear-gradient(105deg, var(--primary-blue), var(--blue-accent));
-      color: white !important;
-      padding: 8px 22px !important;
+    .login-btn {
+      background: transparent;
+      border: 2px solid var(--primary-blue);
+      padding: 6px 20px !important;
       border-radius: 40px;
-      box-shadow: 0 4px 8px rgba(28, 78, 118, 0.2);
+      color: var(--primary-blue) !important;
+      font-weight: 700;
     }
 
-    @media (max-width: 860px) {
-      .mobile-menu-btn {
-        display: block;
-      }
+    .login-btn:hover {
+      background: var(--primary-blue);
+      color: white !important;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--primary-deep);
+    }
+
+    @media (max-width: 880px) {
       .nav-links {
         position: fixed;
-        top: 72px;
+        top: 70px;
         left: -100%;
-        width: 80%;
-        height: calc(100vh - 72px);
+        width: 75%;
+        height: calc(100vh - 70px);
         background: white;
         flex-direction: column;
         align-items: flex-start;
         padding: 32px 28px;
-        transition: 0.3s ease-in-out;
-        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
         gap: 24px;
+        transition: 0.3s ease;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
         z-index: 99;
         display: flex;
       }
       .nav-links.show {
         left: 0;
       }
-      .nav-links a {
-        font-size: 1.1rem;
-        width: 100%;
-        padding: 8px 0;
-      }
-      .container {
-        padding: 0 20px;
+      .mobile-menu-btn {
+        display: block;
       }
     }
 
-    /* Buttons */
-    .btn-primary {
-      background: linear-gradient(95deg, var(--primary-blue), var(--blue-accent));
-      border: none;
-      color: white;
-      padding: 12px 28px;
-      border-radius: 50px;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-      box-shadow: 0 6px 14px rgba(30, 90, 122, 0.25);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 22px rgba(30, 90, 122, 0.35);
-    }
-
-    .btn-outline {
-      border: 2px solid var(--primary-blue);
-      background: transparent;
-      color: var(--primary-blue);
-      padding: 10px 26px;
-      border-radius: 50px;
-      font-weight: 700;
-      transition: 0.2s;
-      display: inline-block;
-      text-decoration: none;
-    }
-
-    .btn-outline:hover {
-      background: var(--primary-blue);
-      color: white;
-    }
-
-    /* Hero Section */
+    /* Hero Section avec Bannière */
     .hero {
-      background: linear-gradient(125deg, #f1f9fe 0%, #eaf5ef 100%);
-      padding: 50px 0 70px;
+      background: linear-gradient(115deg, #f0f9ff 0%, #eafaf1 100%);
+      padding: 40px 0 60px;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
+    .banner-img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 32px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 40px;
+      transition: 0.3s;
     }
 
-    .hero-badge {
-      background: rgba(15, 123, 58, 0.12);
-      color: var(--green-success);
-      padding: 6px 18px;
-      border-radius: 60px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      display: inline-block;
-      margin-bottom: 20px;
+    .hero-content {
+      text-align: center;
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      line-height: 1.2;
-      background: linear-gradient(125deg, #0a2b3e, #1e5a7a);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 20px;
-    }
-
-    .stats-flex {
-      display: flex;
-      gap: 28px;
-      margin: 30px 0;
-    }
-
-    .stat-number {
-      font-size: 1.8rem;
+    .hero h2 {
+      font-size: 2.6rem;
       font-weight: 800;
       color: var(--primary-deep);
     }
 
-    .hero-image img {
-      max-width: 100%;
+    .tagline {
+      font-size: 1.2rem;
+      color: #2c5a6e;
+      margin-top: 12px;
+    }
+
+    .features-flex {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin: 32px 0;
+    }
+
+    .feature-badge {
+      background: white;
+      padding: 8px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      box-shadow: var(--card-shadow);
+      color: var(--primary-blue);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 28px;
+      padding: 28px 16px;
+      text-align: center;
+      transition: 0.2s;
+      box-shadow: var(--card-shadow);
+    }
+
+    .stat-card i {
+      font-size: 2.2rem;
+      color: var(--green-success);
+    }
+
+    /* Board Members Section */
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      margin-top: 20px;
+    }
+
+    .member-card {
+      background: white;
       border-radius: 32px;
-      box-shadow: var(--shadow-lg);
+      padding: 32px 20px;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #edf2f7;
     }
 
-    @media (max-width: 800px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .hero h1 {
-        font-size: 2.1rem;
-      }
-      .stats-flex {
-        justify-content: center;
-      }
+    .member-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
     }
 
-    /* Section global */
-    section {
-      padding: 70px 0;
+    .member-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border: 4px solid var(--green-success);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background: #f4f9fc;
     }
 
+    /* Generic */
     .section-title {
-      font-size: 2rem;
+      font-size: 2.3rem;
       font-weight: 800;
+      text-align: center;
       margin-bottom: 16px;
     }
 
-    .title-wrap {
-      text-align: center;
-      margin-bottom: 56px;
-    }
-
-    .title-wrap .section-title:after {
-      content: '';
-      display: block;
-      width: 70px;
+    .divider {
+      width: 80px;
       height: 4px;
-      background: linear-gradient(90deg, var(--green-success), var(--blue-accent));
-      margin: 14px auto 0;
+      background: linear-gradient(90deg, var(--green-success), var(--primary-blue));
+      margin: 12px auto 24px;
       border-radius: 4px;
     }
 
     .section-sub {
-      color: #4b5565;
-      max-width: 620px;
-      margin: 12px auto 0;
+      text-align: center;
+      color: #4a5b6e;
+      max-width: 680px;
+      margin: 0 auto 48px;
     }
 
-    /* Cards Grid */
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 32px;
     }
 
-    .card-premium {
+    .card-modern {
       background: white;
-      border-radius: 28px;
-      padding: 32px 24px;
-      transition: all 0.3s ease;
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow-sm);
+      padding: 28px;
+      border-radius: 32px;
+      box-shadow: var(--card-shadow);
+      transition: 0.25s;
     }
 
-    .card-premium:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .card-icon {
-      width: 56px;
-      height: 56px;
-      background: rgba(15, 123, 58, 0.1);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-    }
-
-    .card-icon i {
-      font-size: 28px;
-      color: var(--green-success);
-    }
-
-    /* Notice Board */
-    .notice-modern {
-      background: #fff9e8;
-      border-radius: 28px;
-      padding: 18px 28px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-top: 48px;
-      border-left: 6px solid var(--green-success);
-    }
-
-    /* Form Styling */
-    .form-glass {
+    /* Admission Form */
+    .form-wrapper {
       background: white;
-      border-radius: 36px;
+      border-radius: 40px;
       padding: 36px;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--card-shadow);
     }
 
     .form-group input, .form-group select, .form-group textarea {
       width: 100%;
-      padding: 14px 18px;
-      border: 1.5px solid #e2edf2;
-      border-radius: 40px;
+      padding: 14px 20px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 60px;
       font-family: 'Inter', sans-serif;
-      background: #ffffff;
-      transition: 0.2s;
     }
 
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--green-success);
-      box-shadow: 0 0 0 3px rgba(15, 123, 58, 0.1);
+    .btn-primary {
+      background: linear-gradient(100deg, var(--primary-blue), #2c7da0);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-weight: 700;
+      display: inline-block;
+      text-decoration: none;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
     }
 
-    /* Gallery */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
+    .btn-outline {
+      border: 2px solid var(--primary-blue);
+      background: transparent;
+      color: var(--primary-blue);
+      padding: 10px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
     }
 
-    .gallery-item {
-      border-radius: 28px;
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      box-shadow: var(--shadow-sm);
-      transition: 0.35s;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.4s;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
-
-    /* Floating Buttons */
+    /* Floating */
     .floating-contact {
       position: fixed;
       bottom: 24px;
@@ -409,8 +336,7 @@
       gap: 14px;
       z-index: 99;
     }
-
-    .whatsapp-float, .call-float {
+    .whatsapp-btn, .call-btn {
       width: 56px;
       height: 56px;
       border-radius: 30px;
@@ -418,51 +344,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
       color: white;
       font-size: 28px;
       text-decoration: none;
-      transition: 0.2s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
     }
+    .call-btn { background: #1e5a7a; }
 
-    .call-float {
-      background: #1e5a7a;
-    }
-
-    .whatsapp-float:hover, .call-float:hover {
-      transform: scale(1.08);
-    }
-
-    /* Footer with Tech Baricade */
     footer {
       background: #0a1c2a;
-      color: #cbd5e6;
-      padding: 48px 0 32px;
+      color: #b9c7d9;
+      padding: 40px 0;
       text-align: center;
     }
-
     .footer-credit a {
       color: #86efac;
       text-decoration: none;
       font-weight: 600;
-      transition: 0.2s;
     }
 
-    .footer-credit a:hover {
-      text-decoration: underline;
-      color: white;
-    }
-
-    @media (max-width: 580px) {
-      section {
-        padding: 50px 0;
-      }
-      .section-title {
-        font-size: 1.7rem;
-      }
-      .form-glass {
-        padding: 24px;
-      }
+    @media (max-width: 680px) {
+      .hero h2 { font-size: 1.8rem; }
+      .section-title { font-size: 1.8rem; }
+      .form-wrapper { padding: 24px; }
     }
   </style>
 </head>
@@ -470,217 +374,214 @@
 
 <nav>
   <div class="container nav-flex">
-    <div class="logo-area">
-      <img class="logo-img" src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777050876176.jpg" alt="Lakshya Academy Logo" onerror="this.src='https://placehold.co/48x48?text=LA'">
-      <div class="logo-text">
-        <h2>Lakshya Academy</h2>
-        <p>Step Towards Success</p>
-      </div>
+    <div class="logo">
+      <h1>LAKSHYA <span>ACADEMY</span></h1>
     </div>
-    <button class="mobile-menu-btn" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <button class="mobile-menu-btn" id="menuToggle"><i class="fas fa-bars"></i></button>
     <div class="nav-links" id="navLinks">
       <a href="#home">Home</a>
-      <a href="#about">About</a>
+      <a href="#about">About Us</a>
       <a href="#courses">Courses</a>
+      <a href="#board">Our Board</a>
       <a href="#admission">Admission</a>
       <a href="#gallery">Gallery</a>
       <a href="#contact">Contact</a>
-      <a href="#prospectus" class="btn-prospectus">Prospectus</a>
+      <a href="#" id="loginModalBtn" class="login-btn"><i class="fas fa-key"></i> Login</a>
     </div>
   </div>
 </nav>
 
-<!-- Hero Section -->
+<!-- Hero + Banner -->
 <section id="home" class="hero">
-  <div class="container hero-grid">
-    <div data-aos="fade-right">
-      <span class="hero-badge"><i class="fas fa-chalkboard-user"></i> 10+ Years of Excellence</span>
-      <h1>Step Towards <span style="color:#0f7b3a;">Success</span> with Lakshya</h1>
-      <p style="font-size: 1.05rem; color: #2c3e50;">Premium coaching for Class 6–9 in Maths, Science, English, SST & Hindi. Concept clarity, weekly tests, and scholarship programs.</p>
-      <div class="stats-flex">
-        <div><div class="stat-number">1500+</div><div>Students Trained</div></div>
-        <div><div class="stat-number">98%</div><div>Parent Satisfaction</div></div>
-        <div><div class="stat-number">30+</div><div>Scholarships Awarded</div></div>
-      </div>
-      <div>
-        <a href="#admission" class="btn-primary">📘 Free Demo Class</a>
-        <a href="#contact" class="btn-outline" style="margin-left: 12px;">📞 Call Us</a>
-      </div>
-    </div>
-    <div data-aos="fade-left" class="hero-image">
-      <img src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777050992022.jpg" alt="Lakshya Academy Poster" onerror="this.src='https://placehold.co/600x400?text=Poster'">
-    </div>
-  </div>
-</section>
-
-<!-- About + Mission Vision -->
-<section id="about" style="background: var(--gray-bg);">
   <div class="container">
-    <div class="title-wrap">
-      <h2 class="section-title">About Lakshya Academy</h2>
-      <div class="section-sub">Building bright futures with academic rigor and care</div>
+    <!-- Banner Image (using placeholder since link not accessible, but you can replace) -->
+    <img class="banner-img" src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777186489848.png" alt="Lakshya Academy Banner" onerror="this.src='https://placehold.co/1200x400/1e4a76/white?text=Lakshya+Academy'">
+    <div class="hero-content" data-aos="fade-up">
+      <h2>Providing Quality Education <br> For a Better Tomorrow</h2>
+      <div class="features-flex">
+        <span class="feature-badge">📘 Concept-Based Learning</span>
+        <span class="feature-badge">📝 Regular Tests</span>
+        <span class="feature-badge">🎯 Personalized Attention</span>
+      </div>
+      <a href="#admission" class="btn-primary">ENROLL NOW <i class="fas fa-arrow-right"></i></a>
     </div>
-    <div style="display: flex; flex-wrap: wrap; gap: 40px;" data-aos="fade-up">
-      <div style="flex: 1.2;">
-        <p style="font-size: 1rem;">Lakshya Academy, established in Saharsa, Bihar, is a dedicated coaching institute for students of classes 6th to 9th. We provide specialized coaching in <strong>Mathematics, Science, English, Social Science, and Hindi</strong> through interactive classroom sessions, regular performance tracking, and doubt-clearing workshops. Our mission is to bridge the gap between school curriculum and competitive mindset.</p>
-        <div style="margin-top: 28px; display: flex; gap: 28px; flex-wrap: wrap;">
-          <div><i class="fas fa-bullseye" style="color: var(--green-success);"></i> <strong>Mission:</strong> Conceptual mastery + skill development</div>
-          <div><i class="fas fa-eye" style="color: var(--green-success);"></i> <strong>Vision:</strong> Top-rated coaching hub of Bihar</div>
-        </div>
-      </div>
-      <div style="flex: 0.8; background: white; border-radius: 32px; padding: 28px; box-shadow: var(--shadow-sm);">
-        <i class="fas fa-medal" style="font-size: 2rem; color: var(--primary-blue);"></i>
-        <h3 style="margin: 12px 0;">Why Choose Us?</h3>
-        <ul style="list-style: none; line-height: 2;">
-          <li>✓ Weekly Test & Analysis</li>
-          <li>✓ Smart Classrooms</li>
-          <li>✓ Scholarship up to 50%</li>
-          <li>✓ Parent-Teacher Connect</li>
-        </ul>
-      </div>
+    <div class="stats-grid" data-aos="fade-up">
+      <div class="stat-card"><i class="fas fa-chalkboard-user"></i><h3>Experienced Faculty</h3><p>10+ years of teaching</p></div>
+      <div class="stat-card"><i class="fas fa-pen-to-square"></i><h3>Regular Tests</h3><p>Weekly assessments</p></div>
+      <div class="stat-card"><i class="fas fa-lightbulb"></i><h3>Concept Learning</h3><p>Clarity over rote</p></div>
+      <div class="stat-card"><i class="fas fa-chart-line"></i><h3>Performance Analysis</h3><p>Detailed reports</p></div>
     </div>
   </div>
 </section>
 
-<!-- Courses Section -->
+<!-- About Us -->
+<section id="about" style="background: #f9fafc;">
+  <div class="container">
+    <h2 class="section-title">About Us</h2>
+    <div class="divider"></div>
+    <div class="section-sub">Lakshya Academy, Saharsa – Building bright futures since 2014</div>
+    <div style="display: flex; flex-wrap: wrap; gap: 40px;" data-aos="fade-right">
+      <div style="flex:1.5"><p>Located at <strong>New Colony Ward No. - 09/13, Sarahi Road, Saharsa</strong>, we specialize in Classes 6th to 9th: Maths, Science, English, Social Science & Hindi. Our mission is conceptual clarity, regular testing, and individual attention.</p><p style="margin-top:20px"><i class="fas fa-check-circle" style="color:var(--green-success)"></i> Mission: Academic excellence + life skills. <br><i class="fas fa-check-circle" style="color:var(--green-success)"></i> Vision: Bihar's most trusted learning hub.</p></div>
+      <div style="flex:1; background:white; border-radius:32px; padding:28px; box-shadow:var(--card-shadow)"><i class="fas fa-quote-left" style="font-size:2rem;color:var(--green-success)"></i><p style="margin-top:12px">"Quality education is the foundation of a brighter tomorrow – we nurture it every day."</p><p>— Director's Desk</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Courses -->
 <section id="courses">
   <div class="container">
-    <div class="title-wrap"><h2 class="section-title">Our Courses</h2><div class="section-sub">Class 6th to 9th | Complete syllabus coverage</div></div>
+    <h2 class="section-title">Our Courses</h2>
+    <div class="divider"></div>
+    <div class="section-sub">Class 6th to 9th | Complete syllabus coverage</div>
     <div class="grid-3" data-aos="fade-up">
-      <div class="card-premium"><div class="card-icon"><i class="fas fa-calculator"></i></div><h3>Mathematics</h3><p>Algebra, Geometry, Arithmetic with problem-solving techniques.</p></div>
-      <div class="card-premium"><div class="card-icon"><i class="fas fa-flask"></i></div><h3>Science</h3><p>Physics, Chemistry, Biology with practical experiments.</p></div>
-      <div class="card-premium"><div class="card-icon"><i class="fas fa-book-open"></i></div><h3>English</h3><p>Grammar, Writing, Literature & Spoken English.</p></div>
-      <div class="card-premium"><div class="card-icon"><i class="fas fa-landmark"></i></div><h3>Social Science</h3><p>History, Geography, Polity with map-based learning.</p></div>
-      <div class="card-premium"><div class="card-icon"><i class="fas fa-language"></i></div><h3>हिन्दी (Hindi)</h3><p>व्याकरण, निबंध, साहित्य और परीक्षा अभ्यास।</p></div>
-      <div class="card-premium"><div class="card-icon"><i class="fas fa-trophy"></i></div><h3>Scholarship Batch</h3><p>Special mentoring & test series for merit students.</p></div>
+      <div class="card-modern"><i class="fas fa-calculator"></i><h3>Mathematics</h3><p>Algebra, Geometry, Vedic Maths tricks, problem-solving.</p></div>
+      <div class="card-modern"><i class="fas fa-flask"></i><h3>Science</h3><p>Physics, Chemistry, Biology with practicals.</p></div>
+      <div class="card-modern"><i class="fas fa-book"></i><h3>English</h3><p>Grammar, Literature, Spoken English.</p></div>
+      <div class="card-modern"><i class="fas fa-landmark"></i><h3>Social Science</h3><p>History, Geography, Civics with projects.</p></div>
+      <div class="card-modern"><i class="fas fa-language"></i><h3>हिन्दी</h3><p>व्याकरण, निबंध, साहित्य।</p></div>
+      <div class="card-modern"><i class="fas fa-trophy"></i><h3>Scholarship Batch</h3><p>Special mentoring & test series.</p></div>
     </div>
-    <div class="notice-modern"><i class="fas fa-bullhorn fa-lg"></i> <strong>📢 Latest Update:</strong> Scholarship Entrance Test on 25th May. Limited seats for Demo Class! Register now.</div>
+  </div>
+</section>
+
+<!-- Our Board Members (replacing Expert Faculty) -->
+<section id="board" style="background: #f9fafc;">
+  <div class="container">
+    <h2 class="section-title">Our Board Members</h2>
+    <div class="divider"></div>
+    <div class="section-sub">Visionary leaders shaping academic excellence</div>
+    <div class="board-grid" data-aos="fade-up">
+      <div class="member-card">
+        <img class="member-img" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Amit Kumar">
+        <h3>Amit Kumar</h3>
+        <p style="color: var(--green-success); font-weight: 600;">Managing Director</p>
+        <p>Strategic leader driving institutional growth & innovation.</p>
+      </div>
+      <div class="member-card">
+        <img class="member-img" src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/690f4a08860f444952205611/sh_1764594280693.jpg" alt="Shivam Kr. Singh">
+        <h3>Shivam Kr. Singh</h3>
+        <p style="color: var(--green-success); font-weight: 600;">Academic Director</p>
+        <p>Curriculum design, teacher training & academic excellence.</p>
+      </div>
+      <div class="member-card">
+        <img class="member-img" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Mr. Nikhil Jha">
+        <h3>Mr. Nikhil Jha</h3>
+        <p style="color: var(--green-success); font-weight: 600;">Academic Superintendent</p>
+        <p>Ensuring quality delivery & student performance monitoring.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- Admission + Scholarship -->
-<section id="admission" style="background: linear-gradient(115deg, #f1f6fc, #f9fef7);">
+<section id="admission">
   <div class="container">
-    <div class="title-wrap"><h2 class="section-title">Admission & Scholarship 2026</h2><div class="section-sub">Fill the form to get free counselling & scholarship details</div></div>
+    <h2 class="section-title">Admission & Scholarship 2026</h2>
+    <div class="divider"></div>
+    <div class="section-sub">Limited seats | Up to 50% scholarship on merit test</div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;" data-aos="zoom-in">
-      <div class="card-premium" style="background: white;">
-        <i class="fas fa-graduation-cap" style="font-size: 2rem; color: var(--green-success);"></i>
-        <h3>🎓 Lakshya Scholarship Test</h3>
-        <p>Avail up to 50% fee waiver based on merit. The test includes reasoning, maths & science.</p>
-        <p><strong>Exam Date:</strong> 25th May 2026 | Free Registration</p>
-        <a href="#contact" class="btn-outline" style="margin-top: 16px;">Know More →</a>
-      </div>
-      <div class="form-glass">
-        <h3><i class="fas fa-edit"></i> Quick Admission Enquiry</h3>
-        <form id="admissionForm">
-          <div class="form-group"><input type="text" placeholder="Student's Full Name" id="stuName" required></div>
-          <div class="form-group"><input type="text" placeholder="Parent Name"></div>
-          <div class="form-group"><input type="tel" placeholder="Mobile Number" id="mobile" required></div>
-          <div class="form-group"><select><option>Class 6th</option><option>Class 7th</option><option>Class 8th</option><option>Class 9th</option></select></div>
-          <div class="form-group"><textarea rows="2" placeholder="Scholarship / Demo Class query"></textarea></div>
-          <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">Submit Enquiry <i class="fas fa-paper-plane"></i></button>
-        </form>
-        <p style="font-size: 12px; margin-top: 14px;">✔️ Our counsellor will reach you within 2 hours.</p>
-      </div>
+      <div class="card-modern"><i class="fas fa-graduation-cap" style="font-size:2rem"></i><h3>🎓 Lakshya Scholarship Test</h3><p>Scholarship exam: 25th May 2026. Based on reasoning, maths & science. Fee waiver up to 50%.</p><a href="#contact" class="btn-outline" style="margin-top:18px; display:inline-block">Register for Test →</a></div>
+      <div class="form-wrapper"><h3><i class="fas fa-edit"></i> Quick Admission Enquiry</h3>
+      <form id="admissionForm"><div class="form-group"><input type="text" placeholder="Student's Full Name" id="stuName" required></div><div class="form-group"><input type="text" placeholder="Parent Name"></div><div class="form-group"><input type="tel" placeholder="Mobile Number" id="mobile" required></div><div class="form-group"><select><option>Class 6th</option><option>Class 7th</option><option>Class 8th</option><option>Class 9th</option></select></div><div class="form-group"><textarea rows="2" placeholder="Scholarship / Demo query"></textarea></div><button type="submit" class="btn-primary" style="width:100%">Submit Enquiry <i class="fas fa-paper-plane"></i></button></form><p style="font-size:12px; margin-top:14px">✔️ Counsellor will contact for demo & scholarship.</p></div>
     </div>
+    <div style="text-align:center; margin-top:48px"><a href="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777050969122.pdf" class="btn-outline" download><i class="fas fa-download"></i> Download Prospectus (PDF)</a></div>
   </div>
 </section>
 
 <!-- Gallery -->
-<section id="gallery">
+<section id="gallery" style="background: #f9fafc;">
   <div class="container">
-    <div class="title-wrap"><h2 class="section-title">Campus Moments</h2><div class="section-sub">Explore our learning environment & activities</div></div>
-    <div class="gallery-grid" data-aos="fade-up">
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&h=400&fit=crop" alt="Classroom"></div>
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&h=400&fit=crop" alt="Activity"></div>
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&h=400&fit=crop" alt="Library"></div>
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1564069114553-7215e1ff1897?w=500&h=400&fit=crop" alt="Workshop"></div>
+    <h2 class="section-title">Gallery</h2>
+    <div class="divider"></div>
+    <div class="section-sub">Campus & classroom moments</div>
+    <div class="grid-3" data-aos="fade-up">
+      <div class="card-modern" style="padding:0; overflow:hidden; border-radius:28px;"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&h=300&fit=crop" style="width:100%; height:200px; object-fit:cover;"></div>
+      <div class="card-modern" style="padding:0; overflow:hidden;"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&h=300&fit=crop" style="width:100%; height:200px; object-fit:cover;"></div>
+      <div class="card-modern" style="padding:0; overflow:hidden;"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&h=300&fit=crop" style="width:100%; height:200px; object-fit:cover;"></div>
     </div>
   </div>
 </section>
 
-<!-- Contact with CORRECT ADDRESS -->
-<section id="contact" style="background: #f4f9fe;">
+<!-- Contact + Address Correction -->
+<section id="contact">
   <div class="container">
-    <div class="title-wrap"><h2 class="section-title">Get in Touch</h2><div class="section-sub">Visit our institute or call for any query</div></div>
-    <div style="display: flex; flex-wrap: wrap; gap: 36px;">
-      <div style="flex: 1; background: white; border-radius: 32px; padding: 32px;" data-aos="flip-left">
-        <i class="fas fa-map-marker-alt" style="font-size: 28px; color: var(--green-success);"></i>
-        <h3> Centre Adress</h3>
-        <p><strong>New Colony Ward No. - 09/13, Sarahi Road, Saharsa, Bihar - 852201</strong></p>
-        <hr style="margin: 20px 0;">
-        <p><i class="fas fa-phone-alt"></i> <strong> +91 7004931491</strong> , <strong>+91 9709316822</strong><br>
-        <i class="fab fa-whatsapp"></i> WhatsApp: 9709316822<br>
-        <i class="fas fa-envelope"></i> lakshya@techbaricade.com</p>
-        <div style="margin-top: 28px;">
-          <a href="tel:+917004931491" class="btn-primary" style="margin-right: 12px;"><i class="fas fa-phone"></i> Call</a>
-          <a href="https://wa.me/917004931491?text=Hello%20Lakshya%20Academy%2C%20I%20want%20admission%20details" target="_blank" class="btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        </div>
-      </div>
-      <div style="flex: 1; background: white; border-radius: 32px; padding: 20px; box-shadow: var(--shadow-sm);">
-        <iframe width="100%" height="250" style="border-radius: 24px; border:0;" loading="lazy" src="https://maps.google.com/maps?q=Saharsa%2C%20Bihar%2C%20India&z=14&output=embed"></iframe>
-        <p style="margin-top: 12px; text-align: center;">📍 Sarahi Road, New Colony, Saharsa</p>
-      </div>
+    <h2 class="section-title">Contact Us</h2>
+    <div class="divider"></div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 40px;">
+      <div data-aos="fade-right"><i class="fas fa-map-marker-alt" style="font-size:2rem; color:var(--green-success)"></i><h3>📍 Institute Address</h3><p><strong>New Colony Ward No. - 09/13, Sarahi Road, Saharsa, Bihar - 852201</strong></p><p><i class="fas fa-phone-alt"></i> +91 7004931491 , +91 9709316822<br><i class="fab fa-whatsapp"></i> WhatsApp: 7004931491<br><i class="fas fa-envelope"></i> lakshya@techbaricade.com</p><div style="margin-top:24px"><a href="tel:+917004931491" class="btn-primary" style="margin-right:12px"><i class="fas fa-phone"></i> Call Now</a><a href="https://wa.me/919709316822?text=Hello%20Lakshya%20Academy" target="_blank" class="btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp</a></div></div>
+      <div data-aos="fade-left"><iframe width="100%" height="250" style="border-radius: 28px; border:0;" loading="lazy" src="https://maps.google.com/maps?q=New+Colony+Ward+No.+09%2F13+Sarahi+Road+Saharsa+Bihar&z=15&output=embed"></iframe></div>
     </div>
   </div>
 </section>
 
-<!-- Download Prospectus -->
-<section id="prospectus" style="padding: 30px 0 60px;">
-  <div class="container" style="text-align: center;">
-    <h2 class="section-title" style="margin-bottom: 16px;">📘 Download Information Pack</h2>
-    <p>Detailed prospectus with syllabus, fees, and policies.</p>
-    <a href="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777050969122.pdf" class="btn-primary" style="margin-top: 22px; display: inline-flex; gap: 12px;" download><i class="fas fa-download"></i> Download Prospectus (PDF)</a>
-  </div>
-</section>
-
-<!-- Footer with Hyperlink -->
+<!-- Footer with Tech Baricade -->
 <footer>
   <div class="container">
-    <p>© 2026 Lakshya Academy | Empowering young minds in Saharsa</p>
-    <p style="margin: 12px 0 8px;">📍 New Colony Ward No. - 09/13, Sarahi Road, Saharsa | 📞 7004931491 / 9709316822</p>
-    <div class="footer-credit" style="margin-top: 20px;">
-      This site is designed, developed and hosted by - <a href="https://techbaricade.com" target="_blank" rel="noopener noreferrer">Tech Baricade</a>
-    </div>
+    <p>© 2026 Lakshya Academy | Empowering bright futures</p>
+    <p>📍 New Colony Ward No. - 09/13, Sarahi Road, Saharsa | 📞 7004931491 / 9709316822</p>
+    <div class="footer-credit" style="margin-top:16px">This site is designed, developed and hosted by - <a href="https://techbaricade.com" target="_blank">Tech Baricade</a></div>
   </div>
 </footer>
 
-<!-- Floating Action Buttons -->
-<div class="floating-contact">
-  <a href="https://wa.me/919709316822?text=Hello%20I%20need%20demo%20class%20info" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
-  <a href="tel:+917004931491" class="call-float"><i class="fas fa-phone-alt"></i></a>
+<!-- Floating WhatsApp/Call -->
+<div class="floating-contact"><a href="https://wa.me/919709316822?text=I%20need%20demo%20class" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a><a href="tel:+917004931491" class="call-btn"><i class="fas fa-phone-alt"></i></a></div>
+
+<!-- Login Modal (Simple Popup) -->
+<div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:white; max-width:400px; width:90%; border-radius:40px; padding:32px; text-align:center; position:relative;">
+    <i class="fas fa-times-circle" id="closeModal" style="position:absolute; right:20px; top:20px; font-size:24px; cursor:pointer;"></i>
+    <h3>Faculty / Staff Login</h3>
+    <form id="loginForm"><div class="form-group"><input type="text" placeholder="Username" id="loginUser" required></div><div class="form-group"><input type="password" placeholder="Password" id="loginPass" required></div><button type="submit" class="btn-primary" style="width:100%">Login</button></form>
+    <p style="margin-top:16px; font-size:12px;">Demo: lakshya / academy123</p>
+  </div>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({ duration: 700, once: true, offset: 30 });
+  AOS.init({ duration: 700, once: true });
+  // Mobile menu toggle
   const menuBtn = document.getElementById('menuToggle');
   const navMenu = document.getElementById('navLinks');
-  if(menuBtn) menuBtn.addEventListener('click', () => navMenu.classList.toggle('show'));
+  menuBtn?.addEventListener('click', () => navMenu.classList.toggle('show'));
 
+  // Login Modal Logic
+  const loginBtn = document.getElementById('loginModalBtn');
+  const modal = document.getElementById('loginModal');
+  const closeModal = document.getElementById('closeModal');
+  loginBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.style.display = 'flex';
+  });
+  closeModal?.addEventListener('click', () => modal.style.display = 'none');
+  window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+
+  const loginForm = document.getElementById('loginForm');
+  loginForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = document.getElementById('loginUser').value;
+    const pass = document.getElementById('loginPass').value;
+    if(user === 'lakshya' && pass === 'academy123') alert('Login successful! Welcome to Faculty Dashboard (demo).');
+    else alert('Invalid credentials. Use lakshya / academy123');
+    modal.style.display = 'none';
+    loginForm.reset();
+  });
+
+  // Admission form handler
   const form = document.getElementById('admissionForm');
-  if(form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('stuName')?.value;
-      const mobile = document.getElementById('mobile')?.value;
-      if(name && mobile) {
-        alert(`✅ Thank you ${name}! We'll contact you on ${mobile} regarding scholarship & demo class.`);
-        form.reset();
-      } else {
-        alert('Please fill student name and mobile number.');
-      }
-    });
-  }
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('stuName')?.value;
+    const mobile = document.getElementById('mobile')?.value;
+    if(name && mobile) alert(`✅ Thank you ${name}! We'll contact you on ${mobile} regarding admission & scholarship.`);
+    else alert('Please fill required fields.');
+    form.reset();
+  });
 
+  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const target = document.querySelector(this.getAttribute('href'));
-      if(target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-        if(navMenu.classList.contains('show')) navMenu.classList.remove('show');
-      }
+      if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); navMenu.classList.remove('show'); }
     });
   });
 </script>
