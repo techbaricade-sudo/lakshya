@@ -437,7 +437,9 @@
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
-    /* Full-Screen High Fidelity Mobile-Friendly Portal Layer */
+    /* ==========================================
+       MODERNISED PORTAL LOGIN SPECIFIC UI STYLES
+       ========================================== */
     .portal-sheet-overlay {
       position: fixed;
       top: 0;
@@ -506,6 +508,54 @@
       text-align: center;
     }
 
+    /* Premium Portal Segmented Dynamic Tab Selectors */
+    .portal-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 6px;
+      border-radius: 14px;
+      margin-bottom: 28px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      padding: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-white);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .tab-content-view {
+      display: none;
+    }
+
+    .tab-content-view.active {
+      display: block;
+      animation: fadeInPanel 0.3s ease forwards;
+    }
+
+    @keyframes fadeInPanel {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .modern-field-box {
       margin-bottom: 24px;
     }
@@ -520,20 +570,40 @@
       color: var(--text-gray);
     }
 
-    .modern-field-box input {
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-with-icon i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: color 0.2s ease;
+    }
+
+    .input-with-icon input {
       width: 100%;
-      padding: 16px;
+      padding: 16px 16px 16px 48px;
       background: rgba(0,0,0,0.2);
       border: 1px solid var(--glass-border);
       border-radius: 14px;
       color: #fff;
       font-family: inherit;
       outline: none;
-      transition: border-color 0.2s ease;
+      transition: all 0.2s ease;
     }
 
-    .modern-field-box input:focus {
+    .input-with-icon input:focus {
       border-color: var(--accent-glow);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    .input-with-icon input:focus + i {
+      color: var(--accent-glow);
     }
 
     .btn-submit-action {
@@ -556,6 +626,15 @@
     .btn-submit-action:hover {
       background: var(--accent-glow);
       color: #fff;
+    }
+
+    .faculty-accent-btn {
+      background: var(--accent-glow);
+      color: #fff;
+    }
+
+    .faculty-accent-btn:hover {
+      background: #1d4ed8;
     }
 
     /* Embedded Dynamic Loader Ring */
@@ -694,7 +773,7 @@
 </head>
 <body>
 
-<!-- Dynamic Navigation Overlay -->
+<!-- Dynamic Navigation Bar Overlay -->
 <nav>
   <div class="container nav-flex">
     <div class="logo">
@@ -852,36 +931,83 @@
   </div>
 </footer>
 
-<!-- Interactive Sliding Portal Glass Overlay Sheet -->
+<!-- Dynamic Sliding Portal Glass Overlay Sheet (Integrated Tabbed Login) -->
 <div class="portal-sheet-overlay" id="portalLayer">
   <div class="sheet-login-container">
-    <!-- Back Controls -->
+    
+    <!-- Mobile Back Control Button -->
     <div class="panel-back-control" id="closePortalSheet" title="Return to Website">
       <i class="fas fa-chevron-left"></i>
     </div>
     
     <h2>Secure Gateway</h2>
-    <form id="portalVerificationForm">
-      <div class="modern-field-box">
-        <label>Portal Email</label>
-        <input type="email" id="inputEmail" placeholder="account@domain.com" required>
-      </div>
-      <div class="modern-field-box">
-        <label>Security Token Key</label>
-        <input type="password" id="inputPassword" placeholder="••••••••" required>
-      </div>
-      
-      <!-- Interactive Action Trigger -->
-      <button type="submit" class="btn-submit-action" id="actionBtn">
-        <span id="btnLabel">Validate Token</span>
-        <div class="micro-spinner" id="actionLoader"></div>
-      </button>
 
-      <div class="panel-meta-links">
-        <p><a href="#">Reset Lost Credentials</a></p>
-        <p>Access issues? <a href="#contact" id="forceCloseLink">Contact Desk</a></p>
-      </div>
-    </form>
+    <!-- Premium App-Style Segmented Tab Selectors -->
+    <div class="portal-tabs">
+      <button type="button" class="tab-btn active" onclick="switchPortalTab(event, 'student-panel')">
+        <i class="fas fa-user-graduate"></i> Student / Parent
+      </button>
+      <button type="button" class="tab-btn" onclick="switchPortalTab(event, 'faculty-panel')">
+        <i class="fas fa-user-shield"></i> Faculty / Board
+      </button>
+    </div>
+
+    <!-- PANEL 1: STUDENT & PARENT LOGIN SECTION -->
+    <div id="student-panel" class="tab-content-view active">
+      <form id="studentPortalForm">
+        <div class="modern-field-box">
+          <label for="studentRegNo">Admission / Reg No.</label>
+          <div class="input-with-icon">
+            <i class="fas fa-id-card input-prefix"></i>
+            <input type="text" id="studentRegNo" placeholder="LA-2026-XXXX" required>
+          </div>
+        </div>
+        <div class="modern-field-box">
+          <label for="studentPassword">Access Password</label>
+          <div class="input-with-icon">
+            <i class="fas fa-lock input-prefix"></i>
+            <input type="password" id="studentPassword" placeholder="••••••••" required>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn-submit-action">
+          <span>Access Dashboard</span>
+          <div class="micro-spinner"></div>
+        </button>
+      </form>
+    </div>
+
+    <!-- PANEL 2: FACULTY & MANAGEMENT LOGIN SECTION -->
+    <div id="faculty-panel" class="tab-content-view">
+      <form id="facultyPortalForm">
+        <div class="modern-field-box">
+          <label for="facultyEmail">Academic Email</label>
+          <div class="input-with-icon">
+            <i class="fas fa-envelope input-prefix"></i>
+            <input type="email" id="facultyEmail" placeholder="name@lakshya.com" required>
+          </div>
+        </div>
+        <div class="modern-field-box">
+          <label for="facultyToken">Security Token Pin</label>
+          <div class="input-with-icon">
+            <i class="fas fa-shield-halved input-prefix"></i>
+            <input type="password" id="facultyToken" placeholder="••••••••" required>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn-submit-action faculty-accent-btn">
+          <span>Authorize Clearance</span>
+          <div class="micro-spinner"></div>
+        </button>
+      </form>
+    </div>
+
+    <!-- Administrative Links -->
+    <div class="panel-meta-links">
+      <p><a href="#" onclick="alert('Please connect with Amit Kumar or Nikhil Jha at the admin desk to verify or reset your security credentials.')">Forgot Security Token?</a></p>
+      <p>System Issue? <a href="#contact" id="forceCloseLink">Contact Desk</a></p>
+    </div>
+
   </div>
 </div>
 
@@ -939,39 +1065,63 @@
   closePortalSheet?.addEventListener('click', retractPortal);
   forceCloseLink?.addEventListener('click', retractPortal);
 
-  // Micro Interaction Loader Architecture
-  const portalVerificationForm = document.getElementById('portalVerificationForm');
-  const actionBtn = document.getElementById('actionBtn');
-  const actionLoader = document.getElementById('actionLoader');
-  const btnLabel = document.getElementById('btnLabel');
+  // Functional View Switcher Module for Tabs
+  function switchPortalTab(event, tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content-view').forEach(content => content.classList.remove('active'));
+    
+    event.currentTarget.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
 
-  portalVerificationForm?.addEventListener('submit', (e) => {
+  // Student / Parent Validation Form Processor
+  document.getElementById('studentPortalForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
-
-    // Lock interaction structures and instantiate running loading indicators
-    if(actionLoader && btnLabel && actionBtn) {
-      actionLoader.style.display = 'inline-block';
-      btnLabel.textContent = 'Verifying Security Matrix...';
-      actionBtn.style.pointerEvents = 'none';
-      actionBtn.style.opacity = '0.8';
+    const regNo = document.getElementById('studentRegNo').value;
+    const submitBtn = this.querySelector('.btn-submit-action');
+    const spinner = this.querySelector('.micro-spinner');
+    
+    if (spinner && submitBtn) {
+      spinner.style.display = 'inline-block';
+      submitBtn.style.pointerEvents = 'none';
+      submitBtn.style.opacity = '0.7';
     }
 
-    // Network Simulation latency delay handler
     setTimeout(() => {
-      const emailVal = document.getElementById('inputEmail').value;
-
-      // Reverse layouts to baseline defaults
-      if(actionLoader && btnLabel && actionBtn) {
-        actionLoader.style.display = 'none';
-        btnLabel.textContent = 'Validate Token';
-        actionBtn.style.pointerEvents = 'auto';
-        actionBtn.style.opacity = '1';
+      if (spinner && submitBtn) {
+        spinner.style.display = 'none';
+        submitBtn.style.pointerEvents = 'auto';
+        submitBtn.style.opacity = '1';
       }
-
-      alert(`Token authorized! Terminal instance created for: ${emailVal}. Redirection initialised.`);
-      portalVerificationForm.reset();
+      
+      alert(`Success! Student database routing complete for Registration ID: [${regNo}].`);
       retractPortal();
-    }, 1500);
+    }, 1200);
+  });
+
+  // Faculty / Board Authorization Form Processor
+  document.getElementById('facultyPortalForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('facultyEmail').value;
+    const submitBtn = this.querySelector('.btn-submit-action');
+    const spinner = this.querySelector('.micro-spinner');
+    
+    if (spinner && submitBtn) {
+      spinner.style.display = 'inline-block';
+      submitBtn.style.pointerEvents = 'none';
+      submitBtn.style.opacity = '0.7';
+    }
+
+    setTimeout(() => {
+      if (spinner && submitBtn) {
+        spinner.style.display = 'none';
+        submitBtn.style.pointerEvents = 'auto';
+        submitBtn.style.opacity = '1';
+      }
+      
+      alert(`Access Authorization Confirmed! Clearances allocated to system instance: ${email}.`);
+      retractPortal();
+    }, 1200);
   });
 
   // Core Enrollment Post Framework Actions
