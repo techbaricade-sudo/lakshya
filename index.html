@@ -438,7 +438,7 @@
     }
 
     /* ==========================================
-       MODERNISED PORTAL LOGIN SPECIFIC UI STYLES
+       PORTAL LOGIN STYLING
        ========================================== */
     .portal-sheet-overlay {
       position: fixed;
@@ -508,7 +508,6 @@
       text-align: center;
     }
 
-    /* Premium Portal Segmented Dynamic Tab Selectors */
     .portal-tabs {
       display: flex;
       background: rgba(0, 0, 0, 0.25);
@@ -637,14 +636,13 @@
       background: #1d4ed8;
     }
 
-    /* Embedded Dynamic Loader Ring */
     .micro-spinner {
       display: none;
       width: 20px;
       height: 20px;
-      border: 3px solid rgba(0,0,0,0.1);
+      border: 3px solid rgba(255,255,255,0.3);
       border-radius: 50%;
-      border-top-color: currentColor;
+      border-top-color: #fff;
       animation: loop-spin 0.6s linear infinite;
     }
 
@@ -716,9 +714,6 @@
       font-size: 0.95rem;
     }
 
-    /* ========================================================
-       MOBILE COHESIVE RESPONSIVE FRAMEWORK BREAKPOINTS
-       ======================================================== */
     @media (max-width: 1024px) {
       .hero-split { grid-template-columns: 1fr; text-align: center; gap: 40px; }
       .hero-text h2 { font-size: 3rem; }
@@ -746,34 +741,24 @@
       }
       .nav-links.show { left: 0; }
       .mobile-hamburger { display: block; }
-      
-      /* Mobile Fluid Text Fixes */
       .hero-text h2 { font-size: 2.4rem; }
       section { padding: 60px 0; }
-
-      /* Custom Mobile Sheet Behavior for Login Panel */
-      .portal-sheet-overlay {
-        align-items: flex-end;
-      }
+      .portal-sheet-overlay { align-items: flex-end; }
       .sheet-login-container {
         width: 100%;
         border-radius: 32px 32px 0 0;
         padding: 36px 24px 60px;
         transform: translateY(100%);
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
+        border-left: none; border-right: none; border-bottom: none;
       }
-      .portal-sheet-overlay.active .sheet-login-container {
-        transform: translateY(0);
-      }
+      .portal-sheet-overlay.active .sheet-login-container { transform: translateY(0); }
       .form-panel-enquiry { padding: 28px; border-radius: 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Dynamic Navigation Bar Overlay -->
+<!-- Navigation -->
 <nav>
   <div class="container nav-flex">
     <div class="logo">
@@ -792,7 +777,7 @@
   </div>
 </nav>
 
-<!-- Hero Component with Spatial Lights -->
+<!-- Hero Section -->
 <section id="home" class="hero">
   <div class="glow-sphere" style="top: 10%; right: 5%;"></div>
   <div class="container">
@@ -810,7 +795,6 @@
       </div>
     </div>
 
-    <!-- Quick Metrics Dynamic Board -->
     <div class="metrics-row" data-aos="fade-up">
       <div class="metric-panel"><i class="fas fa-user-tie"></i><h3>Core Mentors</h3><p>Elite subject specialists.</p></div>
       <div class="metric-panel"><i class="fas fa-shield-halved"></i><h3>Weekly Audits</h3><p>Detailed performance matrices.</p></div>
@@ -819,7 +803,7 @@
   </div>
 </section>
 
-<!-- Core About Layout -->
+<!-- About Section -->
 <section id="about">
   <div class="glow-sphere" style="bottom: 5%; left: 2%;"></div>
   <div class="container">
@@ -834,7 +818,7 @@
   </div>
 </section>
 
-<!-- Courses Workspace Grid -->
+<!-- Courses Section -->
 <section id="courses">
   <div class="container">
     <div class="center-header" data-aos="fade-up">
@@ -849,7 +833,7 @@
   </div>
 </section>
 
-<!-- Council Board Section -->
+<!-- Board Section -->
 <section id="board">
   <div class="container">
     <div class="center-header" data-aos="fade-up">
@@ -873,7 +857,7 @@
   </div>
 </section>
 
-<!-- Interactive Registration Layout Section -->
+<!-- Admissions Section -->
 <section id="admission">
   <div class="container">
     <div class="admission-dual-box">
@@ -899,14 +883,14 @@
               <option value="Class 9">Class 9th</option>
             </select>
           </div>
-          <button type="submit" class="btn-portal-trigger" style="width: 100%; justify-content: center; padding: 16px;">Transmit Direct Request</button>
+          <button type="submit" id="enquirySubmitBtn" class="btn-portal-trigger" style="width: 100%; justify-content: center; padding: 16px;">Transmit Direct Request</button>
         </form>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Contact Matrix Panel Section -->
+<!-- Contact Section -->
 <section id="contact" style="background: rgba(255,255,255,0.01);">
   <div class="container">
     <div class="contact-map-layout">
@@ -924,25 +908,19 @@
   </div>
 </section>
 
-<!-- Footer Frame -->
+<!-- Footer -->
 <footer>
   <div class="container">
     <p>© 2026 Lakshya Academy. System architecture verified by <a href="https://techbaricade.com" target="_blank">Tech Baricade</a>.</p>
   </div>
 </footer>
 
-<!-- Dynamic Sliding Portal Glass Overlay Sheet (Integrated Tabbed Login) -->
+<!-- Sliding Portal Glass Overlay Sheet -->
 <div class="portal-sheet-overlay" id="portalLayer">
   <div class="sheet-login-container">
-    
-    <!-- Mobile Back Control Button -->
-    <div class="panel-back-control" id="closePortalSheet" title="Return to Website">
-      <i class="fas fa-chevron-left"></i>
-    </div>
-    
+    <div class="panel-back-control" id="closePortalSheet" title="Return to Website"><i class="fas fa-chevron-left"></i></div>
     <h2>Secure Gateway</h2>
 
-    <!-- Premium App-Style Segmented Tab Selectors -->
     <div class="portal-tabs">
       <button type="button" class="tab-btn active" onclick="switchPortalTab(event, 'student-panel')">
         <i class="fas fa-user-graduate"></i> Student / Parent
@@ -952,24 +930,23 @@
       </button>
     </div>
 
-    <!-- PANEL 1: STUDENT & PARENT LOGIN SECTION -->
+    <!-- Student Panel -->
     <div id="student-panel" class="tab-content-view active">
       <form id="studentPortalForm">
         <div class="modern-field-box">
-          <label for="studentRegNo">Admission / Reg No.</label>
+          <label for="studentRegNo">Student Account Email</label>
           <div class="input-with-icon">
-            <i class="fas fa-id-card input-prefix"></i>
-            <input type="text" id="studentRegNo" placeholder="LA-2026-XXXX" required>
+            <i class="fas fa-envelope input-prefix"></i>
+            <input type="email" id="studentRegNo" placeholder="student@lakshya.com" required>
           </div>
         </div>
         <div class="modern-field-box">
-          <label for="studentPassword">Access Password</label>
+          <label for="studentPassword">Password</label>
           <div class="input-with-icon">
             <i class="fas fa-lock input-prefix"></i>
             <input type="password" id="studentPassword" placeholder="••••••••" required>
           </div>
         </div>
-        
         <button type="submit" class="btn-submit-action">
           <span>Access Dashboard</span>
           <div class="micro-spinner"></div>
@@ -977,7 +954,7 @@
       </form>
     </div>
 
-    <!-- PANEL 2: FACULTY & MANAGEMENT LOGIN SECTION -->
+    <!-- Faculty Panel -->
     <div id="faculty-panel" class="tab-content-view">
       <form id="facultyPortalForm">
         <div class="modern-field-box">
@@ -988,13 +965,12 @@
           </div>
         </div>
         <div class="modern-field-box">
-          <label for="facultyToken">Security Token Pin</label>
+          <label for="facultyToken">Security Password</label>
           <div class="input-with-icon">
-            <i class="fas fa-shield-halved input-prefix"></i>
+            <i class="fas fa-lock input-prefix"></i>
             <input type="password" id="facultyToken" placeholder="••••••••" required>
           </div>
         </div>
-        
         <button type="submit" class="btn-submit-action faculty-accent-btn">
           <span>Authorize Clearance</span>
           <div class="micro-spinner"></div>
@@ -1002,38 +978,54 @@
       </form>
     </div>
 
-    <!-- Administrative Links -->
     <div class="panel-meta-links">
-      <p><a href="#" onclick="alert('Please connect with Amit Kumar or Nikhil Jha at the admin desk to verify or reset your security credentials.')">Forgot Security Token?</a></p>
+      <p><a href="#" onclick="alert('Please connect with Amit Kumar or Nikhil Jha at the admin desk to verify or reset your security credentials.')">Forgot Password?</a></p>
       <p>System Issue? <a href="#contact" id="forceCloseLink">Contact Desk</a></p>
     </div>
-
   </div>
 </div>
 
-<!-- Floating Responsive Connect Anchors -->
+<!-- Floating Action Buttons -->
 <div class="floating-action-cluster">
-  <a href="https://wa.me/919709316822?text=Enquiry" class="circle-trigger-btn cluster-wa" target="_blank" aria-label="WhatsApp Support"><i class="fab fa-whatsapp"></i></a>
-  <a href="tel:+917004931491" class="circle-trigger-btn cluster-call" aria-label="Call Directly"><i class="fas fa-phone-alt"></i></a>
+  <a href="https://wa.me/919709316822?text=Enquiry" class="circle-trigger-btn cluster-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  <a href="tel:+917004931491" class="circle-trigger-btn cluster-call"><i class="fas fa-phone-alt"></i></a>
 </div>
 
-<!-- Core Engine Scripts -->
+<!-- JS Core Engines & Firebase 10 Modular Web SDK Delivery -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  // Initialize Motion Engine Elements
+<script type="module">
+  // Import the Firebase modules
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // ⚠️ PASTE YOUR UNIQUE FIREBASE CONFIG OBJECT DATA BELOW HERE:
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  // Initialize Firebase Cloud Instances
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Initialize Scroll Motion
   AOS.init({ duration: 800, once: true, easing: 'ease-out-quad' });
 
-  // Mobile Header Command Mechanics
+  // Navigation Logic
   const navTrigger = document.getElementById('navTrigger');
   const menuMenu = document.getElementById('menuMenu');
-  
   navTrigger?.addEventListener('click', () => {
     menuMenu.classList.toggle('show');
     navTrigger.querySelector('i').classList.toggle('fa-bars');
     navTrigger.querySelector('i').classList.toggle('fa-xmark');
   });
 
-  // Structural Link Triggers to Auto-Close Menu Shell on Mobile Layouts
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
       menuMenu.classList.remove('show');
@@ -1044,94 +1036,105 @@
     });
   });
 
-  // Advanced Portal Sheet Layout Control Framework
+  // Modal Control System
   const openPortalBtn = document.getElementById('openPortalBtn');
   const closePortalSheet = document.getElementById('closePortalSheet');
   const forceCloseLink = document.getElementById('forceCloseLink');
   const portalLayer = document.getElementById('portalLayer');
 
-  function deployPortal(e) {
-    e.preventDefault();
-    portalLayer.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function retractPortal() {
-    portalLayer.classList.remove('active');
-    document.body.style.overflow = 'auto';
-  }
-
-  openPortalBtn?.addEventListener('click', deployPortal);
+  openPortalBtn?.addEventListener('click', (e) => { e.preventDefault(); portalLayer.classList.add('active'); document.body.style.overflow = 'hidden'; });
+  
+  function retractPortal() { portalLayer.classList.remove('active'); document.body.style.overflow = 'auto'; }
   closePortalSheet?.addEventListener('click', retractPortal);
   forceCloseLink?.addEventListener('click', retractPortal);
 
-  // Functional View Switcher Module for Tabs
-  function switchPortalTab(event, tabId) {
+  window.switchPortalTab = function(event, tabId) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-content-view').forEach(content => content.classList.remove('active'));
-    
     event.currentTarget.classList.add('active');
     document.getElementById(tabId).classList.add('active');
   }
 
-  // Student / Parent Validation Form Processor
-  document.getElementById('studentPortalForm')?.addEventListener('submit', function(e) {
+  // ==========================================
+  // BACKEND: FIREBASE AUTH LOGIN PIPELINES
+  // ==========================================
+
+  // Student Cloud Auth Verification
+  document.getElementById('studentPortalForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const regNo = document.getElementById('studentRegNo').value;
+    const email = document.getElementById('studentRegNo').value;
+    const password = document.getElementById('studentPassword').value;
     const submitBtn = this.querySelector('.btn-submit-action');
     const spinner = this.querySelector('.micro-spinner');
     
-    if (spinner && submitBtn) {
-      spinner.style.display = 'inline-block';
-      submitBtn.style.pointerEvents = 'none';
-      submitBtn.style.opacity = '0.7';
-    }
+    spinner.style.display = 'inline-block';
+    submitBtn.style.pointerEvents = 'none';
 
-    setTimeout(() => {
-      if (spinner && submitBtn) {
-        spinner.style.display = 'none';
-        submitBtn.style.pointerEvents = 'auto';
-        submitBtn.style.opacity = '1';
-      }
-      
-      alert(`Success! Student database routing complete for Registration ID: [${regNo}].`);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      alert(`Access Verified! Welcome to the Lakshya Student Panel: ${userCredential.user.email}`);
       retractPortal();
-    }, 1200);
+    } catch (error) {
+      alert(`Authentication Failed: ${error.message}`);
+    } finally {
+      spinner.style.display = 'none';
+      submitBtn.style.pointerEvents = 'auto';
+    }
   });
 
-  // Faculty / Board Authorization Form Processor
-  document.getElementById('facultyPortalForm')?.addEventListener('submit', function(e) {
+  // Faculty Cloud Auth Verification
+  document.getElementById('facultyPortalForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     const email = document.getElementById('facultyEmail').value;
+    const password = document.getElementById('facultyToken').value;
     const submitBtn = this.querySelector('.btn-submit-action');
     const spinner = this.querySelector('.micro-spinner');
     
-    if (spinner && submitBtn) {
-      spinner.style.display = 'inline-block';
-      submitBtn.style.pointerEvents = 'none';
-      submitBtn.style.opacity = '0.7';
-    }
+    spinner.style.display = 'inline-block';
+    submitBtn.style.pointerEvents = 'none';
 
-    setTimeout(() => {
-      if (spinner && submitBtn) {
-        spinner.style.display = 'none';
-        submitBtn.style.pointerEvents = 'auto';
-        submitBtn.style.opacity = '1';
-      }
-      
-      alert(`Access Authorization Confirmed! Clearances allocated to system instance: ${email}.`);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      alert(`Clearance Granted. Welcome Academic Authority: ${userCredential.user.email}`);
       retractPortal();
-    }, 1200);
+    } catch (error) {
+      alert(`Authorization Rejected: ${error.message}`);
+    } finally {
+      spinner.style.display = 'none';
+      submitBtn.style.pointerEvents = 'auto';
+    }
   });
 
-  // Core Enrollment Post Framework Actions
-  const studentEnquiryForm = document.getElementById('studentEnquiryForm');
-  studentEnquiryForm?.addEventListener('submit', (e) => {
+  // ==========================================
+  // BACKEND: FIRESTORE LIVE ADMISSIONS WRITER
+  // ==========================================
+  document.getElementById('studentEnquiryForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const student = document.getElementById('candidateName').value;
-    const currentClass = document.getElementById('candidateClass').value;
-    alert(`Transmission Complete! Candidate record for ${student} targeting ${currentClass} has been verified.`);
-    studentEnquiryForm.reset();
+    const name = document.getElementById('candidateName').value;
+    const phone = document.getElementById('candidateLine').value;
+    const targetClass = document.getElementById('candidateClass').value;
+    const submitBtn = document.getElementById('enquirySubmitBtn');
+
+    submitBtn.innerText = "Transmitting Details...";
+    submitBtn.style.pointerEvents = "none";
+
+    try {
+      // Writes a clear document record inside the "admissions" collection on the database cloud
+      await addDoc(collection(db, "admissions"), {
+        studentName: name,
+        contactLine: phone,
+        allocatedSegment: targetClass,
+        timestamp: serverTimestamp()
+      });
+
+      alert(`Success, ${name}! Your admission enquiry database record has been safely logged.`);
+      this.reset();
+    } catch (error) {
+      alert(`Database Push Failed: ${error.message}`);
+    } finally {
+      submitBtn.innerText = "Transmit Direct Request";
+      submitBtn.style.pointerEvents = "auto";
+    }
   });
 </script>
 </body>
