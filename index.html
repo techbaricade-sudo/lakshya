@@ -3,586 +3,985 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Lakshya Academy | Quality Education | Saharsa</title>
-  <!-- SEO Meta -->
+  <title>Lakshya Academy | Quality Education Elite | Saharsa</title>
+  
+  <!-- SEO Optimization Meta Tags -->
   <meta name="description" content="Lakshya Academy Saharsa - Board of Directors: Amit Kumar, Shivam Kr. Singh, Nikhil Jha. Concept-based learning for Class 6-9. Admissions open.">
   <meta name="keywords" content="Lakshya Academy, Board Members, Saharsa, coaching, admission, Tech Baricade, faculty login">
-  <meta name="author" content="Tech Baricade">
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- AOS Library -->
+  
+  <!-- Premium Modern Fonts & Dynamic Font Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- AOS Scrolling Motion Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <style>
+    /* Premium High-Contrast Color Variables */
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #131926;
+      --accent-glow: #3b82f6;
+      --accent-emerald: #10b981;
+      --text-white: #f8fafc;
+      --text-gray: #94a3b8;
+      --glass-panel: rgba(19, 25, 38, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --neo-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: #ffffff;
-      color: #1e293b;
-      line-height: 1.5;
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* Premium Color Scheme: Trust Blue + Vibrant Green */
-    :root {
-      --primary-deep: #0a2b3e;
-      --primary-blue: #1e4a76;
-      --blue-accent: #2c7da0;
-      --green-success: #0f7b3a;
-      --green-light: #e8f3ed;
-      --card-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.02);
-      --shadow-hover: 0 25px 35px -12px rgba(0, 0, 0, 0.12);
+    h1, h2, h3, .heading-font {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
     }
 
     .container {
-      max-width: 1280px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* ========= NAVBAR with Login ========= */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    /* Ambient Background Light Flares */
+    .glow-sphere {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Glassmorphism Header Bar Layout */
     nav {
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(12px);
+      background: rgba(9, 13, 22, 0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       position: sticky;
       top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #eef2f6;
-      padding: 12px 0;
+      z-index: 500;
+      border-bottom: 1px solid var(--glass-border);
+      padding: 18px 0;
+      transition: all 0.3s ease;
     }
 
     .nav-flex {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
     }
 
     .logo h1 {
       font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #0a2b3e, #1e5a7a);
-      background-clip: text;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-glow));
       -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
+      -webkit-text-fill-color: transparent;
     }
 
     .logo span {
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: var(--green-success);
-      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: -2px;
     }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 32px;
       align-items: center;
     }
 
     .nav-links a {
       text-decoration: none;
-      font-weight: 600;
-      color: #1f2a44;
-      transition: 0.2s;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--text-gray);
+      transition: color 0.25s ease, transform 0.2s ease;
     }
 
     .nav-links a:hover {
-      color: var(--green-success);
+      color: var(--text-white);
     }
 
-    .login-btn {
-      background: transparent;
-      border: 2px solid var(--primary-blue);
-      padding: 6px 20px !important;
-      border-radius: 40px;
-      color: var(--primary-blue) !important;
-      font-weight: 700;
-    }
-
-    .login-btn:hover {
-      background: var(--primary-blue);
-      color: white !important;
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      font-size: 1.8rem;
+    /* Smart Neon Action UI Buttons */
+    .btn-portal-trigger {
+      background: linear-gradient(135deg, var(--accent-glow), #1d4ed8);
+      color: #fff !important;
+      padding: 12px 28px;
+      border-radius: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-portal-trigger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-white);
+      padding: 14px 32px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-gray);
+    }
+
+    .mobile-hamburger {
+      display: none;
+      font-size: 1.6rem;
       background: none;
       border: none;
-      color: var(--primary-deep);
+      color: var(--text-white);
+      cursor: pointer;
     }
 
-    @media (max-width: 880px) {
-      .nav-links {
-        position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 75%;
-        height: calc(100vh - 70px);
-        background: white;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 32px 28px;
-        gap: 24px;
-        transition: 0.3s ease;
-        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
-        z-index: 99;
-        display: flex;
-      }
-      .nav-links.show {
-        left: 0;
-      }
-      .mobile-menu-btn {
-        display: block;
-      }
+    /* Hero Layout with Dynamic Presentation Cards */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding-top: 20px;
     }
 
-    /* Hero Section avec Bannière */
-    .hero {
-      background: linear-gradient(115deg, #f0f9ff 0%, #eafaf1 100%);
-      padding: 40px 0 60px;
+    .hero-text h2 {
+      font-size: 4rem;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
     }
 
-    .banner-img {
-      width: 100%;
-      max-height: 380px;
-      object-fit: cover;
-      border-radius: 32px;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 40px;
-      transition: 0.3s;
+    .hero-text h2 span {
+      background: linear-gradient(135deg, var(--accent-glow), var(--accent-emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .hero-content {
-      text-align: center;
-    }
-
-    .hero h2 {
-      font-size: 2.6rem;
-      font-weight: 800;
-      color: var(--primary-deep);
-    }
-
-    .tagline {
+    .hero-text p {
+      color: var(--text-gray);
       font-size: 1.2rem;
-      color: #2c5a6e;
-      margin-top: 12px;
+      margin-bottom: 40px;
+      max-width: 540px;
     }
 
-    .features-flex {
+    .hero-action-row {
       display: flex;
-      justify-content: center;
-      gap: 24px;
+      gap: 16px;
       flex-wrap: wrap;
-      margin: 32px 0;
     }
 
-    .feature-badge {
-      background: white;
-      padding: 8px 28px;
-      border-radius: 60px;
-      font-weight: 600;
-      box-shadow: var(--card-shadow);
-      color: var(--primary-blue);
-    }
-
-    /* Stats Cards */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 30px;
-      margin-top: 50px;
-    }
-
-    .stat-card {
-      background: white;
+    .interactive-media-box {
+      position: relative;
       border-radius: 28px;
-      padding: 28px 16px;
-      text-align: center;
-      transition: 0.2s;
-      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--neo-shadow);
     }
 
-    .stat-card i {
-      font-size: 2.2rem;
-      color: var(--green-success);
-    }
-
-    /* Board Members Section */
-    .board-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 40px;
-      margin-top: 20px;
-    }
-
-    .member-card {
-      background: white;
-      border-radius: 32px;
-      padding: 32px 20px;
-      text-align: center;
-      transition: 0.3s;
-      box-shadow: var(--card-shadow);
-      border: 1px solid #edf2f7;
-    }
-
-    .member-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .member-img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
+    .interactive-media-box img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      margin: 0 auto 20px;
-      border: 4px solid var(--green-success);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      background: #f4f9fc;
+      display: block;
+      transition: transform 0.5s ease;
     }
 
-    /* Generic */
-    .section-title {
-      font-size: 2.3rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 16px;
+    .interactive-media-box:hover img {
+      transform: scale(1.03);
     }
 
-    .divider {
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--green-success), var(--primary-blue));
-      margin: 12px auto 24px;
-      border-radius: 4px;
-    }
-
-    .section-sub {
-      text-align: center;
-      color: #4a5b6e;
-      max-width: 680px;
-      margin: 0 auto 48px;
-    }
-
-    .grid-3 {
+    /* Core Micro Grid Metrics Dashboard */
+    .metrics-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 80px;
+    }
+
+    .metric-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 32px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .metric-panel:hover {
+      transform: translateY(-6px);
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.05);
+    }
+
+    .metric-panel i {
+      font-size: 1.8rem;
+      color: var(--accent-glow);
+      margin-bottom: 20px;
+      background: rgba(59, 130, 246, 0.1);
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+    }
+
+    /* Structural Section Header Designs */
+    .center-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .center-header h2 {
+      font-size: 2.8rem;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .center-header p {
+      color: var(--text-gray);
+      font-size: 1.1rem;
+    }
+
+    /* Core Adaptive Course Panels */
+    .cards-layout-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 32px;
     }
 
-    .card-modern {
-      background: white;
-      padding: 28px;
-      border-radius: 32px;
-      box-shadow: var(--card-shadow);
-      transition: 0.25s;
+    .feature-card-modern {
+      background: linear-gradient(145deg, var(--bg-card), #182235);
+      border: 1px solid var(--glass-border);
+      padding: 40px 32px;
+      border-radius: 24px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Admission Form */
-    .form-wrapper {
-      background: white;
-      border-radius: 40px;
-      padding: 36px;
-      box-shadow: var(--card-shadow);
+    .feature-card-modern:hover {
+      transform: translateY(-8px);
+      border-color: rgba(16, 185, 129, 0.3);
+      box-shadow: 0 30px 50px rgba(0,0,0,0.3);
     }
 
-    .form-group input, .form-group select, .form-group textarea {
+    .feature-card-modern::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 14px 20px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 60px;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .btn-primary {
-      background: linear-gradient(100deg, var(--primary-blue), #2c7da0);
-      color: white;
-      padding: 12px 32px;
-      border-radius: 40px;
-      font-weight: 700;
-      display: inline-block;
-      text-decoration: none;
-      transition: 0.3s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-outline {
-      border: 2px solid var(--primary-blue);
+      height: 4px;
       background: transparent;
-      color: var(--primary-blue);
-      padding: 10px 28px;
-      border-radius: 40px;
-      font-weight: 600;
-      text-decoration: none;
+      transition: background 0.3s ease;
     }
 
-    /* Floating */
-    .floating-contact {
+    .feature-card-modern:hover::before {
+      background: linear-gradient(90deg, var(--accent-glow), var(--accent-emerald));
+    }
+
+    .feature-card-modern i {
+      font-size: 1.6rem;
+      color: var(--accent-emerald);
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .feature-card-modern h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card-modern p {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+    }
+
+    /* Executive Board Matrix */
+    .executive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .exec-profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.3s ease;
+    }
+
+    .exec-profile-card:hover {
+      border-color: var(--accent-glow);
+    }
+
+    .profile-avatar-frame {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+      padding: 4px;
+    }
+
+    .profile-avatar-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .exec-profile-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .exec-profile-card .role-lbl {
+      color: var(--accent-glow);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .exec-profile-card p {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+    }
+
+    /* Admission Layout Segments */
+    .admission-dual-box {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .form-panel-enquiry {
+      background: rgba(19, 25, 38, 0.6);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      padding: 48px;
+      border-radius: 32px;
+      box-shadow: var(--neo-shadow);
+    }
+
+    .form-input-group {
+      margin-bottom: 24px;
+    }
+
+    .form-input-group input, .form-input-group select {
+      width: 100%;
+      background: rgba(9, 13, 22, 0.6);
+      border: 1px solid var(--glass-border);
+      padding: 16px 20px;
+      border-radius: 14px;
+      color: var(--text-white);
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-input-group input:focus, .form-input-group select:focus {
+      border-color: var(--accent-glow);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+
+    /* Full-Screen High Fidelity Mobile-Friendly Portal Layer */
+    .portal-sheet-overlay {
       position: fixed;
-      bottom: 24px;
-      right: 20px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 8, 15, 0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .portal-sheet-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sheet-login-container {
+      background: #0f1420;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      width: 440px;
+      max-width: 100%;
+      border-radius: 28px;
+      padding: 44px;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+      position: relative;
+      transform: scale(0.95) translateY(30px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .portal-sheet-overlay.active .sheet-login-container {
+      transform: scale(1) translateY(0);
+    }
+
+    .panel-back-control {
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-border);
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-white);
+      transition: all 0.2s ease;
+    }
+
+    .panel-back-control:hover {
+      background: var(--text-white);
+      color: var(--bg-dark);
+    }
+
+    .sheet-login-container h2 {
+      font-size: 2rem;
+      margin: 20px 0 32px;
+      text-align: center;
+    }
+
+    .modern-field-box {
+      margin-bottom: 24px;
+    }
+
+    .modern-field-box label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      color: var(--text-gray);
+    }
+
+    .modern-field-box input {
+      width: 100%;
+      padding: 16px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      color: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .modern-field-box input:focus {
+      border-color: var(--accent-glow);
+    }
+
+    .btn-submit-action {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: var(--text-white);
+      color: var(--bg-dark);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-submit-action:hover {
+      background: var(--accent-glow);
+      color: #fff;
+    }
+
+    /* Embedded Dynamic Loader Ring */
+    .micro-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      border-top-color: currentColor;
+      animation: loop-spin 0.6s linear infinite;
+    }
+
+    @keyframes loop-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .panel-meta-links {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.9rem;
+    }
+
+    .panel-meta-links p {
+      margin-bottom: 8px;
+      color: var(--text-gray);
+    }
+
+    .panel-meta-links a {
+      color: var(--accent-glow);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Contact Map Infrastructure */
+    .contact-map-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 40px;
+    }
+
+    /* Floating Quick Actions */
+    .floating-action-cluster {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      z-index: 99;
+      gap: 12px;
+      z-index: 999;
     }
-    .whatsapp-btn, .call-btn {
+
+    .circle-trigger-btn {
       width: 56px;
       height: 56px;
-      border-radius: 30px;
-      background: #25D366;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 28px;
+      font-size: 1.6rem;
       text-decoration: none;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
     }
-    .call-btn { background: #1e5a7a; }
+
+    .circle-trigger-btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .cluster-wa { background-color: #25D366; }
+    .cluster-call { background-color: var(--accent-glow); }
 
     footer {
-      background: #0a1c2a;
-      color: #b9c7d9;
+      border-top: 1px solid var(--glass-border);
       padding: 40px 0;
       text-align: center;
-    }
-    .footer-credit a {
-      color: #86efac;
-      text-decoration: none;
-      font-weight: 600;
+      color: var(--text-gray);
+      font-size: 0.95rem;
     }
 
-    @media (max-width: 680px) {
-      .hero h2 { font-size: 1.8rem; }
-      .section-title { font-size: 1.8rem; }
-      .form-wrapper { padding: 24px; }
+    /* ========================================================
+       MOBILE COHESIVE RESPONSIVE FRAMEWORK BREAKPOINTS
+       ======================================================== */
+    @media (max-width: 1024px) {
+      .hero-split { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+      .hero-text h2 { font-size: 3rem; }
+      .hero-text p { margin-left: auto; margin-right: auto; }
+      .hero-action-row { justify-content: center; }
+      .metrics-row, .executive-grid, .contact-map-layout { grid-template-columns: 1fr; gap: 24px; }
+      .admission-dual-box { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 0; }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background: #090d16;
+        flex-direction: column;
+        justify-content: center;
+        gap: 36px;
+        z-index: 400;
+        transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 40px;
+      }
+      .nav-links.show { left: 0; }
+      .mobile-hamburger { display: block; }
+      
+      /* Mobile Fluid Text Fixes */
+      .hero-text h2 { font-size: 2.4rem; }
+      section { padding: 60px 0; }
+
+      /* Custom Mobile Sheet Behavior for Login Panel */
+      .portal-sheet-overlay {
+        align-items: flex-end;
+      }
+      .sheet-login-container {
+        width: 100%;
+        border-radius: 32px 32px 0 0;
+        padding: 36px 24px 60px;
+        transform: translateY(100%);
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+      }
+      .portal-sheet-overlay.active .sheet-login-container {
+        transform: translateY(0);
+      }
+      .form-panel-enquiry { padding: 28px; border-radius: 24px; }
     }
   </style>
 </head>
 <body>
 
+<!-- Dynamic Navigation Overlay -->
 <nav>
   <div class="container nav-flex">
     <div class="logo">
       <h1>LAKSHYA <span>ACADEMY</span></h1>
     </div>
-    <button class="mobile-menu-btn" id="menuToggle"><i class="fas fa-bars"></i></button>
-    <div class="nav-links" id="navLinks">
+    <button class="mobile-hamburger" id="navTrigger" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
+    <div class="nav-links" id="menuMenu">
       <a href="#home">Home</a>
-      <a href="#about">About Us</a>
+      <a href="#about">About</a>
       <a href="#courses">Courses</a>
-      <a href="#board">Our Board</a>
-      <a href="#admission">Admission</a>
-      <a href="#gallery">Gallery</a>
+      <a href="#board">The Board</a>
+      <a href="#admission">Admissions</a>
       <a href="#contact">Contact</a>
-      <a href="#" id="loginModalBtn" class="login-btn"><i class="fas fa-key"></i> Login</a>
+      <button id="openPortalBtn" class="btn-portal-trigger"><i class="fas fa-lock-open"></i> Portal Login</button>
     </div>
   </div>
 </nav>
 
-<!-- Hero + Banner -->
+<!-- Hero Component with Spatial Lights -->
 <section id="home" class="hero">
+  <div class="glow-sphere" style="top: 10%; right: 5%;"></div>
   <div class="container">
-    <!-- Banner Image (using placeholder since link not accessible, but you can replace) -->
-    <img class="banner-img" src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777186489848.png" alt="Lakshya Academy Banner" onerror="this.src='https://placehold.co/1200x400/1e4a76/white?text=Lakshya+Academy'">
-    <div class="hero-content" data-aos="fade-up">
-      <h2>Providing Quality Education <br> For a Better Tomorrow</h2>
-      <div class="features-flex">
-        <span class="feature-badge">📘 Concept-Based Learning</span>
-        <span class="feature-badge">📝 Regular Tests</span>
-        <span class="feature-badge">🎯 Personalized Attention</span>
+    <div class="hero-split">
+      <div class="hero-text" data-aos="fade-right">
+        <h2>Nurturing Elite <span>Intelligence</span> & Logic</h2>
+        <p>Premium standard development coaching paradigms for Classes 6th to 9th across fundamental domains.</p>
+        <div class="hero-action-row">
+          <a href="#admission" class="btn-portal-trigger">Apply Online Now <i class="fas fa-arrow-right"></i></a>
+          <a href="#about" class="btn-secondary">Explore Methodology</a>
+        </div>
       </div>
-      <a href="#admission" class="btn-primary">ENROLL NOW <i class="fas fa-arrow-right"></i></a>
+      <div class="interactive-media-box" data-aos="fade-left">
+        <img src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777186489848.png" alt="Academy Hero Panel" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80'">
+      </div>
     </div>
-    <div class="stats-grid" data-aos="fade-up">
-      <div class="stat-card"><i class="fas fa-chalkboard-user"></i><h3>Experienced Faculty</h3><p>10+ years of teaching</p></div>
-      <div class="stat-card"><i class="fas fa-pen-to-square"></i><h3>Regular Tests</h3><p>Weekly assessments</p></div>
-      <div class="stat-card"><i class="fas fa-lightbulb"></i><h3>Concept Learning</h3><p>Clarity over rote</p></div>
-      <div class="stat-card"><i class="fas fa-chart-line"></i><h3>Performance Analysis</h3><p>Detailed reports</p></div>
+
+    <!-- Quick Metrics Dynamic Board -->
+    <div class="metrics-row" data-aos="fade-up">
+      <div class="metric-panel"><i class="fas fa-user-tie"></i><h3>Core Mentors</h3><p>Elite subject specialists.</p></div>
+      <div class="metric-panel"><i class="fas fa-shield-halved"></i><h3>Weekly Audits</h3><p>Detailed performance matrices.</p></div>
+      <div class="metric-panel"><i class="fas fa-cubes"></i><h3>Root Logic</h3><p>Conceptual clarity models.</p></div>
     </div>
   </div>
 </section>
 
-<!-- About Us -->
-<section id="about" style="background: #f9fafc;">
+<!-- Core About Layout -->
+<section id="about">
+  <div class="glow-sphere" style="bottom: 5%; left: 2%;"></div>
   <div class="container">
-    <h2 class="section-title">About Us</h2>
-    <div class="divider"></div>
-    <div class="section-sub">Lakshya Academy, Saharsa – Building bright futures since 2014</div>
-    <div style="display: flex; flex-wrap: wrap; gap: 40px;" data-aos="fade-right">
-      <div style="flex:1.5"><p>Located at <strong>New Colony Ward No. - 09/13, Sarahi Road, Saharsa</strong>, we specialize in Classes 6th to 9th: Maths, Science, English, Social Science & Hindi. Our mission is conceptual clarity, regular testing, and individual attention.</p><p style="margin-top:20px"><i class="fas fa-check-circle" style="color:var(--green-success)"></i> Mission: Academic excellence + life skills. <br><i class="fas fa-check-circle" style="color:var(--green-success)"></i> Vision: Bihar's most trusted learning hub.</p></div>
-      <div style="flex:1; background:white; border-radius:32px; padding:28px; box-shadow:var(--card-shadow)"><i class="fas fa-quote-left" style="font-size:2rem;color:var(--green-success)"></i><p style="margin-top:12px">"Quality education is the foundation of a brighter tomorrow – we nurture it every day."</p><p>— Director's Desk</p></div>
+    <div class="center-header" data-aos="fade-up">
+      <h2>Academic Paradigm</h2>
+      <p>Building trusted foundational growth parameters since 2014.</p>
+    </div>
+    <div class="feature-card-modern" style="max-width: 900px; margin: 0 auto; text-align: center;" data-aos="zoom-in">
+      <p style="font-size: 1.25rem; color: var(--text-white); margin-bottom: 24px; font-weight: 300;">"Located comprehensively at New Colony Ward No. 09/13, Sarahi Road, Saharsa, our focus remains targeted toward creating structural analytical strength in our pupils."</p>
+      <h4 style="color: var(--accent-emerald)">— Governing Directorate Desk</h4>
     </div>
   </div>
 </section>
 
-<!-- Courses -->
+<!-- Courses Workspace Grid -->
 <section id="courses">
   <div class="container">
-    <h2 class="section-title">Our Courses</h2>
-    <div class="divider"></div>
-    <div class="section-sub">Class 6th to 9th | Complete syllabus coverage</div>
-    <div class="grid-3" data-aos="fade-up">
-      <div class="card-modern"><i class="fas fa-calculator"></i><h3>Mathematics</h3><p>Algebra, Geometry, Vedic Maths tricks, problem-solving.</p></div>
-      <div class="card-modern"><i class="fas fa-flask"></i><h3>Science</h3><p>Physics, Chemistry, Biology with practicals.</p></div>
-      <div class="card-modern"><i class="fas fa-book"></i><h3>English</h3><p>Grammar, Literature, Spoken English.</p></div>
-      <div class="card-modern"><i class="fas fa-landmark"></i><h3>Social Science</h3><p>History, Geography, Civics with projects.</p></div>
-      <div class="card-modern"><i class="fas fa-language"></i><h3>हिन्दी</h3><p>व्याकरण, निबंध, साहित्य।</p></div>
-      <div class="card-modern"><i class="fas fa-trophy"></i><h3>Scholarship Batch</h3><p>Special mentoring & test series.</p></div>
+    <div class="center-header" data-aos="fade-up">
+      <h2>Target Disciplines</h2>
+      <p>Comprehensive syllabi tracks for high school foundations.</p>
+    </div>
+    <div class="cards-layout-grid" data-aos="fade-up">
+      <div class="feature-card-modern"><i class="fas fa-square-root-variable"></i><h3>Mathematics</h3><p>Core algebraic frameworks, arithmetic geometry rules, and logic execution tracks.</p></div>
+      <div class="feature-card-modern"><i class="fas fa-atom"></i><h3>Natural Sciences</h3><p>Structured analysis across Physics frameworks, chemical behaviors, and biology.</p></div>
+      <div class="feature-card-modern"><i class="fas fa-feather-pointed"></i><h3>English & Syntax</h3><p>Grammar mechanics, composition architecture, and structural expression clarity.</p></div>
     </div>
   </div>
 </section>
 
-<!-- Our Board Members (replacing Expert Faculty) -->
-<section id="board" style="background: #f9fafc;">
+<!-- Council Board Section -->
+<section id="board">
   <div class="container">
-    <h2 class="section-title">Our Board Members</h2>
-    <div class="divider"></div>
-    <div class="section-sub">Visionary leaders shaping academic excellence</div>
-    <div class="board-grid" data-aos="fade-up">
-      <div class="member-card">
-        <img class="member-img" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Amit Kumar">
-        <h3>Amit Kumar</h3>
-        <p style="color: var(--green-success); font-weight: 600;">Managing Director</p>
-        <p>Strategic leader driving institutional growth & innovation.</p>
+    <div class="center-header" data-aos="fade-up">
+      <h2>The Governing Board</h2>
+      <p>Architecting pedagogical framework delivery models.</p>
+    </div>
+    <div class="executive-grid" data-aos="fade-up">
+      <div class="exec-profile-card">
+        <div class="profile-avatar-frame"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Amit Kumar"></div>
+        <h3>Amit Kumar</h3><div class="role-lbl">Managing Director</div><p>Overseeing system administration & platform expansion maps.</p>
       </div>
-      <div class="member-card">
-        <img class="member-img" src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/690f4a08860f444952205611/sh_1764594280693.jpg" alt="Shivam Kr. Singh">
-        <h3>Shivam Kr. Singh</h3>
-        <p style="color: var(--green-success); font-weight: 600;">Academic Director</p>
-        <p>Curriculum design, teacher training & academic excellence.</p>
+      <div class="exec-profile-card">
+        <div class="profile-avatar-frame"><img src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/690f4a08860f444952205611/sh_1764594280693.jpg" alt="Shivam Kr. Singh" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png'"></div>
+        <h3>Shivam Kr. Singh</h3><div class="role-lbl">Academic Director</div><p>Structuring strategic pedagogic workflows and mentor validation.</p>
       </div>
-      <div class="member-card">
-        <img class="member-img" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Mr. Nikhil Jha">
-        <h3>Mr. Nikhil Jha</h3>
-        <p style="color: var(--green-success); font-weight: 600;">Academic Superintendent</p>
-        <p>Ensuring quality delivery & student performance monitoring.</p>
+      <div class="exec-profile-card">
+        <div class="profile-avatar-frame"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Nikhil Jha"></div>
+        <h3>Mr. Nikhil Jha</h3><div class="role-lbl">Academic Superintendent</div><p>Supervising micro evaluation cycles and student analytics tracking.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Admission + Scholarship -->
+<!-- Interactive Registration Layout Section -->
 <section id="admission">
   <div class="container">
-    <h2 class="section-title">Admission & Scholarship 2026</h2>
-    <div class="divider"></div>
-    <div class="section-sub">Limited seats | Up to 50% scholarship on merit test</div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;" data-aos="zoom-in">
-      <div class="card-modern"><i class="fas fa-graduation-cap" style="font-size:2rem"></i><h3>🎓 Lakshya Scholarship Test</h3><p>Scholarship exam: 25th May 2026. Based on reasoning, maths & science. Fee waiver up to 50%.</p><a href="#contact" class="btn-outline" style="margin-top:18px; display:inline-block">Register for Test →</a></div>
-      <div class="form-wrapper"><h3><i class="fas fa-edit"></i> Quick Admission Enquiry</h3>
-      <form id="admissionForm"><div class="form-group"><input type="text" placeholder="Student's Full Name" id="stuName" required></div><div class="form-group"><input type="text" placeholder="Parent Name"></div><div class="form-group"><input type="tel" placeholder="Mobile Number" id="mobile" required></div><div class="form-group"><select><option>Class 6th</option><option>Class 7th</option><option>Class 8th</option><option>Class 9th</option></select></div><div class="form-group"><textarea rows="2" placeholder="Scholarship / Demo query"></textarea></div><button type="submit" class="btn-primary" style="width:100%">Submit Enquiry <i class="fas fa-paper-plane"></i></button></form><p style="font-size:12px; margin-top:14px">✔️ Counsellor will contact for demo & scholarship.</p></div>
+    <div class="admission-dual-box">
+      <div data-aos="fade-right">
+        <h2 style="font-size: 3rem; line-height: 1.1; margin-bottom: 20px;">Merit Evaluations & <br><span style="color:var(--accent-glow)">Enrollment 2026</span></h2>
+        <p style="color:var(--text-gray); margin-bottom: 30px;">Lock priority candidate listings. High-performing results on our forthcoming metrics award up to 50% fee waivers.</p>
+        <div class="feature-card-modern" style="border-left: 4px solid var(--accent-emerald);">
+          <h4 style="margin-bottom: 8px;"><i class="far fa-calendar-check" style="color:var(--accent-emerald); margin-right: 8px;"></i> Test Window Info</h4>
+          <p>Evaluation Matrix: <strong>25th May 2026</strong>. Syllabus parameters cover general processing logic and fundamental quant metrics.</p>
+        </div>
+      </div>
+      
+      <div class="form-panel-enquiry" data-aos="fade-left">
+        <h3 style="font-size: 1.6rem; margin-bottom: 28px;"><i class="far fa-paper-plane" style="color:var(--accent-glow)"></i> Direct Admission Link</h3>
+        <form id="studentEnquiryForm">
+          <div class="form-input-group"><input type="text" id="candidateName" placeholder="Candidate's Full Name" required></div>
+          <div class="form-input-group"><input type="tel" id="candidateLine" placeholder="Primary Contact Line" required></div>
+          <div class="form-input-group">
+            <select id="candidateClass">
+              <option value="Class 6">Target Segment: Class 6th</option>
+              <option value="Class 7">Class 7th</option>
+              <option value="Class 8">Class 8th</option>
+              <option value="Class 9">Class 9th</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-portal-trigger" style="width: 100%; justify-content: center; padding: 16px;">Transmit Direct Request</button>
+        </form>
+      </div>
     </div>
-    <div style="text-align:center; margin-top:48px"><a href="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1777050969122.pdf" class="btn-outline" download><i class="fas fa-download"></i> Download Prospectus (PDF)</a></div>
   </div>
 </section>
 
-<!-- Gallery -->
-<section id="gallery" style="background: #f9fafc;">
+<!-- Contact Matrix Panel Section -->
+<section id="contact" style="background: rgba(255,255,255,0.01);">
   <div class="container">
-    <h2 class="section-title">Gallery</h2>
-    <div class="divider"></div>
-    <div class="section-sub">Campus & classroom moments</div>
-    <div class="grid-3" data-aos="fade-up">
-      <div class="card-modern" style="padding:0; overflow:hidden; border-radius:28px;"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&h=300&fit=crop" style="width:100%; height:200px; object-fit:cover;"></div>
-      <div class="card-modern" style="padding:0; overflow:hidden;"><img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&h=300&fit=crop" style="width:100%; height:200px; object-fit:cover;"></div>
-      <div class="card-modern" style="padding:0; overflow:hidden;"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=500&h=300&fit=crop" style="width:100%; height:200px; object-fit:cover;"></div>
+    <div class="contact-map-layout">
+      <div data-aos="fade-right">
+        <h2 style="font-size: 2.4rem; margin-bottom: 16px;">Connect with Campus</h2>
+        <p style="color: var(--text-gray); margin-bottom: 32px;">Direct communication channels to our administrative desk operations.</p>
+        <p style="margin-bottom: 12px;"><i class="fas fa-map-location-dot" style="color:var(--accent-glow); margin-right: 12px;"></i> New Colony Ward 09/13, Saharsa, Bihar</p>
+        <p style="margin-bottom: 32px;"><i class="fas fa-headset" style="color:var(--accent-glow); margin-right: 12px;"></i> +91 7004931491, 9709316822</p>
+        <a href="tel:+917004931491" class="btn-portal-trigger">Call Desk Line</a>
+      </div>
+      <div data-aos="fade-left">
+        <iframe width="100%" height="340" style="border-radius: 24px; border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" loading="lazy" src="https://maps.google.com/maps?q=New+Colony+Ward+No.+09%2F13+Sarahi+Road+Saharsa+Bihar&z=15&output=embed"></iframe>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Contact + Address Correction -->
-<section id="contact">
-  <div class="container">
-    <h2 class="section-title">Contact Us</h2>
-    <div class="divider"></div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 40px;">
-      <div data-aos="fade-right"><i class="fas fa-map-marker-alt" style="font-size:2rem; color:var(--green-success)"></i><h3>📍 Institute Address</h3><p><strong>New Colony Ward No. - 09/13, Sarahi Road, Saharsa, Bihar - 852201</strong></p><p><i class="fas fa-phone-alt"></i> +91 7004931491 , +91 9709316822<br><i class="fab fa-whatsapp"></i> WhatsApp: 7004931491<br><i class="fas fa-envelope"></i> lakshya@techbaricade.com</p><div style="margin-top:24px"><a href="tel:+917004931491" class="btn-primary" style="margin-right:12px"><i class="fas fa-phone"></i> Call Now</a><a href="https://wa.me/919709316822?text=Hello%20Lakshya%20Academy" target="_blank" class="btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp</a></div></div>
-      <div data-aos="fade-left"><iframe width="100%" height="250" style="border-radius: 28px; border:0;" loading="lazy" src="https://maps.google.com/maps?q=New+Colony+Ward+No.+09%2F13+Sarahi+Road+Saharsa+Bihar&z=15&output=embed"></iframe></div>
-    </div>
-  </div>
-</section>
-
-<!-- Footer with Tech Baricade -->
+<!-- Footer Frame -->
 <footer>
   <div class="container">
-    <p>© 2026 Lakshya Academy | Empowering bright futures</p>
-    <p>📍 New Colony Ward No. - 09/13, Sarahi Road, Saharsa | 📞 7004931491 / 9709316822</p>
-    <div class="footer-credit" style="margin-top:16px">This site is designed, developed and hosted by - <a href="https://techbaricade.com" target="_blank">Tech Baricade</a></div>
+    <p>© 2026 Lakshya Academy. System architecture verified by <a href="https://techbaricade.com" target="_blank">Tech Baricade</a>.</p>
   </div>
 </footer>
 
-<!-- Floating WhatsApp/Call -->
-<div class="floating-contact"><a href="https://wa.me/919709316822?text=I%20need%20demo%20class" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a><a href="tel:+917004931491" class="call-btn"><i class="fas fa-phone-alt"></i></a></div>
+<!-- Interactive Sliding Portal Glass Overlay Sheet -->
+<div class="portal-sheet-overlay" id="portalLayer">
+  <div class="sheet-login-container">
+    <!-- Back Controls -->
+    <div class="panel-back-control" id="closePortalSheet" title="Return to Website">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+    
+    <h2>Secure Gateway</h2>
+    <form id="portalVerificationForm">
+      <div class="modern-field-box">
+        <label>Portal Email</label>
+        <input type="email" id="inputEmail" placeholder="account@domain.com" required>
+      </div>
+      <div class="modern-field-box">
+        <label>Security Token Key</label>
+        <input type="password" id="inputPassword" placeholder="••••••••" required>
+      </div>
+      
+      <!-- Interactive Action Trigger -->
+      <button type="submit" class="btn-submit-action" id="actionBtn">
+        <span id="btnLabel">Validate Token</span>
+        <div class="micro-spinner" id="actionLoader"></div>
+      </button>
 
-<!-- Login Modal (Simple Popup) -->
-<div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
-  <div style="background:white; max-width:400px; width:90%; border-radius:40px; padding:32px; text-align:center; position:relative;">
-    <i class="fas fa-times-circle" id="closeModal" style="position:absolute; right:20px; top:20px; font-size:24px; cursor:pointer;"></i>
-    <h3>Faculty / Staff Login</h3>
-    <form id="loginForm"><div class="form-group"><input type="text" placeholder="Username" id="loginUser" required></div><div class="form-group"><input type="password" placeholder="Password" id="loginPass" required></div><button type="submit" class="btn-primary" style="width:100%">Login</button></form>
-    <p style="margin-top:16px; font-size:12px;">Demo: lakshya / academy123</p>
+      <div class="panel-meta-links">
+        <p><a href="#">Reset Lost Credentials</a></p>
+        <p>Access issues? <a href="#contact" id="forceCloseLink">Contact Desk</a></p>
+      </div>
+    </form>
   </div>
 </div>
 
+<!-- Floating Responsive Connect Anchors -->
+<div class="floating-action-cluster">
+  <a href="https://wa.me/919709316822?text=Enquiry" class="circle-trigger-btn cluster-wa" target="_blank" aria-label="WhatsApp Support"><i class="fab fa-whatsapp"></i></a>
+  <a href="tel:+917004931491" class="circle-trigger-btn cluster-call" aria-label="Call Directly"><i class="fas fa-phone-alt"></i></a>
+</div>
+
+<!-- Core Engine Scripts -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({ duration: 700, once: true });
-  // Mobile menu toggle
-  const menuBtn = document.getElementById('menuToggle');
-  const navMenu = document.getElementById('navLinks');
-  menuBtn?.addEventListener('click', () => navMenu.classList.toggle('show'));
+  // Initialize Motion Engine Elements
+  AOS.init({ duration: 800, once: true, easing: 'ease-out-quad' });
 
-  // Login Modal Logic
-  const loginBtn = document.getElementById('loginModalBtn');
-  const modal = document.getElementById('loginModal');
-  const closeModal = document.getElementById('closeModal');
-  loginBtn?.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.style.display = 'flex';
-  });
-  closeModal?.addEventListener('click', () => modal.style.display = 'none');
-  window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
-
-  const loginForm = document.getElementById('loginForm');
-  loginForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const user = document.getElementById('loginUser').value;
-    const pass = document.getElementById('loginPass').value;
-    if(user === 'lakshya' && pass === 'academy123') alert('Login successful! Welcome to Faculty Dashboard (demo).');
-    else alert('Invalid credentials. Use lakshya / academy123');
-    modal.style.display = 'none';
-    loginForm.reset();
+  // Mobile Header Command Mechanics
+  const navTrigger = document.getElementById('navTrigger');
+  const menuMenu = document.getElementById('menuMenu');
+  
+  navTrigger?.addEventListener('click', () => {
+    menuMenu.classList.toggle('show');
+    navTrigger.querySelector('i').classList.toggle('fa-bars');
+    navTrigger.querySelector('i').classList.toggle('fa-xmark');
   });
 
-  // Admission form handler
-  const form = document.getElementById('admissionForm');
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('stuName')?.value;
-    const mobile = document.getElementById('mobile')?.value;
-    if(name && mobile) alert(`✅ Thank you ${name}! We'll contact you on ${mobile} regarding admission & scholarship.`);
-    else alert('Please fill required fields.');
-    form.reset();
-  });
-
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const target = document.querySelector(this.getAttribute('href'));
-      if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); navMenu.classList.remove('show'); }
+  // Structural Link Triggers to Auto-Close Menu Shell on Mobile Layouts
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuMenu.classList.remove('show');
+      if(navTrigger.querySelector('i').classList.contains('fa-xmark')) {
+        navTrigger.querySelector('i').classList.add('fa-bars');
+        navTrigger.querySelector('i').classList.remove('fa-xmark');
+      }
     });
+  });
+
+  // Advanced Portal Sheet Layout Control Framework
+  const openPortalBtn = document.getElementById('openPortalBtn');
+  const closePortalSheet = document.getElementById('closePortalSheet');
+  const forceCloseLink = document.getElementById('forceCloseLink');
+  const portalLayer = document.getElementById('portalLayer');
+
+  function deployPortal(e) {
+    e.preventDefault();
+    portalLayer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function retractPortal() {
+    portalLayer.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  openPortalBtn?.addEventListener('click', deployPortal);
+  closePortalSheet?.addEventListener('click', retractPortal);
+  forceCloseLink?.addEventListener('click', retractPortal);
+
+  // Micro Interaction Loader Architecture
+  const portalVerificationForm = document.getElementById('portalVerificationForm');
+  const actionBtn = document.getElementById('actionBtn');
+  const actionLoader = document.getElementById('actionLoader');
+  const btnLabel = document.getElementById('btnLabel');
+
+  portalVerificationForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Lock interaction structures and instantiate running loading indicators
+    if(actionLoader && btnLabel && actionBtn) {
+      actionLoader.style.display = 'inline-block';
+      btnLabel.textContent = 'Verifying Security Matrix...';
+      actionBtn.style.pointerEvents = 'none';
+      actionBtn.style.opacity = '0.8';
+    }
+
+    // Network Simulation latency delay handler
+    setTimeout(() => {
+      const emailVal = document.getElementById('inputEmail').value;
+
+      // Reverse layouts to baseline defaults
+      if(actionLoader && btnLabel && actionBtn) {
+        actionLoader.style.display = 'none';
+        btnLabel.textContent = 'Validate Token';
+        actionBtn.style.pointerEvents = 'auto';
+        actionBtn.style.opacity = '1';
+      }
+
+      alert(`Token authorized! Terminal instance created for: ${emailVal}. Redirection initialised.`);
+      portalVerificationForm.reset();
+      retractPortal();
+    }, 1500);
+  });
+
+  // Core Enrollment Post Framework Actions
+  const studentEnquiryForm = document.getElementById('studentEnquiryForm');
+  studentEnquiryForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const student = document.getElementById('candidateName').value;
+    const currentClass = document.getElementById('candidateClass').value;
+    alert(`Transmission Complete! Candidate record for ${student} targeting ${currentClass} has been verified.`);
+    studentEnquiryForm.reset();
   });
 </script>
 </body>
