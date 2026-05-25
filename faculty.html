@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lakshya Academy - Faculty Desk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* 🎨 THEME CONFIGURATIONS (WITH BUILT-IN ANIMATION VARIABLES) */
+    :root {
+      /* Dark Mode Core (Default) */
+      --bg: #0b0f19; 
+      --surface: #131926; 
+      --surface-hover: rgba(255, 255, 255, 0.04);
+      --text: #f8fafc; 
+      --text-muted: #64748b; 
+      --border: rgba(255, 255, 255, 0.06); 
+      --card-shadow: box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      
+      /* Accent Base */
+      --accent: #10b981; 
+      --accent-glow: rgba(16, 185, 129, 0.25);
+      --success: #10b981; 
+      --danger: #ef4444; 
+      --radius: 14px;
+      
+      /* Advanced Smooth Curves Timing */
+      --anim-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --anim-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ☀️ LIGHT MODE OVERRIDES */
+    [data-mode="light"] {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-hover: rgba(0, 0, 0, 0.03);
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: rgba(0, 0, 0, 0.08);
+      --card-shadow: box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    }
+
+    /* 🌈 MULTI-COLOR ACCENT PALETTES */
+    [data-theme="blue"] { --accent: #3b82f6; --accent-glow: rgba(59, 130, 246, 0.25); }
+    [data-theme="purple"] { --accent: #a855f7; --accent-glow: rgba(168, 85, 247, 0.25); }
+    [data-theme="orange"] { --accent: #f97316; --accent-glow: rgba(249, 115, 22, 0.25); }
+
+    /* CORE RESET */
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease; }
+
+    /* CUSTOM ANIMATED SCROLLBAR */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; transition: var(--anim-smooth); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* 📂 SIDEBAR WITH HOVER GLIDE ANIMATION */
+    aside { 
+      width: 280px; 
+      background: var(--surface); 
+      border-right: 1px solid var(--border); 
+      padding: 2.5rem 1.25rem; 
+      display: flex; 
+      flex-direction: column; 
+      z-index: 100;
+      transition: var(--anim-smooth), left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .brand { font-size: 1.3rem; font-weight: 700; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.75rem; color: var(--text); }
+    .brand i { color: var(--accent); animation: pulseGlow 2s infinite ease-in-out; }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--accent-glow)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 12px var(--accent)); }
+    }
+
+    .menu-links { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .menu-btn { 
+      width: 100%; 
+      text-align: left; background: none; border: none; 
+      color: var(--text-muted); padding: 0.9rem 1.1rem; 
+      border-radius: var(--radius); cursor: pointer; font-size: 0.95rem; 
+      display: flex; align-items: center; gap: 0.85rem; 
+      position: relative; overflow: hidden; transition: var(--anim-smooth);
+    }
+    .menu-btn i { font-size: 1.1rem; transition: var(--anim-spring); }
+    
+    .menu-btn:hover { color: var(--text); background: var(--surface-hover); padding-left: 1.4rem; }
+    .menu-btn:hover i { transform: scale(1.15) rotate(-5deg); color: var(--accent); }
+    
+    .menu-btn.active { 
+      color: #ffffff !important; 
+      background: var(--accent); 
+      box-shadow: 0 8px 24px var(--accent-glow); 
+      font-weight: 600; 
+    }
+    .menu-btn.active i { transform: scale(1.1); }
+
+    /* FRAME WORK WRAPPER */
+    .app-container { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+    /* PREMIUM HEADER BLUR BAR */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 90;
+      transition: var(--anim-smooth);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; transition: var(--anim-smooth); }
+    .mobile-toggle:active { transform: scale(0.85); }
+
+    .nav-history-track { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* CONTROLS (THEME & LIGHT/DARK TOGGLE) */
+    .header-controls { display: flex; align-items: center; gap: 1rem; }
+    
+    .theme-controller { display: flex; align-items: center; gap: 0.4rem; background: var(--bg); padding: 0.35rem 0.5rem; border-radius: 30px; border: 1px solid var(--border); }
+    .color-dot { width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: var(--anim-spring); }
+    .color-dot:hover { transform: scale(1.3); }
+    .color-dot.active { border-color: var(--text); transform: scale(1.15); }
+    .dot-green { background: #10b981; }
+    .dot-blue { background: #3b82f6; }
+    .dot-purple { background: #a855f7; }
+    .dot-orange { background: #f97316; }
+
+    .mode-toggle-btn {
+      background: var(--bg); border: 1px solid var(--border); color: var(--text);
+      width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: var(--anim-spring);
+    }
+    .mode-toggle-btn:hover { border-color: var(--accent); transform: rotate(30deg); color: var(--accent); }
+
+    main { flex: 1; padding: 2.5rem; }
+
+    /* INTERACTIVE VIEW PANELS (SLIDE + FADE IN) */
+    .view-panel { display: none; opacity: 0; transform: translateY(25px); }
+    .view-panel.active { 
+      display: block; 
+      animation: panelEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+    }
+
+    @keyframes panelEntrance {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ANIMATED MODERN CARDS */
+    .card { 
+      background: var(--surface); border: 1px solid var(--border); 
+      border-radius: var(--radius); padding: 1.8rem; margin-bottom: 2rem; 
+      transition: var(--anim-spring);
+    }
+    .card:hover { 
+      transform: translateY(-4px); 
+      box-shadow: 0 15px 35px var(--accent-glow);
+    }
+
+    h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    h2 i { color: var(--accent); }
+
+    /* FORM LAYOUTS & INTERACTIVE INPUT GROUPS WITH NATIVE PICKER STYLING */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+    
+    input, select, textarea { 
+      width: 100%; background: var(--bg); border: 1px solid var(--border); 
+      padding: 0.85rem 1rem; color: var(--text); border-radius: var(--radius); 
+      outline: none; font-size: 0.95rem; transition: var(--anim-smooth);
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-glow); transform: scale(1.01); }
+    
+    /* Native Calendar & Time Picker Popups Interaction Engine Styling */
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      filter: invert(0.6);
+      transition: var(--anim-spring);
+    }
+    input[type="date"]:focus::-webkit-calendar-picker-indicator,
+    input[type="time"]:focus::-webkit-calendar-picker-indicator {
+      filter: invert(1) drop-shadow(0 0 4px var(--accent));
+      transform: scale(1.2);
+    }
+
+    button.submit-btn { 
+      background: var(--accent); color: #fff; border: none; 
+      padding: 0.9rem 2rem; border-radius: var(--radius); cursor: pointer; 
+      font-weight: 600; font-size: 0.95rem; transition: var(--anim-spring);
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    button.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px var(--accent-glow); opacity: 0.95; }
+    button.submit-btn:active { transform: translateY(0); }
+
+    /* BULLETIN STREAM BOARDS */
+    .notice-item { 
+      border-left: 4px solid var(--accent); background: var(--bg); 
+      padding: 1.4rem; border-radius: var(--radius); margin-bottom: 1.25rem;
+      transition: var(--anim-spring); animation: popUp 0.4s ease-out;
+    }
+    @keyframes popUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .notice-item:hover { transform: translateX(6px); background: var(--surface-hover); }
+
+    /* MOBILE PACK BREAKPOINTS */
+    @media (max-width: 992px) {
+      body { flex-direction: column; }
+      aside { 
+        position: fixed; top: 0; left: -290px; bottom: 0; width: 285px;
+        box-shadow: 15px 0 40px rgba(0,0,0,0.4); background: var(--surface);
+      }
+      aside.mobile-open { left: 0; }
+      header { padding: 1rem 1.25rem; }
+      .mobile-toggle { display: block; }
+      .nav-history-track { display: none; }
+      main { padding: 1.5rem 1rem; padding-bottom: 5rem; }
+      .card { padding: 1.25rem; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside id="sidebarPanel">
+    <div class="brand"><i class="fa-solid fa-chalkboard-user"></i> Faculty Suite</div>
+    <div class="menu-links">
+      <button class="menu-btn active" onclick="switchView('attendance-panel')"><i class="fa-solid fa-clock"></i> Duty Logs</button>
+      <button class="menu-btn" onclick="switchView('marks-panel')"><i class="fa-solid fa-file-invoice"></i> Grading Portal</button>
+      <button class="menu-btn" onclick="switchView('notices-panel')"><i class="fa-solid fa-bullhorn"></i> Notice Board</button>
+    </div>
+  </aside>
+
+  <div class="app-container">
+    <header>
+      <div class="header-left">
+        <button class="mobile-toggle" onclick="toggleMobileSidebar()"><i class="fa-solid fa-bars-staggered"></i></button>
+        <div class="nav-history-track">Workspace / <span id="breadCrumbNode" style="color:var(--accent); font-weight:600;">Duty Logs</span></div>
+      </div>
+      
+      <div class="header-controls">
+        <div class="theme-controller">
+          <div class="color-dot dot-green active" onclick="setThemeScheme('green', this)" title="Emerald Green"></div>
+          <div class="color-dot dot-blue" onclick="setThemeScheme('blue', this)" title="Neon Blue"></div>
+          <div class="color-dot dot-purple" onclick="setThemeScheme('purple', this)" title="Velvet Purple"></div>
+          <div class="color-dot dot-orange" onclick="setThemeScheme('orange', this)" title="Sunset Orange"></div>
+        </div>
+        
+        <button class="mode-toggle-btn" onclick="toggleLightDarkMode()" id="modeToggleBtn" title="Toggle Vision Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      
+      <section id="attendance-panel" class="view-panel active">
+        <h2><i class="fa-solid fa-user-clock"></i> Daily Shift Duty Logs</h2>
+        <div class="card">
+          <form id="attendanceForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Select Target Date</label>
+                <input type="date" id="dutyDate" required>
+              </div>
+              <div class="form-group">
+                <label>Arrival Time (Check-In)</label>
+                <input type="time" id="arrivalTime" required>
+              </div>
+              <div class="form-group">
+                <label>Departure Time (Check-Out)</label>
+                <input type="time" id="departureTime" required>
+              </div>
+              <div class="form-group">
+                <label>Total Number of Period/Leactures Taken today</label>
+                <input type="text" id="dailyTasks" placeholder="e.g.,  - 2" required>
+              </div>
+            </div>
+            <button type="submit" class="submit-btn"><i class="fa-solid fa-calendar-check"></i> Commit Ledger Logs</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="marks-panel" class="view-panel">
+        <h2><i class="fa-solid fa-marker"></i> Input Examination Marks Records</h2>
+        <div class="card">
+          <form id="marksForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Select Target Exam Framework</label>
+                <select id="marksExamSelect" required>
+                  <option value="">-- Choose Exam Target --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Select Target Student Profile</label>
+                <select id="marksStudentSelect" required>
+                  <option value="">-- Choose Target Student --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Obtained Score Numerical Value</label>
+                <input type="number" id="marksObtained" placeholder="Marks Obtained" min="0" required>
+              </div>
+            </div>
+            <button type="submit" class="submit-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Score Matrix</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="notices-panel" class="view-panel">
+        <h2><i class="fa-solid fa-newspaper"></i> Institutional Announcement Streams</h2>
+        <div class="card" id="noticesContainer">
+          <p style="color:var(--text-muted);">Loading circular feeds from database logs...</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, collection, addDoc, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAeADgbpp6FSStuLd1KLoCNzcTlfuQDuw4",
+      authDomain: "lakshya-academy-fdfb7.firebaseapp.com",
+      projectId: "lakshya-academy-fdfb7",
+      storageBucket: "lakshya-academy-fdfb7.firebasestorage.app",
+      messagingSenderId: "783967143214",
+      appId: "1:783967143214:web:daed9ed31f049f068aa6bf"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Dynamic Default Date Setup Engine Injection (Sets picker default to current date)
+    const today = new Date();
+    const formattedDefaultDate = today.toISOString().split('T')[0];
+    document.getElementById('dutyDate').value = formattedDefaultDate;
+
+    window.switchView = (panelId) => {
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+      
+      const currentPanel = document.getElementById(panelId);
+      if(currentPanel) currentPanel.classList.add('active');
+
+      const btnMatch = document.querySelector(`button[onclick="switchView('${panelId}')"]`);
+      if(btnMatch) {
+        btnMatch.classList.add('active');
+        document.getElementById('breadCrumbNode').textContent = btnMatch.textContent.trim();
+      }
+      document.getElementById('sidebarPanel').classList.remove('mobile-open');
+    };
+
+    window.toggleMobileSidebar = () => {
+      document.getElementById('sidebarPanel').classList.toggle('mobile-open');
+    };
+
+    window.setThemeScheme = (themeName, activeDot) => {
+      document.documentElement.setAttribute('data-theme', themeName);
+      document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+      if(activeDot) activeDot.classList.add('active');
+    };
+
+    window.toggleLightDarkMode = () => {
+      const activeMode = document.documentElement.getAttribute('data-mode') === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', activeMode);
+      
+      const toggleIcon = document.getElementById('modeToggleBtn').querySelector('i');
+      toggleIcon.className = activeMode === 'light' ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    };
+
+    // 1. Write Instructor Shift Entries Map directly using Calendar Date Object
+    document.getElementById('attendanceForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      const targetSelectionDate = document.getElementById('dutyDate').value;
+
+      try {
+        await addDoc(collection(db, "shifts"), {
+          teacherId: user ? user.uid : "offline_dev_faculty",
+          date: targetSelectionDate, // Custom calendar output directly bound here
+          checkIn: document.getElementById('arrivalTime').value,
+          checkOut: document.getElementById('departureTime').value,
+          tasks: document.getElementById('dailyTasks').value.trim(),
+          timestamp: new Date()
+        });
+        alert("Daily duty shift submission logged securely inside admin sync matrices.");
+        document.getElementById('attendanceForm').reset();
+        document.getElementById('dutyDate').value = formattedDefaultDate; // auto-reset back to current date
+      } catch(err) { alert(err.message); }
+    });
+
+    // 2. Sync Exams and Populate Dropdowns
+    onSnapshot(collection(db, "exams"), (snapshot) => {
+      const select = document.getElementById('marksExamSelect');
+      select.innerHTML = '<option value="">-- Choose Exam Target --</option>';
+      snapshot.forEach(doc => {
+        const exam = doc.data();
+        select.innerHTML += `<option value="${doc.id}">${exam.examName} (${exam.subjectId})</option>`;
+      });
+    });
+
+    // Sync Student Profiles Dropdown
+    const studentQuery = query(collection(db, "users"), where("role", "==", "student"));
+    onSnapshot(studentQuery, (snapshot) => {
+      const select = document.getElementById('marksStudentSelect');
+      select.innerHTML = '<option value="">-- Choose Target Student --</option>';
+      snapshot.forEach(doc => {
+        select.innerHTML += `<option value="${doc.id}">${doc.data().name}</option>`;
+      });
+    });
+
+    // Handle Upload of Marks Record
+    document.getElementById('marksForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await addDoc(collection(db, "marks"), {
+          examId: document.getElementById('marksExamSelect').value,
+          studentId: document.getElementById('marksStudentSelect').value,
+          obtainedMarks: Number(document.getElementById('marksObtained').value),
+          timestamp: new Date()
+        });
+        alert("Student grade mark saved down successfully.");
+        document.getElementById('marksForm').reset();
+      } catch(err) { alert(err.message); }
+    });
+
+    // 3. Notices Broadcast Monitor Stream
+    onSnapshot(collection(db, "notices"), (snapshot) => {
+      const container = document.getElementById('noticesContainer');
+      if(snapshot.empty) { container.innerHTML = '<p style="color:var(--text-muted);">No modern bulletins published.</p>'; return; }
+      
+      let html = '';
+      snapshot.forEach(doc => {
+        const notice = doc.data();
+        html += `
+          <div class="notice-item">
+            <h4 style="font-weight:600; color:var(--text);">${notice.title}</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem;">${notice.content}</p>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    });
+  </script>
+</body>
+</html>

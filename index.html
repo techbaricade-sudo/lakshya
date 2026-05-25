@@ -6,15 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Lakshya Academy | Quality Education Elite | Saharsa</title>
   
-  <!-- SEO Optimization Meta Tags -->
   <meta name="description" content="Lakshya Academy Saharsa - Board of Directors: Amit Kumar, Shivam Kr. Singh, Nikhil Jha. Concept-based learning for Class 6-9. Admissions open.">
   <meta name="keywords" content="Lakshya Academy, Board Members, Saharsa, coaching, admission, Tech Baricade, faculty login">
   
-  <!-- Premium Modern Fonts & Dynamic Font Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- AOS Scrolling Motion Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
@@ -145,6 +142,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      text-decoration: none; /* Added to keep design intact for anchor tags */
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -438,236 +436,6 @@
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
-    /* ==========================================
-       PORTAL LOGIN STYLING
-       ========================================== */
-    .portal-sheet-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(5, 8, 15, 0.4);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 2000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .portal-sheet-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .sheet-login-container {
-      background: #0f1420;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      width: 440px;
-      max-width: 100%;
-      border-radius: 28px;
-      padding: 44px;
-      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-      position: relative;
-      transform: scale(0.95) translateY(30px);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .portal-sheet-overlay.active .sheet-login-container {
-      transform: scale(1) translateY(0);
-    }
-
-    .panel-back-control {
-      position: absolute;
-      top: 28px;
-      left: 28px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--glass-border);
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--text-white);
-      transition: all 0.2s ease;
-    }
-
-    .panel-back-control:hover {
-      background: var(--text-white);
-      color: var(--bg-dark);
-    }
-
-    .sheet-login-container h2 {
-      font-size: 2rem;
-      margin: 20px 0 32px;
-      text-align: center;
-    }
-
-    .portal-tabs {
-      display: flex;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 6px;
-      border-radius: 14px;
-      margin-bottom: 28px;
-      border: 1px solid var(--glass-border);
-    }
-
-    .tab-btn {
-      flex: 1;
-      background: none;
-      border: none;
-      color: var(--text-gray);
-      padding: 12px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .tab-btn.active {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-white);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .tab-content-view {
-      display: none;
-    }
-
-    .tab-content-view.active {
-      display: block;
-      animation: fadeInPanel 0.3s ease forwards;
-    }
-
-    @keyframes fadeInPanel {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modern-field-box {
-      margin-bottom: 24px;
-    }
-
-    .modern-field-box label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-      color: var(--text-gray);
-    }
-
-    .input-with-icon {
-      position: relative;
-    }
-
-    .input-with-icon i {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-gray);
-      font-size: 0.95rem;
-      pointer-events: none;
-      transition: color 0.2s ease;
-    }
-
-    .input-with-icon input {
-      width: 100%;
-      padding: 16px 16px 16px 48px;
-      background: rgba(0,0,0,0.2);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      color: #fff;
-      font-family: inherit;
-      outline: none;
-      transition: all 0.2s ease;
-    }
-
-    .input-with-icon input:focus {
-      border-color: var(--accent-glow);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-    }
-
-    .input-with-icon input:focus + i {
-      color: var(--accent-glow);
-    }
-
-    .btn-submit-action {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 14px;
-      background: var(--text-white);
-      color: var(--bg-dark);
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: all 0.25s ease;
-    }
-
-    .btn-submit-action:hover {
-      background: var(--accent-glow);
-      color: #fff;
-    }
-
-    .faculty-accent-btn {
-      background: var(--accent-glow);
-      color: #fff;
-    }
-
-    .faculty-accent-btn:hover {
-      background: #1d4ed8;
-    }
-
-    .micro-spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: loop-spin 0.6s linear infinite;
-    }
-
-    @keyframes loop-spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .panel-meta-links {
-      text-align: center;
-      margin-top: 28px;
-      font-size: 0.9rem;
-    }
-
-    .panel-meta-links p {
-      margin-bottom: 8px;
-      color: var(--text-gray);
-    }
-
-    .panel-meta-links a {
-      color: var(--accent-glow);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
     /* Contact Map Infrastructure */
     .contact-map-layout {
       display: grid;
@@ -744,22 +512,11 @@
       .mobile-hamburger { display: block; }
       .hero-text h2 { font-size: 2.4rem; }
       section { padding: 60px 0; }
-      .portal-sheet-overlay { align-items: flex-end; }
-      .sheet-login-container {
-        width: 100%;
-        border-radius: 32px 32px 0 0;
-        padding: 36px 24px 60px;
-        transform: translateY(100%);
-        border-left: none; border-right: none; border-bottom: none;
-      }
-      .portal-sheet-overlay.active .sheet-login-container { transform: translateY(0); }
-      .form-panel-enquiry { padding: 28px; border-radius: 24px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Navigation -->
 <nav>
   <div class="container nav-flex">
     <div class="logo">
@@ -773,12 +530,11 @@
       <a href="#board">The Board</a>
       <a href="#admission">Admissions</a>
       <a href="#contact">Contact</a>
-      <button id="openPortalBtn" class="btn-portal-trigger"><i class="fas fa-lock-open"></i> Portal Login</button>
+      <a href="login.html" class="btn-portal-trigger"><i class="fas fa-lock-open"></i> Portal Login</a>
     </div>
   </div>
 </nav>
 
-<!-- Hero Section -->
 <section id="home" class="hero">
   <div class="glow-sphere" style="top: 10%; right: 5%;"></div>
   <div class="container">
@@ -804,7 +560,6 @@
   </div>
 </section>
 
-<!-- About Section -->
 <section id="about">
   <div class="glow-sphere" style="bottom: 5%; left: 2%;"></div>
   <div class="container">
@@ -819,7 +574,6 @@
   </div>
 </section>
 
-<!-- Courses Section -->
 <section id="courses">
   <div class="container">
     <div class="center-header" data-aos="fade-up">
@@ -834,7 +588,6 @@
   </div>
 </section>
 
-<!-- Board Section -->
 <section id="board">
   <div class="container">
     <div class="center-header" data-aos="fade-up">
@@ -858,7 +611,6 @@
   </div>
 </section>
 
-<!-- Admissions Section -->
 <section id="admission">
   <div class="container">
     <div class="admission-dual-box">
@@ -870,7 +622,7 @@
           <p>Evaluation Matrix: <strong>25th May 2026</strong>. Syllabus parameters cover general processing logic and fundamental quant metrics.</p>
         </div>
       </div>
-      
+       
       <div class="form-panel-enquiry" data-aos="fade-left">
         <h3 style="font-size: 1.6rem; margin-bottom: 28px;"><i class="far fa-paper-plane" style="color:var(--accent-glow)"></i> Direct Admission Link</h3>
         <form id="studentEnquiryForm">
@@ -891,7 +643,6 @@
   </div>
 </section>
 
-<!-- Contact Section -->
 <section id="contact" style="background: rgba(255,255,255,0.01);">
   <div class="container">
     <div class="contact-map-layout">
@@ -909,234 +660,32 @@
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="container">
     <p>© 2026 Lakshya Academy. System architecture verified by <a href="https://techbaricade.com" target="_blank">Tech Baricade</a>.</p>
   </div>
 </footer>
 
-<!-- Sliding Portal Glass Overlay Sheet -->
-<div class="portal-sheet-overlay" id="portalLayer">
-  <div class="sheet-login-container">
-    <div class="panel-back-control" id="closePortalSheet" title="Return to Website"><i class="fas fa-chevron-left"></i></div>
-    <h2>Secure Gateway</h2>
-
-    <div class="portal-tabs">
-      <button type="button" class="tab-btn active" onclick="switchPortalTab(event, 'student-panel')">
-        <i class="fas fa-user-graduate"></i> Student / Parent
-      </button>
-      <button type="button" class="tab-btn" onclick="switchPortalTab(event, 'faculty-panel')">
-        <i class="fas fa-user-shield"></i> Faculty / Board
-      </button>
-    </div>
-
-    <!-- Student Panel -->
-    <div id="student-panel" class="tab-content-view active">
-      <form id="studentPortalForm">
-        <div class="modern-field-box">
-          <label for="studentRegNo">Student Account Email</label>
-          <div class="input-with-icon">
-            <i class="fas fa-envelope input-prefix"></i>
-            <input type="email" id="studentRegNo" placeholder="student@lakshya.com" required>
-          </div>
-        </div>
-        <div class="modern-field-box">
-          <label for="studentPassword">Password</label>
-          <div class="input-with-icon">
-            <i class="fas fa-lock input-prefix"></i>
-            <input type="password" id="studentPassword" placeholder="••••••••" required>
-          </div>
-        </div>
-        <button type="submit" class="btn-submit-action">
-          <span>Access Dashboard</span>
-          <div class="micro-spinner"></div>
-        </button>
-      </form>
-    </div>
-
-    <!-- Faculty Panel -->
-    <div id="faculty-panel" class="tab-content-view">
-      <form id="facultyPortalForm">
-        <div class="modern-field-box">
-          <label for="facultyEmail">Academic Email</label>
-          <div class="input-with-icon">
-            <i class="fas fa-envelope input-prefix"></i>
-            <input type="email" id="facultyEmail" placeholder="name@lakshya.com" required>
-          </div>
-        </div>
-        <div class="modern-field-box">
-          <label for="facultyToken">Security Password</label>
-          <div class="input-with-icon">
-            <i class="fas fa-lock input-prefix"></i>
-            <input type="password" id="facultyToken" placeholder="••••••••" required>
-          </div>
-        </div>
-        <button type="submit" class="btn-submit-action faculty-accent-btn">
-          <span>Authorize Clearance</span>
-          <div class="micro-spinner"></div>
-        </button>
-      </form>
-    </div>
-
-    <div class="panel-meta-links">
-      <p><a href="#" onclick="alert('Please connect with Amit Kumar or Nikhil Jha at the admin desk to verify or reset your security credentials.')">Forgot Password?</a></p>
-      <p>System Issue? <a href="#contact" id="forceCloseLink">Contact Desk</a></p>
-    </div>
-  </div>
-</div>
-
-<!-- Floating Action Buttons -->
 <div class="floating-action-cluster">
   <a href="https://wa.me/919709316822?text=Enquiry" class="circle-trigger-btn cluster-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
   <a href="tel:+917004931491" class="circle-trigger-btn cluster-call"><i class="fas fa-phone-alt"></i></a>
 </div>
 
-<!-- JS Core Engines & Firebase 10 Modular Web SDK Delivery -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script type="module">
-  // Import the Firebase modules
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-  // ⚠️ PASTE YOUR UNIQUE FIREBASE CONFIG OBJECT DATA BELOW HERE:
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_ID",
-    appId: "YOUR_APP_ID"
-  };
-
-  // Initialize Firebase Cloud Instances
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+<script>
+  // Mobile Menu Toggle Script (Pure JS Setup)
+  const navTrigger = document.getElementById('navTrigger');
+  const menuMenu = document.getElementById('menuMenu');
+  
+  if(navTrigger && menuMenu) {
+    navTrigger.addEventListener('click', () => {
+      menuMenu.classList.toggle('show');
+    });
+  }
 
   // Initialize Scroll Motion
   AOS.init({ duration: 800, once: true, easing: 'ease-out-quad' });
-
-  // Navigation Logic
-  const navTrigger = document.getElementById('navTrigger');
-  const menuMenu = document.getElementById('menuMenu');
-  navTrigger?.addEventListener('click', () => {
-    menuMenu.classList.toggle('show');
-    navTrigger.querySelector('i').classList.toggle('fa-bars');
-    navTrigger.querySelector('i').classList.toggle('fa-xmark');
-  });
-
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      menuMenu.classList.remove('show');
-      if(navTrigger.querySelector('i').classList.contains('fa-xmark')) {
-        navTrigger.querySelector('i').classList.add('fa-bars');
-        navTrigger.querySelector('i').classList.remove('fa-xmark');
-      }
-    });
-  });
-
-  // Modal Control System
-  const openPortalBtn = document.getElementById('openPortalBtn');
-  const closePortalSheet = document.getElementById('closePortalSheet');
-  const forceCloseLink = document.getElementById('forceCloseLink');
-  const portalLayer = document.getElementById('portalLayer');
-
-  openPortalBtn?.addEventListener('click', (e) => { e.preventDefault(); portalLayer.classList.add('active'); document.body.style.overflow = 'hidden'; });
-  
-  function retractPortal() { portalLayer.classList.remove('active'); document.body.style.overflow = 'auto'; }
-  closePortalSheet?.addEventListener('click', retractPortal);
-  forceCloseLink?.addEventListener('click', retractPortal);
-
-  window.switchPortalTab = function(event, tabId) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content-view').forEach(content => content.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    document.getElementById(tabId).classList.add('active');
-  }
-
-  // ==========================================
-  // BACKEND: FIREBASE AUTH LOGIN PIPELINES
-  // ==========================================
-
-  // Student Cloud Auth Verification
-  document.getElementById('studentPortalForm')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('studentRegNo').value;
-    const password = document.getElementById('studentPassword').value;
-    const submitBtn = this.querySelector('.btn-submit-action');
-    const spinner = this.querySelector('.micro-spinner');
-    
-    spinner.style.display = 'inline-block';
-    submitBtn.style.pointerEvents = 'none';
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      alert(`Access Verified! Welcome to the Lakshya Student Panel: ${userCredential.user.email}`);
-      retractPortal();
-    } catch (error) {
-      alert(`Authentication Failed: ${error.message}`);
-    } finally {
-      spinner.style.display = 'none';
-      submitBtn.style.pointerEvents = 'auto';
-    }
-  });
-
-  // Faculty Cloud Auth Verification
-  document.getElementById('facultyPortalForm')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('facultyEmail').value;
-    const password = document.getElementById('facultyToken').value;
-    const submitBtn = this.querySelector('.btn-submit-action');
-    const spinner = this.querySelector('.micro-spinner');
-    
-    spinner.style.display = 'inline-block';
-    submitBtn.style.pointerEvents = 'none';
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      alert(`Clearance Granted. Welcome Academic Authority: ${userCredential.user.email}`);
-      retractPortal();
-    } catch (error) {
-      alert(`Authorization Rejected: ${error.message}`);
-    } finally {
-      spinner.style.display = 'none';
-      submitBtn.style.pointerEvents = 'auto';
-    }
-  });
-
-  // ==========================================
-  // BACKEND: FIRESTORE LIVE ADMISSIONS WRITER
-  // ==========================================
-  document.getElementById('studentEnquiryForm')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const name = document.getElementById('candidateName').value;
-    const phone = document.getElementById('candidateLine').value;
-    const targetClass = document.getElementById('candidateClass').value;
-    const submitBtn = document.getElementById('enquirySubmitBtn');
-
-    submitBtn.innerText = "Transmitting Details...";
-    submitBtn.style.pointerEvents = "none";
-
-    try {
-      // Writes a clear document record inside the "admissions" collection on the database cloud
-      await addDoc(collection(db, "admissions"), {
-        studentName: name,
-        contactLine: phone,
-        allocatedSegment: targetClass,
-        timestamp: serverTimestamp()
-      });
-
-      alert(`Success, ${name}! Your admission enquiry database record has been safely logged.`);
-      this.reset();
-    } catch (error) {
-      alert(`Database Push Failed: ${error.message}`);
-    } finally {
-      submitBtn.innerText = "Transmit Direct Request";
-      submitBtn.style.pointerEvents = "auto";
-    }
-  });
 </script>
+
 </body>
 </html>

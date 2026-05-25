@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lakshya Academy - Student Hub</title>
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- 📄 HTML2PDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <style>
+    /* 🎨 THEME CONFIGURATIONS */
+    :root {
+      --bg: #0b0f19; --surface: #131926; --surface-hover: rgba(255, 255, 255, 0.04);
+      --text: #f8fafc; --text-muted: #64748b; --border: rgba(255, 255, 255, 0.06); 
+      --accent: #3b82f6; --accent-glow: rgba(59, 130, 246, 0.25);
+      --success: #10b981; --warn: #f59e0b; --danger: #ef4444; --radius: 14px;
+      --anim-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --anim-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-mode="light"] {
+      --bg: #f1f5f9; --surface: #ffffff; --surface-hover: rgba(0, 0, 0, 0.03);
+      --text: #0f172a; --text-muted: #64748b; --border: rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="green"] { --accent: #10b981; --accent-glow: rgba(16, 185, 129, 0.25); }
+    [data-theme="purple"] { --accent: #a855f7; --accent-glow: rgba(168, 85, 247, 0.25); }
+    [data-theme="orange"] { --accent: #f97316; --accent-glow: rgba(249, 115, 22, 0.25); }
+
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; transition: background 0.3s ease, color 0.3s ease; }
+
+    /* 📂 SIDEBAR WITH SMOOTH ANIMATION LAYER */
+    aside { 
+      width: 280px; background: var(--surface); border-right: 1px solid var(--border); 
+      padding: 2.5rem 1.25rem; display: flex; flex-direction: column; z-index: 110; 
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    }
+    .brand { font-size: 1.3rem; font-weight: 700; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .brand i { color: var(--accent); }
+    .menu-links { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+    .menu-btn { width: 100%; text-align: left; background: none; border: none; color: var(--text-muted); padding: 0.9rem 1.1rem; border-radius: var(--radius); cursor: pointer; font-size: 0.95rem; display: flex; align-items: center; gap: 0.85rem; transition: var(--anim-smooth); }
+    .menu-btn:hover { color: var(--text); background: var(--surface-hover); padding-left: 1.4rem; }
+    .menu-btn.active { color: #ffffff !important; background: var(--accent); box-shadow: 0 8px 24px var(--accent-glow); font-weight: 600; }
+
+    /* 🌆 SMOOTH MOBILE BACKDROP SCREEN OVERLAY */
+    .sidebar-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11, 15, 25, 0.5); backdrop-filter: blur(4px);
+      z-index: 105; display: none; opacity: 0; transition: opacity 0.3s ease;
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
+
+    .app-container { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2.5rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 90; }
+    
+    /* 3 LINES HAMBURGER TRIGGER BUTTON */
+    .mobile-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; padding: 0.5rem; transition: var(--anim-smooth); }
+    .mobile-toggle:active { transform: scale(0.9); }
+
+    .header-controls { display: flex; align-items: center; gap: 1rem; }
+    .theme-controller { display: flex; align-items: center; gap: 0.4rem; background: var(--bg); padding: 0.35rem 0.5rem; border-radius: 30px; border: 1px solid var(--border); }
+    .color-dot { width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+    .color-dot.active { border-color: var(--text); transform: scale(1.15); }
+    .dot-blue { background: #3b82f6; } .dot-green { background: #10b981; } .dot-purple { background: #a855f7; } .dot-orange { background: #f97316; }
+    .mode-toggle-btn { background: var(--bg); border: 1px solid var(--border); color: var(--text); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    main { flex: 1; padding: 2.5rem; }
+    .view-panel { display: none; opacity: 0; transform: translateY(25px); }
+    .view-panel.active { display: block; animation: panelEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    @keyframes panelEntrance { to { opacity: 1; transform: translateY(0); } }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; margin-bottom: 2rem; transition: var(--anim-spring); }
+    h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.6rem; }
+    h2 i { color: var(--accent); }
+
+    /* NOTIFICATION BOXES */
+    .notice-box { background: var(--bg); border: 1px solid var(--border); padding: 1.4rem; border-radius: var(--radius); margin-bottom: 1.25rem; transition: var(--anim-spring); position: relative; overflow: hidden; }
+    .notice-box.important-active { border-left: 4px solid var(--warn); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1); }
+    .notice-box.unread-active { border-left: 4px solid var(--accent); }
+    .notice-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+    .notice-badge { font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 20px; text-transform: uppercase; }
+    .badge-imp { background: rgba(245, 158, 11, 0.15); color: var(--warn); }
+    .badge-new { background: rgba(59, 130, 246, 0.15); color: var(--accent); }
+    .notice-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .action-btn { border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; transition: var(--anim-smooth); background: rgba(255,255,255,0.03); color: var(--text-muted); }
+    .action-btn.btn-read:hover { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .action-btn.btn-important:hover { background: rgba(245, 158, 11, 0.15); color: var(--warn); }
+    .action-btn.active-imp { background: var(--warn); color: #fff !important; }
+
+    /* TABLES & PDF BUTTONS */
+    .table-container { width: 100%; overflow-x: auto; margin-top: 1rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg); }
+    table { width: 100%; border-collapse: collapse; min-width: 600px; }
+    th, td { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); text-align: left; }
+    th { background: rgba(0,0,0,0.1); color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; }
+    .btn-pdf-download { background: var(--surface-hover); color: var(--accent); border: 1px solid var(--accent); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; transition: var(--anim-smooth); }
+    .btn-pdf-download:hover { background: var(--accent); color: #fff; box-shadow: 0 4px 12px var(--accent-glow); }
+
+    .fee-badge { background: rgba(245,158,11,0.08); border: 1px solid var(--warn); color: var(--warn); padding: 0.9rem 1.5rem; border-radius: var(--radius); font-size: 1.2rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
+    textarea { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 1rem; color: var(--text); border-radius: var(--radius); outline: none; }
+    button.submit-btn { background: var(--accent); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: var(--radius); cursor: pointer; font-weight: 600; box-shadow: 0 4px 14px var(--accent-glow); transition: var(--anim-spring); }
+    button.submit-btn:hover { transform: translateY(-2px); }
+
+    /* INVISIBLE PDF RENDERING CORES */
+    #invisiblePdfRenderTemplate { position: absolute; left: -9999px; top: -9999px; width: 790px; background: #ffffff; color: #0f172a; padding: 40px; }
+    .pdf-header { text-align: center; border-bottom: 3px double #cbd5e1; padding-bottom: 20px; margin-bottom: 25px; }
+    .pdf-title { font-size: 24px; font-weight: 700; color: #1e3a8a; text-transform: uppercase; }
+    .pdf-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; font-size: 14px; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .pdf-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .pdf-table th { background: #1e3a8a; color: #ffffff; padding: 12px; font-size: 12px; }
+    .pdf-table td { padding: 12px; border: 1px solid #cbd5e1; font-size: 14px; }
+    .pdf-footer { text-align: center; margin-top: 60px; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 15px; }
+
+    /* 📱 RESPONSIVE MEDIA HOOKS */
+    @media (max-width: 992px) {
+      body { flex-direction: column; }
+      aside { 
+        position: fixed; top: 0; left: 0; bottom: 0; width: 285px; 
+        transform: translateX(-100%); /* Initial state hidden smoothly */
+        box-shadow: 15px 0 40px rgba(0,0,0,0.3);
+      }
+      aside.mobile-open { 
+        transform: translateX(0); /* Smooth slide in glide */
+      }
+      header { padding: 1rem 1.25rem; } 
+      .mobile-toggle { display: block; }
+      main { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND CLOSER OVERLAY -->
+  <div class="sidebar-overlay" id="screenOverlay" onclick="closeMobileSidebar()"></div>
+
+  <!-- SIDEBAR PANEL -->
+  <aside id="sidebarPanel">
+    <div class="brand"><i class="fa-solid fa-user-graduate"></i> Student Core</div>
+    <div class="menu-links">
+      <button class="menu-btn active" onclick="switchView('notices-panel')"><i class="fa-solid fa-bullhorn"></i> Notice Board</button>
+      <button class="menu-btn" onclick="switchView('performance-panel')"><i class="fa-solid fa-chart-line"></i> Report Card</button>
+      <button class="menu-btn" onclick="switchView('fees-panel')"><i class="fa-solid fa-receipt"></i> Fee Ledger</button>
+      <button class="menu-btn" onclick="switchView('feedback-panel')"><i class="fa-solid fa-comment-dots"></i> Send Feedback</button>
+    </div>
+  </aside>
+
+  <!-- APP WIRE CONTAINER -->
+  <div class="app-container">
+    <header>
+      <div class="header-left">
+        <!-- 3 LINES NAVIGATION TOGGLE BUTTON -->
+        <button class="mobile-toggle" onclick="openMobileSidebar()"><i class="fa-solid fa-bars-staggered"></i></button>
+        <div class="nav-history-track">Dashboard / <span id="breadCrumbNode" style="color:var(--accent); font-weight:600;">Notice Board</span></div>
+      </div>
+      
+      <div class="header-controls">
+        <div class="theme-controller">
+          <div class="color-dot dot-blue active" onclick="setThemeScheme('blue', this)"></div>
+          <div class="color-dot dot-green" onclick="setThemeScheme('green', this)"></div>
+          <div class="color-dot dot-purple" onclick="setThemeScheme('purple', this)"></div>
+          <div class="color-dot dot-orange" onclick="setThemeScheme('orange', this)"></div>
+        </div>
+        <button class="mode-toggle-btn" onclick="toggleLightDarkMode()" id="modeToggleBtn"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </header>
+
+    <main>
+      <!-- NOTICES PANEL -->
+      <section id="notices-panel" class="view-panel active">
+        <h2><i class="fa-solid fa-envelope-open-text"></i> Campus Announcements</h2>
+        <div class="card" id="studentNoticesLog">
+          <p style="color:var(--text-muted);">Syncing notice lines from terminal cloud streams...</p>
+        </div>
+      </section>
+
+      <!-- REPORT CARD PANEL -->
+      <section id="performance-panel" class="view-panel">
+        <h2><i class="fa-solid fa-id-card-clip"></i> Academic Progress Report Card</h2>
+        <div class="card">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr><th>Exam Structural Node ID</th><th>Obtained Marks Score</th><th>Status State</th><th>Document Dispatch</th></tr>
+              </thead>
+              <tbody id="performanceTableBody">
+                <tr><td colspan="4" style="color:var(--text-muted); text-align:center;">Awaiting active cloud session validation...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEES PANEL -->
+      <section id="fees-panel" class="view-panel">
+        <h2><i class="fa-solid fa-wallet"></i> Fee Accounting Ledger Statement</h2>
+        <div class="card">
+          <p style="color:var(--text-muted); margin-bottom:0.5rem;">Outstanding Balance Due:</p>
+          <div class="fee-badge" id="remainingFeeBox"><i class="fa-solid fa-triangle-exclamation"></i> ₹ 4,500 Outstanding</div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr><th>Receipt Token ID</th><th>Amount Remitted</th><th>Transaction Date</th><th>Status State</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>#REC-2026-092</td><td>₹ 5,000</td><td>12-May-2026</td><td><span style="color:var(--success); font-weight:600;"><i class="fa-solid fa-circle-check"></i> Cleared</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEEDBACK PANEL -->
+      <section id="feedback-panel" class="view-panel">
+        <h2><i class="fa-solid fa-bullseye"></i> Submit Institutional Feedback</h2>
+        <div class="card">
+          <form id="feedbackForm">
+            <textarea id="feedbackText" placeholder="Provide anonymous comments..." rows="5" required style="margin-bottom:1.25rem;"></textarea>
+            <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Route Feedback</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- INVISIBLE PDF PRINT LAYOUT TEMPLATE -->
+  <div id="invisiblePdfRenderTemplate">
+    <div class="pdf-header">
+      <div class="pdf-title">Lakshya Academy</div>
+      <div style="font-size: 12px; color: #475569; margin-top: 4px;">Official Academic Performance Statement</div>
+    </div>
+    <div class="pdf-meta-grid">
+      <div><strong>Student ID Account:</strong> <span id="pdfStudentId">STU-NODE-XYZ</span></div>
+      <div><strong>Document Generation Date:</strong> <span id="pdfGenerationTimestamp">25-May-2026</span></div>
+      <div><strong>Examination Domain:</strong> <span id="pdfExamTitle" style="color:#1e3a8a; font-weight:700;">N/A</span></div>
+      <div><strong>Verification Integrity:</strong> Digital Cryptographic Record</div>
+    </div>
+    <table class="pdf-table">
+      <thead>
+        <tr>
+          <th style="text-align: left; width: 60%;">Assessment Element Parameter</th>
+          <th style="text-align: center; width: 40%;">Scored Value Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aggregate Component Evaluation Score</td>
+          <td style="text-align: center; font-weight: 700; font-size: 16px; color: #1e3a8a;" id="pdfObtainedScore">00</td>
+        </tr>
+        <tr><td>Institutional Passing Cut-off Matrix Threshold</td><td style="text-align: center; color: #64748b;">Conditional Variable Match</td></tr>
+        <tr><td>Status Authorization Evaluation State</td><td style="text-align: center; color: #16a34a; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Verified Core</td></tr>
+      </tbody>
+    </table>
+    <div class="pdf-footer">
+      This documentation layout is a direct system rendering derived securely from live Cloud Firestore modules.<br>
+      © 2026 Lakshya Academy Management Suite • Confidential System Record
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, doc, updateDoc, arrayUnion, onSnapshot, query, where, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAeADgbpp6FSStuLd1KLoCNzcTlfuQDuw4",
+      authDomain: "lakshya-academy-fdfb7.firebaseapp.com",
+      projectId: "lakshya-academy-fdfb7",
+      storageBucket: "lakshya-academy-fdfb7.firebasestorage.app",
+      messagingSenderId: "783967143214",
+      appId: "1:783967143214:web:daed9ed31f049f068aa6bf"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    let currentStudentUid = "demo_student_node";
+    let currentStudentEmail = "student@lakshya.com";
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentStudentUid = user.uid;
+        currentStudentEmail = user.email || user.uid;
+      }
+      syncNoticesEngine();
+      syncStudentReportCard(currentStudentUid);
+    });
+
+    // 📱 INTERACTIVE MOBILE OVERLAY VIEW CONTROLLERS
+    window.openMobileSidebar = () => {
+      document.getElementById('sidebarPanel').classList.add('mobile-open');
+      document.getElementById('screenOverlay').classList.add('show');
+    };
+
+    window.closeMobileSidebar = () => {
+      document.getElementById('sidebarPanel').classList.remove('mobile-open');
+      document.getElementById('screenOverlay').classList.remove('show');
+    };
+
+    // VIEW SWAP SYSTEM
+    window.switchView = (panelId) => {
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+      
+      const cp = document.getElementById(panelId); if(cp) cp.classList.add('active');
+      const bm = document.querySelector(`button[onclick="switchView('${panelId}')"]`);
+      if(bm) { bm.classList.add('active'); document.getElementById('breadCrumbNode').textContent = bm.textContent.trim(); }
+      
+      // Automatic close sidebar when menu link is triggered
+      closeMobileSidebar();
+    };
+
+    // 🔔 REALTIME NOTICES LOGIC
+    function syncNoticesEngine() {
+      onSnapshot(collection(db, "notices"), (snapshot) => {
+        const display = document.getElementById('studentNoticesLog');
+        if(snapshot.empty) { display.innerHTML = '<p style="color:var(--text-muted);">Bulletin board clear.</p>'; return; }
+        
+        let html = '';
+        snapshot.forEach(docSnap => {
+          const id = docSnap.id;
+          const item = docSnap.data();
+          const seenBy = item.seenBy || [];
+          const importantBy = item.importantBy || [];
+
+          if (seenBy.includes(currentStudentUid)) return;
+
+          const isImportant = importantBy.includes(currentStudentUid);
+          const boxClass = isImportant ? 'important-active' : 'unread-active';
+          const badge = isImportant ? '<span class="notice-badge badge-imp"><i class="fa-solid fa-star"></i> Important</span>' : '<span class="notice-badge badge-new">New</span>';
+
+          html += `
+            <div class="notice-box ${boxClass}" id="box-${id}">
+              <div class="notice-header">
+                <h4 style="font-weight:600; color:var(--text);">${item.title}</h4>
+                ${badge}
+              </div>
+              <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.4rem;">${item.content}</p>
+              <div class="notice-actions">
+                <button class="action-btn btn-read" onclick="markNoticeRead('${id}')">
+                  <i class="fa-solid fa-eye-slash"></i> Mark as Read
+                </button>
+                <button class="action-btn btn-important ${isImportant ? 'active-imp' : ''}" onclick="toggleNoticeImportant('${id}', ${isImportant})">
+                  <i class="fa-solid fa-star"></i> ${isImportant ? 'Unmark Important' : 'Mark as Important'}
+                </button>
+              </div>
+            </div>`;
+        });
+        display.innerHTML = html || '<p style="color:var(--text-muted);">All caught up! No unread notices.</p>';
+      });
+    }
+
+    window.markNoticeRead = async (noticeId) => {
+      try {
+        await updateDoc(doc(db, "notices", noticeId), { seenBy: arrayUnion(currentStudentUid), seenByEmails: arrayUnion(currentStudentEmail) });
+      } catch(err) { console.error("Error updates:", err); }
+    };
+
+    window.toggleNoticeImportant = async (noticeId, currentStatus) => {
+      try { if(!currentStatus) await updateDoc(doc(db, "notices", noticeId), { importantBy: arrayUnion(currentStudentUid) }); } catch(err) { console.error("Error updates:", err); }
+    };
+
+    // 📊 REPORT CARD CORE
+    function syncStudentReportCard(studentUid) {
+      const marksQuery = query(collection(db, "marks"), where("studentId", "==", studentUid));
+      onSnapshot(marksQuery, (snapshot) => {
+        const tbody = document.getElementById('performanceTableBody');
+        if(snapshot.empty) { tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">No records.</td></tr>'; return; }
+        let html = '';
+        snapshot.forEach(doc => {
+          const score = doc.data();
+          const totalScoreValue = score.obtainedMarks !== undefined ? score.obtainedMarks : (score.marksObtained !== undefined ? score.marksObtained : 'N/A');
+          const cleanExamId = score.examId.replace(/['"]/g, "");
+          
+          html += `
+            <tr>
+              <td><span style="font-weight:600;">${score.examId}</span></td>
+              <td><span style="color:var(--accent); font-weight:700;">${totalScoreValue}</span></td>
+              <td><span style="color:var(--success); font-weight:600;"><i class="fa-solid fa-circle-check"></i> Recorded</span></td>
+              <td>
+                <button class="btn-pdf-download" onclick="generateExamWisePdf('${cleanExamId}', '${totalScoreValue}')">
+                  <i class="fa-solid fa-file-pdf"></i> Download PDF
+                </button>
+              </td>
+            </tr>`;
+        });
+        tbody.innerHTML = html;
+      });
+    }
+
+    // PDF GENERATION HOOK
+    window.generateExamWisePdf = function(examName, scoreValue) {
+      document.getElementById('pdfStudentId').innerText = currentStudentEmail;
+      document.getElementById('pdfExamTitle').innerText = examName;
+      document.getElementById('pdfObtainedScore').innerText = scoreValue;
+      document.getElementById('pdfGenerationTimestamp').innerText = new Date().toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+      const element = document.getElementById('invisiblePdfRenderTemplate');
+      const opt = {
+        margin: 0.5, filename: `ReportCard_${examName.replace(/\s+/g, '_')}.pdf`, image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    };
+
+    // UTILS SYSTEM
+    window.setThemeScheme = (theme, dot) => { document.documentElement.setAttribute('data-theme', theme); document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active')); dot.classList.add('active'); };
+    window.toggleLightDarkMode = () => { const m = document.documentElement.getAttribute('data-mode') === 'light' ? 'dark' : 'light'; document.documentElement.setAttribute('data-mode', m); document.getElementById('modeToggleBtn').querySelector('i').className = m === 'light' ? "fa-solid fa-sun" : "fa-solid fa-moon"; };
+
+    document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await addDoc(collection(db, "feedback"), { studentUid: currentStudentUid, text: document.getElementById('feedbackText').value.trim(), timestamp: new Date() });
+        alert("Feedback dispatched."); document.getElementById('feedbackForm').reset();
+      } catch(err) { alert(err.message); }
+    });
+  </script>
+</body>
+</html>

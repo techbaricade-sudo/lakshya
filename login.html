@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lakshya Academy Portal - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root { --bg: #0f172a; --surface: #1e293b; --accent: #3b82f6; --text: #f8fafc; --text-muted: #94a3b8; --border: #334155; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 1rem; }
+    .login-card { background: var(--surface); border: 1px solid var(--border); width: 100%; max-width: 420px; padding: 2.5rem; border-radius: 1.25rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
+    .brand { text-align: center; margin-bottom: 2rem; }
+    .brand i { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .brand h1 { font-size: 1.5rem; font-weight: 700; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
+    .input-wrapper { position: relative; }
+    .input-wrapper i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .input-wrapper input { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 0.75rem 1rem 0.75rem 2.7rem; color: var(--text); border-radius: 0.5rem; outline: none; transition: all 0.2s; }
+    .input-wrapper input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
+    .btn-login { width: 100%; background: var(--accent); color: var(--text); border: none; padding: 0.85rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; margin-top: 1rem; transition: background 0.2s; }
+    .btn-login:hover { background: #2563eb; }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="brand">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <h1>Lakshya Academy</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Unified Examination Portal</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label>Portal Email Address</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="loginEmail" placeholder="name@lakshya.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Secure Security Password</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-login" id="loginBtn">Secure Sign In</button>
+    </form>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // PASTE YOUR FIREBASE CONFIG SNIPPET HERE:
+    const firebaseConfig = {
+  apiKey: "AIzaSyAeADgbpp6FSStuLd1KLoCNzcTlfuQDuw4",
+  authDomain: "lakshya-academy-fdfb7.firebaseapp.com",
+  projectId: "lakshya-academy-fdfb7",
+  storageBucket: "lakshya-academy-fdfb7.firebasestorage.app",
+  messagingSenderId: "783967143214",
+  appId: "1:783967143214:web:daed9ed31f049f068aa6bf"
+};
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      btn.innerText = "Verifying Credentials...";
+      btn.disabled = true;
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPassword').value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+        const uid = userCredential.user.uid;
+
+        // Fetch user role from database 'users' collection
+        const userDoc = await getDoc(doc(db, "users", uid));
+        
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const role = userData.role; // admin, faculty, student
+
+          alert(`Access Approved! Routing to ${role} workspace.`);
+          
+          // Redirect smoothly to matching html panel
+          if (role === 'admin') window.location.href = 'admin.html';
+          else if (role === 'faculty') window.location.href = 'faculty.html';
+          else if (role === 'student') window.location.href = 'student.html';
+          else alert("Role mapping error. Contact Admin.");
+        } else {
+          alert("Profile record missing in core database. Contact Admin.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Authentication Denied: Check password or spelling accuracy.");
+      } finally {
+        btn.innerText = "Secure Sign In";
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
