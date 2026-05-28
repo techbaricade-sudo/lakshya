@@ -1,114 +1,665 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lakshya Academy Portal - Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root { --bg: #0f172a; --surface: #1e293b; --accent: #3b82f6; --text: #f8fafc; --text-muted: #94a3b8; --border: #334155; }
-    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 1rem; }
-    .login-card { background: var(--surface); border: 1px solid var(--border); width: 100%; max-width: 420px; padding: 2.5rem; border-radius: 1.25rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
-    .brand { text-align: center; margin-bottom: 2rem; }
-    .brand i { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; }
-    .brand h1 { font-size: 1.5rem; font-weight: 700; }
-    .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
-    .input-wrapper { position: relative; }
-    .input-wrapper i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    .input-wrapper input { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 0.75rem 1rem 0.75rem 2.7rem; color: var(--text); border-radius: 0.5rem; outline: none; transition: all 0.2s; }
-    .input-wrapper input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
-    .btn-login { width: 100%; background: var(--accent); color: var(--text); border: none; padding: 0.85rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; margin-top: 1rem; transition: background 0.2s; }
-    .btn-login:hover { background: #2563eb; }
-  </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Lakshya Academy Login</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#0f172a
+);
+
+}
+
+.bg{
+
+position:fixed;
+
+width:100%;
+
+height:100%;
+
+overflow:hidden;
+
+}
+
+.circle{
+
+position:absolute;
+
+border-radius:50%;
+
+filter:blur(60px);
+
+animation:float 12s infinite;
+
+opacity:.45;
+
+}
+
+.c1{
+
+width:280px;
+
+height:280px;
+
+background:#2563eb;
+
+top:-80px;
+
+left:-50px;
+
+}
+
+.c2{
+
+width:250px;
+
+height:250px;
+
+background:#9333ea;
+
+right:-80px;
+
+bottom:-60px;
+
+animation-delay:3s;
+
+}
+
+.c3{
+
+width:200px;
+
+height:200px;
+
+background:#06b6d4;
+
+left:40%;
+
+top:60%;
+
+animation-delay:6s;
+
+}
+
+@keyframes float{
+
+0%,100%{
+
+transform:
+translateY(0px)
+translateX(0px);
+
+}
+
+50%{
+
+transform:
+translateY(-50px)
+translateX(30px);
+
+}
+
+}
+
+.card{
+
+width:420px;
+
+max-width:95%;
+
+padding:40px;
+
+border-radius:25px;
+
+background:
+
+rgba(
+255,
+255,
+255,
+0.08
+);
+
+backdrop-filter:
+
+blur(20px);
+
+border:
+
+1px solid rgba(
+255,
+255,
+255,
+0.15
+);
+
+box-shadow:
+
+0 25px 50px rgba(
+0,
+0,
+0,
+0.4
+);
+
+color:white;
+
+z-index:5;
+
+}
+
+.logo{
+
+text-align:center;
+
+font-size:40px;
+
+margin-bottom:10px;
+
+animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+50%{
+
+transform:scale(1.08);
+
+}
+
+}
+
+h1{
+
+text-align:center;
+
+margin-bottom:5px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+opacity:.7;
+
+margin-bottom:30px;
+
+}
+
+.input{
+
+margin-bottom:18px;
+
+position:relative;
+
+}
+
+.input input{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+
+background:
+
+rgba(
+255,
+255,
+255,
+0.12
+);
+
+color:white;
+
+font-size:15px;
+
+}
+
+.input input::placeholder{
+
+color:#d0d0d0;
+
+}
+
+.eye{
+
+position:absolute;
+
+right:15px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+cursor:pointer;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:600;
+
+cursor:pointer;
+
+background:#2563eb;
+
+color:white;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+}
+
+.error{
+
+margin-top:15px;
+
+text-align:center;
+
+color:#ffb4b4;
+
+}
+
+@media(max-width:500px){
+
+.card{
+
+padding:28px;
+
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-  <div class="login-card">
-    <div class="brand">
-      <i class="fa-solid fa-graduation-cap"></i>
-      <h1>Lakshya Academy</h1>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Unified Examination Portal</p>
-    </div>
+<div class="bg">
 
-    <form id="loginForm">
-      <div class="form-group">
-        <label>Portal Email Address</label>
-        <div class="input-wrapper">
-          <i class="fa-solid fa-envelope"></i>
-          <input type="email" id="loginEmail" placeholder="name@lakshya.com" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Secure Security Password</label>
-        <div class="input-wrapper">
-          <i class="fa-solid fa-lock"></i>
-          <input type="password" id="loginPassword" placeholder="••••••••" required>
-        </div>
-      </div>
-      <button type="submit" class="btn-login" id="loginBtn">Secure Sign In</button>
-    </form>
-  </div>
+<div class="circle c1"></div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+<div class="circle c2"></div>
 
-    // PASTE YOUR FIREBASE CONFIG SNIPPET HERE:
-    const firebaseConfig = {
-  apiKey: "AIzaSyAeADgbpp6FSStuLd1KLoCNzcTlfuQDuw4",
-  authDomain: "lakshya-academy-fdfb7.firebaseapp.com",
-  projectId: "lakshya-academy-fdfb7",
-  storageBucket: "lakshya-academy-fdfb7.firebasestorage.app",
-  messagingSenderId: "783967143214",
-  appId: "1:783967143214:web:daed9ed31f049f068aa6bf"
+<div class="circle c3"></div>
+
+</div>
+
+<div class="card">
+
+<div class="logo">🎓</div>
+
+<h1>Lakshya Academy</h1>
+
+<div class="subtitle">
+
+Unified ERP Portal
+
+</div>
+
+<form id="loginForm">
+
+<div class="input">
+
+<input
+type="email"
+id="loginEmail"
+placeholder="Email Address"
+required>
+
+</div>
+
+<div class="input">
+
+<input
+type="password"
+id="loginPassword"
+placeholder="Password"
+required>
+
+<span
+class="eye"
+id="togglePass">
+
+👁
+
+</span>
+
+</div>
+
+<button
+id="loginBtn">
+
+Secure Sign In
+
+</button>
+
+<div
+class="error"
+id="err">
+
+</div>
+
+</form>
+
+</div>
+
+<script type="module">
+
+import {
+initializeApp
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+import {
+
+getAuth,
+
+signInWithEmailAndPassword,
+
+setPersistence,
+
+browserLocalPersistence
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+import {
+
+getFirestore,
+
+doc,
+
+getDoc
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig={
+
+apiKey:"AIzaSyAeADgbpp6FSStuLd1KLoCNzcTlfuQDuw4",
+
+authDomain:
+"lakshya-academy-fdfb7.firebaseapp.com",
+
+projectId:
+"lakshya-academy-fdfb7",
+
+storageBucket:
+"lakshya-academy-fdfb7.firebasestorage.app",
+
+messagingSenderId:
+"783967143214",
+
+appId:
+"1:783967143214:web:daed9ed31f049f068aa6bf"
+
 };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+const app=
+initializeApp(firebaseConfig);
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('loginBtn');
-      btn.innerText = "Verifying Credentials...";
-      btn.disabled = true;
+const auth=
+getAuth(app);
 
-      const email = document.getElementById('loginEmail').value.trim();
-      const pass = document.getElementById('loginPassword').value;
+const db=
+getFirestore(app);
 
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, pass);
-        const uid = userCredential.user.uid;
+document
+.getElementById("togglePass")
 
-        // Fetch user role from database 'users' collection
-        const userDoc = await getDoc(doc(db, "users", uid));
-        
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          const role = userData.role; // admin, faculty, student
+.addEventListener(
 
-          alert(`Access Approved! Routing to ${role} workspace.`);
-          
-          // Redirect smoothly to matching html panel
-          if (role === 'admin') window.location.href = 'admin.html';
-          else if (role === 'faculty') window.location.href = 'faculty.html';
-          else if (role === 'student') window.location.href = 'student.html';
-          else alert("Role mapping error. Contact Admin.");
-        } else {
-          alert("Profile record missing in core database. Contact Admin.");
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Authentication Denied: Check password or spelling accuracy.");
-      } finally {
-        btn.innerText = "Secure Sign In";
-        btn.disabled = false;
-      }
-    });
-  </script>
+"click",
+
+()=>{
+
+const p=
+document.getElementById(
+"loginPassword"
+);
+
+p.type=
+
+p.type==="password"
+
+?
+
+"text"
+
+:
+
+"password";
+
+}
+
+);
+
+document
+
+.getElementById(
+"loginForm"
+)
+
+.addEventListener(
+
+"submit",
+
+async(e)=>{
+
+e.preventDefault();
+
+const btn=
+document.getElementById(
+"loginBtn"
+);
+
+const err=
+document.getElementById(
+"err"
+);
+
+err.innerHTML="";
+
+btn.disabled=true;
+
+btn.innerHTML=
+"Verifying...";
+
+try{
+
+await setPersistence(
+auth,
+browserLocalPersistence
+);
+
+const email=
+loginEmail.value.trim();
+
+const pass=
+loginPassword.value;
+
+const user=
+
+await signInWithEmailAndPassword(
+
+auth,
+
+email,
+
+pass
+
+);
+
+const uid=
+user.user.uid;
+
+const snap=
+
+await getDoc(
+
+doc(
+db,
+"users",
+uid
+)
+
+);
+
+if(
+!snap.exists()
+){
+
+throw new Error(
+"Profile Missing"
+);
+
+}
+
+const role=
+snap.data().role;
+
+btn.innerHTML=
+"Redirecting...";
+
+if(
+role==="admin"
+){
+
+window.location.replace(
+"admin.html"
+);
+
+}
+
+else if(
+role==="faculty"
+){
+
+window.location.replace(
+"faculty.html"
+);
+
+}
+
+else if(
+role==="student"
+){
+
+window.location.replace(
+"student.html"
+);
+
+}
+
+else{
+
+throw new Error(
+"Role Error"
+);
+
+}
+
+}
+
+catch(error){
+
+btn.disabled=false;
+
+btn.innerHTML=
+"Secure Sign In";
+
+if(
+error.code==="auth/invalid-credential"
+){
+
+err.innerHTML=
+"Incorrect Email or Password";
+
+}
+
+else{
+
+err.innerHTML=
+error.message;
+
+}
+
+}
+
+}
+
+);
+
+</script>
+
 </body>
+
 </html>
