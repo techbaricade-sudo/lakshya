@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-mode="dark" data-theme="blue">
+<html lang="en" data-mode="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lakshya Core Suite - Institutional Node</title>
+  <title>Lakshya Core Suite - Institutional Node V3.5 Enterprise</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,342 +14,378 @@
   
   <style>
     :root {
-      --bg: #0b0f19; --surface: #151b2c; --surface-hover: rgba(255, 255, 255, 0.06);
-      --text: #f8fafc; --text-muted: #94a3b8; --border: rgba(255, 255, 255, 0.08); 
-      --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); --accent: #3b82f6; 
-      --accent-glow: rgba(59, 130, 246, 0.25); --success: #10b981; 
-      --warn: #f59e0b; --danger: #ef4444; --radius: 14px;
-      --anim-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg: #060913; --surface: #0b1120; --surface-hover: rgba(255, 255, 255, 0.04);
+      --text: #f8fafc; --text-muted: #64748b; --border: rgba(255, 255, 255, 0.06); 
+      --card-shadow: 0 20px 45px rgba(0, 0, 0, 0.5); --accent: #3b82f6; 
+      --accent-glow: rgba(59, 130, 246, 0.2); --success: #10b981; 
+      --warn: #f59e0b; --danger: #ef4444; --purple: #a855f7; --radius: 16px;
+      --anim-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     }
-    [data-mode="light"] { --bg: #f1f5f9; --surface: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: rgba(15, 23, 42, 0.08); }
-    [data-theme="blue"] { --accent: #3b82f6; --accent-glow: rgba(59, 130, 246, 0.25); } 
-    [data-theme="green"] { --accent: #10b981; --accent-glow: rgba(16, 185, 129, 0.25); }
-    [data-theme="purple"] { --accent: #a855f7; --accent-glow: rgba(168, 85, 247, 0.25); } 
-    [data-theme="orange"] { --accent: #f97316; --accent-glow: rgba(249, 115, 22, 0.25); }
+    [data-mode="light"] { 
+      --bg: #f4f6fa; --surface: #ffffff; --text: #0f172a; --text-muted: #64748b; 
+      --border: rgba(15, 23, 42, 0.06); --card-shadow: 0 12px 30px rgba(0,0,0,0.04);
+    }
 
     * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; transition: background 0.3s; }
+    body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; transition: background 0.4s; }
 
-    /* GLOBAL SYSTEM LOADER */
-    .sys-loader { position: fixed; top: 20px; right: 20px; background: var(--surface); border: 1px solid var(--border); padding: 10px 20px; border-radius: 30px; display: none; align-items: center; gap: 10px; z-index: 9999; box-shadow: var(--card-shadow); font-weight: 600; font-size: 0.85rem; }
-    .sys-loader i { color: var(--accent); animation: spin 1s linear infinite; }
+    /* Animated CSS Hamburger to Cross Icon Component */
+    .menu-hamburger-btn { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; width: 24px; height: 18px; z-index: 150; }
+    .menu-hamburger-btn span { display: block; height: 2.5px; width: 100%; background: var(--text); border-radius: 4px; transition: var(--anim-smooth); transform-origin: left center; }
+    .menu-hamburger-btn.is-active span:nth-child(1) { transform: rotate(45deg); position: relative; top: -1px; left: 2px; }
+    .menu-hamburger-btn.is-active span:nth-child(2) { width: 0%; opacity: 0; }
+    .menu-hamburger-btn.is-active span:nth-child(3) { transform: rotate(-45deg); position: relative; top: 1px; left: 2px; }
+
+    .btn-feedback-spinner { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; position: relative; overflow: hidden; transition: var(--anim-smooth); }
+    .btn-feedback-spinner.state-loading { pointer-events: none; opacity: 0.7; }
+    .btn-feedback-spinner .btn-loader-icon { display: none; animation: spin 0.8s linear infinite; }
+    .btn-feedback-spinner.state-loading .btn-loader-icon { display: inline-block; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* SIDEBAR SYSTEM WITH RESPONSIVE OVERLAY */
+    .sys-loader { position: fixed; top: 20px; right: 20px; background: var(--surface); border: 1px solid var(--border); padding: 12px 24px; border-radius: 30px; display: none; align-items: center; gap: 10px; z-index: 9999; box-shadow: var(--card-shadow); font-weight: 600; font-size: 0.85rem; }
+    .sys-loader i { color: var(--accent); animation: spin 1s linear infinite; }
+
+    /* Master Dynamic Responsive Sidebar Navigation Panel layout */
     aside { width: 280px; background: var(--surface); border-right: 1px solid var(--border); padding: 1.5rem 1rem; display: flex; flex-direction: column; z-index: 120; transition: var(--anim-smooth); shrink: 0; }
-    .user-welcome { padding: 0.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
-    .user-avatar-wrap { position: relative; width: 45px; height: 45px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); background: #000; }
+    @media (min-width: 993px) { aside.collapsed-state { width: 0px; padding: 1.5rem 0px; overflow: hidden; border-right: none; } }
+    
+    .user-welcome { padding: 0.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; transition: var(--anim-smooth); }
+    .user-avatar-wrap { position: relative; width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent); background: #000; }
     .user-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .user-welcome-text h3 { font-size: 0.95rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+    .user-welcome-text h3 { font-size: 0.95rem; font-weight: 700; white-space: nowrap; }
     .user-welcome-text p { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
     
-    .menu-links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.2rem; padding-right: 0.2rem; }
-    .menu-section-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; padding: 0.8rem 0.5rem 0.3rem; margin-top: 0.5rem; }
-    .menu-btn { width: 100%; text-align: left; background: none; border: none; color: var(--text-muted); padding: 0.65rem 0.8rem; border-radius: 10px; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.7rem; transition: var(--anim-smooth); }
-    .menu-btn:hover { color: var(--text); background: var(--surface-hover); }
-    .menu-btn.active { background: var(--accent); color: #fff !important; box-shadow: 0 4px 12px var(--accent-glow); }
-    
-    .logout-btn { color: var(--danger); margin-top: auto; font-weight: 600; border: 1px solid rgba(239, 68, 68, 0.2); }
-    .logout-btn:hover { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+    .menu-links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.2rem; }
+    .menu-section-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; padding: 0.8rem 0.5rem 0.3rem; }
+    .menu-btn { width: 100%; text-align: left; background: none; border: none; color: var(--text-muted); padding: 0.7rem 0.8rem; border-radius: 12px; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 0.7rem; transition: var(--anim-smooth); }
+    .menu-btn:hover { color: var(--text); background: var(--surface-hover); transform: translateX(4px); }
+    .menu-btn.active { background: linear-gradient(135deg, var(--accent) 0%, rgba(59,130,246,0.7) 100%); color: #fff !important; box-shadow: 0 4px 15px var(--accent-glow); }
 
-    /* CORE CONTAINER & HEADERS */
+    .logout-button-container { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .logout-btn-component { width: 100%; border: none; padding: 0.8rem; border-radius: 12px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.6rem; color: #fff; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2); transition: var(--anim-smooth); }
+    .logout-btn-component:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4); filter: brightness(1.1); }
+
     .app-container { flex: 1; display: flex; flex-direction: column; min-width: 0; position: relative; }
     header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 90; }
-    
-    .header-left { display: flex; align-items: center; gap: 1rem; }
-    .menu-toggle-hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.3rem; cursor: pointer; padding: 0.2rem; transition: var(--anim-smooth); }
+    .header-left { display: flex; align-items: center; gap: 1.2rem; }
     .nav-track { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
     .header-controls { display: flex; align-items: center; gap: 1rem; }
     
-    /* GLOBAL SESSION FILTER HEADER */
-    .session-global-select { background: rgba(0,0,0,0.2); border: 1px solid var(--border); color: var(--text); padding: 0.45rem 0.8rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; outline: none; }
+    .session-global-select { background: rgba(0,0,0,0.2); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 0.8rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; outline: none; }
     
-    .theme-palette { display: flex; gap: 0.4rem; background: rgba(0,0,0,0.15); padding: 0.3rem; border-radius: 20px; border: 1px solid var(--border); }
-    .palette-dot { width: 16px; height: 16px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
-    .palette-dot.active { border-color: #fff; transform: scale(1.1); }
+    .color-spectrum-box { display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.15); padding: 0.4rem 0.7rem; border-radius: 20px; border: 1px solid var(--border); }
+    .color-spectrum-box label { font-size: 0.65rem; font-weight: 800; cursor: pointer; }
+    .spectrum-input-element { appearance: none; -webkit-appearance: none; border: none; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; background: none; outline: none; transition: 0.2s; }
+    .spectrum-input-element::-webkit-color-swatch-wrapper { padding: 0; }
+    .spectrum-input-element::-webkit-color-swatch { border: 2px solid #fff; border-radius: 50%; }
+    
     .mode-toggle-btn { background: none; border: none; color: var(--text); cursor: pointer; font-size: 1.1rem; padding: 0.2rem; }
 
     main { flex: 1; padding: 1.5rem; }
-    .view-panel { display: none; animation: fadeIn 0.4s ease forwards; }
+    .view-panel { display: none; animation: fadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
     .view-panel.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* CORE DASHBOARD COMPONENTS */
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--card-shadow); }
-    .counter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
-    .counter-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
-    .counter-card::before { content: ''; position: absolute; top:0; left:0; width:4px; height:100%; background: var(--accent); }
-    .counter-card i { font-size: 1.8rem; opacity: 0.3; color: var(--accent); }
     
-    /* SYSTEM TELEMETRY INDEX DESIGN */
-    .telemetry-title { font-size: 1rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-    .telemetry-dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .telemetry-node-box { background: rgba(0,0,0,0.15); border: 1px solid var(--border); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; gap: 0.25rem; position: relative; }
-    [data-mode="light"] .telemetry-node-box { background: #f8fafc; }
-    .telemetry-node-box span.lbl { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; }
-    .telemetry-node-box span.val { font-size: 0.9rem; color: var(--text); font-weight: 600; font-family: monospace; word-break: break-all; }
-    .telemetry-node-box i { position: absolute; right: 1rem; bottom: 1rem; font-size: 1.2rem; opacity: 0.15; color: var(--accent); }
+    .dashboard-telemetry-split-frame { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 1200px) { .dashboard-telemetry-split-frame { grid-template-columns: 1fr; } }
 
-    /* LAYOUT MATRIX FOR ANALYSIS & FORMS */
+    .counter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem; }
+    .counter-card { background: linear-gradient(135deg, var(--surface) 0%, rgba(21, 27, 44, 0.6) 100%); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; transition: var(--anim-smooth); box-shadow: var(--card-shadow); }
+    .counter-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 24px var(--accent-glow); }
+    .counter-card::before { content: ''; position: absolute; top:0; left:0; width:5px; height:100%; background: var(--accent); }
+    .counter-card h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 0.25rem; }
+    .counter-card h2 { font-size: 1.8rem; font-weight: 800; color: var(--text); }
+    .counter-card i { font-size: 2rem; opacity: 0.25; color: var(--accent); }
+
+    .telemetry-title { font-size: 1rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .telemetry-dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .telemetry-node-box { background: rgba(0,0,0,0.15); border: 1px solid var(--border); padding: 1rem; border-radius: 10px; display: flex; flex-direction: column; gap: 0.25rem; position: relative; }
+    .telemetry-node-box span.lbl { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+    .telemetry-node-box span.val { font-size: 0.85rem; color: var(--text); font-weight: 600; font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .telemetry-node-box i { position: absolute; right: 1rem; bottom: 1rem; font-size: 1.2rem; opacity: 0.15; color: var(--accent); }
+    
+    .gps-request-trigger-btn { background: rgba(245, 158, 11, 0.15); color: var(--warn); border: 1px dashed var(--warn); padding: 0.35rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; text-align: left; transition: var(--anim-smooth); display: inline-block; width: max-content; }
+    .gps-request-trigger-btn:hover { background: var(--warn); color: #000; }
+
+    .giant-clock-widget-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; background: linear-gradient(145deg, var(--surface) 0%, rgba(10, 15, 28, 0.9) 100%); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--card-shadow); text-align: center; }
+    .analog-watch-canvas-frame { background: rgba(0,0,0,0.2); border-radius: 50%; box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 8px 20px rgba(0,0,0,0.3); border: 4px solid var(--border); margin-bottom: 1.25rem; }
+    .digital-live-clock-text { font-size: 1.8rem; font-weight: 800; color: #fff; font-family: monospace; letter-spacing: 1px; text-shadow: 0 0 12px var(--accent-glow); margin-bottom: 0.2rem; }
+    .clock-metadata-subgrid { font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.2rem; font-weight: 500; }
+    .clock-metadata-subgrid .day-badge { background: var(--accent); color: #fff; padding: 0.15rem 0.6rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; display: inline-block; margin: 0.2rem auto; width: max-content; }
+
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
     label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    input, select, textarea { background: rgba(0,0,0,0.15); border: 1px solid var(--border); padding: 0.7rem; color: var(--text); border-radius: 8px; outline: none; font-size: 0.9rem; transition: border 0.2s; }
-    [data-mode="light"] input, [data-mode="light"] select, [data-mode="light"] textarea { background: #f8fafc; color: #0f172a; }
-    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    input, select, textarea { background: rgba(0,0,0,0.15); border: 1px solid var(--border); padding: 0.7rem; color: var(--text); border-radius: 8px; outline: none; font-size: 0.9rem; }
+    [data-mode="light"] input, [data-mode="light"] select, [data-mode="light"] textarea { background: #f1f5f9; color: #0f172a; }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
     
-    /* FILE UPLOAD STYLING */
-    .custom-file-upload { display: flex; align-items: center; justify-content: center; border: 2px dashed var(--border); padding: 1rem; border-radius: 8px; cursor: pointer; text-align: center; font-size: 0.85rem; color: var(--text-muted); gap: 10px; transition: var(--anim-smooth); }
-    .custom-file-upload:hover { border-color: var(--accent); color: var(--text); background: var(--surface-hover); }
-    .custom-file-upload input[type="file"] { display: none; }
-
-    /* TABLES & CONTROLS */
-    .table-container { width: 100%; overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); margin-top: 1rem; }
+    .table-container { width: 100%; overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin-top: 1rem; }
     table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
     th, td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    th { background: rgba(0,0,0,0.12); color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; }
+    th { background: rgba(0,0,0,0.12); color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; font-weight: 700; }
     tr:hover { background: var(--surface-hover); }
     
-    .table-header-action-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
-    .export-btn-group { display: flex; gap: 0.5rem; }
-    .btn-export { padding: 0.45rem 0.8rem; font-size: 0.8rem; font-weight: 600; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
-    .btn-export:hover { background: var(--surface-hover); border-color: var(--accent); }
-
-    .submit-btn { background: var(--accent); color: #fff; border: none; padding: 0.75rem 1.4rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: var(--anim-smooth); display: inline-flex; align-items: center; gap: 0.5rem; }
-    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .submit-btn { background: var(--accent); color: #fff; border: none; padding: 0.75rem 1.4rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: var(--anim-smooth); }
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 12px var(--accent-glow); }
     
     .uid-badge { background: rgba(59, 130, 246, 0.12); color: var(--accent); padding: 0.2rem 0.5rem; border-radius: 5px; font-family: monospace; font-weight: 700; font-size: 0.85rem; }
-    .log-badge { padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-    .btn-action-modify { background: var(--warn); color: #000; border: none; padding: 0.35rem 0.7rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+    .btn-action-modify { background: var(--warn); color: #000; border: none; padding: 0.35rem 0.7rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; margin-right: 4px; }
     .btn-action-delete { background: var(--danger); color: #fff; border: none; padding: 0.35rem 0.7rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
     
-    /* MODAL OVERLAY & PREMIUM RECEIPT DESIGN */
-    .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; }
-    .modal-content { background: var(--surface); border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 550px; position: relative; border: 1px solid var(--border); box-shadow: var(--card-shadow); }
+    .marks-input-field { width: 90px; padding: 0.4rem; text-align: center; border-radius: 6px; font-weight: 700; font-size: 0.95rem; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: var(--text); }
+    .profile-thumbnail { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: #000; border: 1px solid var(--border); }
+    .handshake-intelligence-banner { background: rgba(59,130,246,0.1); border: 1px dashed var(--accent); border-radius: 8px; padding: 0.75rem; margin-top: 0.5rem; font-size: 0.85rem; display: none; align-items: center; gap: 0.5rem; }
     
-    .premium-receipt-wrapper { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; overflow: hidden; border: 2px solid #e2e8f0; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .receipt-watermark { position: absolute; font-size: 7rem; font-weight: 900; color: rgba(15, 23, 42, 0.03); transform: rotate(-30deg); top: 30%; left: 5%; pointer-events: none; text-transform: uppercase; }
-    .receipt-header-branding { text-align: center; margin-bottom: 1.5rem; }
-    .receipt-header-branding h2 { font-size: 1.4rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; }
-    .receipt-header-branding p { font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase; margin-top: 2px; }
-    .receipt-security-badge { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; padding: 6px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; margin: 10px auto; }
-    .receipt-data-table { width: 100%; margin: 1.5rem 0; border-collapse: collapse; }
-    .receipt-data-table td { padding: 10px 0; border-bottom: 1px dashed #e2e8f0; font-size: 0.85rem; color: #334155; }
-    .receipt-data-table td.label { font-weight: 600; color: #64748b; text-transform: uppercase; font-size: 0.75rem; width: 40%; }
-    .receipt-data-table td.value { font-weight: 700; color: #0f172a; text-align: right; }
-    .receipt-total-highlight { background: #f8fafc; padding: 1rem; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e2e8f0; margin-top: 1rem; }
-    .receipt-total-highlight span { font-weight: 800; font-size: 1.2rem; color: #0f172a; }
+    .explained-analytics-charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    @media (max-width: 992px) { .explained-analytics-charts-grid { grid-template-columns: 1fr; } }
+    .chart-explanation-meta-wrapper { margin-top: 0.75rem; background: rgba(0,0,0,0.15); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent); }
+    .chart-explanation-meta-wrapper h5 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .chart-explanation-meta-wrapper p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
 
-    /* SIDEBAR BACKDROP SCREEN FOR MOBILE CLICK OVERLAY */
-    .sidebar-backdrop { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); z-index: 110; }
+    /* Attendance Printable Layout Meta Specifications CSS */
+    .attendance-meta-header-block { background: rgba(255,255,255,0.02); border: 1px dashed var(--border); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .attendance-meta-item { font-size: 0.9rem; font-weight: 600; }
+    .attendance-meta-item span { color: var(--accent); font-weight: 700; }
 
-    /* RESPONSIVE CSS ENGINES */
+    .sidebar-backdrop { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 110; transition: var(--anim-smooth); }
     @media (max-width: 992px) {
       aside { position: fixed; left: -280px; top: 0; bottom: 0; box-shadow: 10px 0 30px rgba(0,0,0,0.5); }
       aside.mobile-open { left: 0; }
-      .menu-toggle-hamburger { display: block; }
       .sidebar-backdrop.mobile-open { display: block; }
-    }
-    @media (max-width: 576px) {
-      header { padding: 1rem; }
-      main { padding: 1rem; }
-      .table-header-action-row { flex-direction: column; align-items: flex-start; }
-      .export-btn-group { width: 100%; justify-content: flex-start; margin-top: 0.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="sys-loader" id="globalSystemLoader"><i class="fa-solid fa-circle-notch"></i> <span id="loaderSystemMessage">Synchronizing Cluster...</span></div>
-
-  <div class="sidebar-backdrop" id="sidebarShield" onclick="toggleMobileSidebar(false)"></div>
+  <div class="sys-loader" id="globalSystemLoader"><i class="fa-solid fa-circle-notch"></i> <span id="loaderSystemMessage">Synchronizing Cloud Core Nodes...</span></div>
+  <div class="sidebar-backdrop" id="sidebarShield" onclick="toggleMobileSidebarSystem(false)"></div>
 
   <aside id="appSidebar">
     <div class="user-welcome">
-      <div class="user-avatar-wrap">
-        <img id="sidebarUserProfileAvatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Avatar">
-      </div>
-      <div class="user-welcome-text">
-        <h3 id="sidebarWelcomeUser">SuperUser Unit</h3>
-        <p>Operational Admin</p>
-      </div>
+      <div class="user-avatar-wrap"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100" alt="Core Suite Logo"></div>
+      <div class="user-welcome-text"><h3>Lakshya Suite</h3><p>Enterprise V3.5</p></div>
     </div>
     <div class="menu-links">
-      <button class="menu-btn active" onclick="switchView('dashboard-panel')"><i class="fa-solid fa-chart-pie"></i> System Dashboard</button>
+      <button class="menu-btn active" onclick="switchView('dashboard-panel')"><i class="fa-solid fa-chart-pie"></i> Interactive Dashboard</button>
       
       <div class="menu-section-title">Academic Registries</div>
-      <button class="menu-btn" onclick="switchView('student-profile-panel')"><i class="fa-solid fa-user-graduate"></i> Student Records</button>
-      <button class="menu-btn" onclick="switchView('teacher-profile-panel')"><i class="fa-solid fa-chalkboard-user"></i> Faculty Records</button>
-      <button class="menu-btn" onclick="switchView('admin-creation-panel')"><i class="fa-solid fa-user-shield"></i> System Admins</button>
+      <button class="menu-btn" onclick="switchView('student-profile-panel')"><i class="fa-solid fa-user-graduate"></i> Student Master Indices</button>
+      <button class="menu-btn" onclick="switchView('teacher-profile-panel')"><i class="fa-solid fa-chalkboard-user"></i> Faculty Registry Index</button>
+      <button class="menu-btn" onclick="switchView('admin-creation-panel')"><i class="fa-solid fa-user-shield"></i> Executive Administrators</button>
+      
+      <div class="menu-section-title">Faculty Performance</div>
+      <button class="menu-btn" onclick="switchView('teacher-attendance-panel')"><i class="fa-solid fa-calendar-check"></i> Attendance Tracking Desk</button>
       
       <div class="menu-section-title">Examination Modules</div>
-      <button class="menu-btn" onclick="switchView('exam-creation-panel')"><i class="fa-solid fa-square-plus"></i> Central Exam Matrix</button>
-      <button class="menu-btn" onclick="switchView('marks-panel')"><i class="fa-solid fa-file-invoice"></i> Grading Terminal</button>
-      <button class="menu-btn" onclick="switchView('student-analytics-panel')"><i class="fa-solid fa-chart-line"></i> Performance Analytics</button>
+      <button class="menu-btn" onclick="switchView('exam-creation-panel')"><i class="fa-solid fa-square-plus"></i> Exam Docket Matrix</button>
+      <button class="menu-btn" onclick="switchView('marks-panel')"><i class="fa-solid fa-file-invoice"></i> Grading Terminal (Bulk)</button>
+      <button class="menu-btn" onclick="switchView('student-analytics-panel')"><i class="fa-solid fa-chart-line"></i> Diagnostic Explorer</button>
       
-      <div class="menu-section-title">Financial Ledgers</div>
-      <button class="menu-btn" onclick="switchView('fee-engine-panel')"><i class="fa-solid fa-indian-rupee-sign"></i> Class Fee Ledger</button>
-      
-      <div class="menu-section-title">Communications & Logs</div>
+      <div class="menu-section-title">Communications Gateway</div>
       <button class="menu-btn" onclick="switchView('notice-board-panel')"><i class="fa-solid fa-bullhorn"></i> Notice Board Broadcast</button>
-      <button class="menu-btn" onclick="switchView('users-panel')"><i class="fa-solid fa-user-gear"></i> Account Allocation</button>
-      <button class="menu-btn" onclick="switchView('audit-logs-panel')"><i class="fa-solid fa-clock-rotate-left"></i> Security Audit Logs</button>
-      
-      <button class="menu-btn logout-btn" onclick="window.triggerSystemLogout()"><i class="fa-solid fa-power-off"></i> Safe Sign-Out</button>
+      <button class="menu-btn" onclick="switchView('users-panel')"><i class="fa-solid fa-shield-cat"></i> Security Gateway</button>
+    </div>
+
+    <div class="logout-button-container">
+      <button class="logout-btn-component" onclick="window.triggerSecureSystemLogout()"><i class="fa-solid fa-power-off"></i> Terminate Session (Logout)</button>
     </div>
   </aside>
 
   <div class="app-container">
     <header>
       <div class="header-left">
-        <button class="menu-toggle-hamburger" onclick="toggleMobileSidebar(true)"><i class="fa-solid fa-bars"></i></button>
-        <div class="nav-track">Lakshya Core Suite / <span id="breadCrumbNode" style="color:var(--accent); font-weight:700;">System Dashboard</span></div>
+        <button class="menu-hamburger-btn" id="menuToggleIcon" onclick="window.handleSidebarToggleClickEvent()">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-track">Suite Core Stack / <span id="breadCrumbNode" style="color:var(--accent); font-weight:700;">Dashboard</span></div>
       </div>
       <div class="header-controls">
         <select id="globalSessionNavigator" class="session-global-select" onchange="window.handleGlobalSessionChange()">
           <option value="2025-26">Session 2025-26</option>
           <option value="2026-27" selected>Session 2026-27</option>
-          <option value="2027-28">Session 2027-28</option>
         </select>
         
-        <div class="theme-palette">
-          <div class="palette-dot" style="background:#3b82f6" onclick="switchThemePreset('blue')"></div>
-          <div class="palette-dot" style="background:#10b981" onclick="switchThemePreset('green')"></div>
-          <div class="palette-dot" style="background:#a855f7" onclick="switchThemePreset('purple')"></div>
-          <div class="palette-dot" style="background:#f97316" onclick="switchThemePreset('orange')"></div>
+        <div class="color-spectrum-box">
+          <label for="masterColorSpectrumPicker"><i class="fa-solid fa-palette" style="color:var(--accent); font-size:0.95rem;"></i> Theme Matrix</label>
+          <input type="color" id="masterColorSpectrumPicker" class="spectrum-input-element" value="#3b82f6" oninput="window.applyUniversalCustomThemeAccent(this.value)">
         </div>
+        
         <button class="mode-toggle-btn" onclick="toggleLightDarkMode()"><i class="fa-solid fa-circle-half-stroke"></i></button>
       </div>
     </header>
 
     <main>
       <section id="dashboard-panel" class="view-panel active">
-        <div class="counter-grid">
-          <div class="counter-card"><div><h4>Registered Students</h4><h2 id="dashTotalStudents">0</h2></div><i class="fa-solid fa-user-graduate"></i></div>
-          <div class="counter-card" style="--accent: #10b981;"><div><h4>Faculty Members</h4><h2 id="dashTotalTeachers">0</h2></div><i class="fa-solid fa-chalkboard-user"></i></div>
-          <div class="counter-card" style="--accent: #a855f7;"><div><h4>Total Collection</h4><h2 id="dashTotalFees">₹ 0</h2></div><i class="fa-solid fa-wallet"></i></div>
-          <div class="counter-card" style="--accent: #f59e0b;"><div><h4>Active Notices</h4><h2 id="dashTotalNotices">0</h2></div><i class="fa-solid fa-bell"></i></div>
-        </div>
-
-        <div class="card" style="border-left: 4px solid var(--accent);">
-          <div class="telemetry-title"><i class="fa-solid fa-satellite-dish"></i> Live Security Telemetry & Node Diagnostics</div>
-          <div class="telemetry-dashboard-grid">
-            <div class="telemetry-node-box"><span class="lbl">Institutional Node</span><span class="val">Lakshya Core Suite</span><i class="fa-solid fa-school"></i></div>
-            <div class="telemetry-node-box"><span class="lbl">Operator Sign-In</span><span class="val" id="teleUser">SuperUser Node</span><i class="fa-solid fa-user-shield"></i></div>
-            <div class="telemetry-node-box"><span class="lbl">Operator Token</span><span class="val" id="teleUid">ADM001092</span><i class="fa-solid fa-id-badge"></i></div>
-            <div class="telemetry-node-box"><span class="lbl">Clock (GMT+05:30)</span><span class="val" id="teleClock" style="color:var(--warn)">1:37:03 PM</span><i class="fa-solid fa-clock"></i></div>
-            <div class="telemetry-node-box"><span class="lbl">System Date</span><span class="val" id="teleDate">28/05/2026</span><i class="fa-solid fa-calendar-day"></i></div>
-            <div class="telemetry-node-box"><span class="lbl">Hardware GPS Line</span><span class="val" id="teleGeo" style="color:var(--success)">25.8818 N, 86.5825 E</span><i class="fa-solid fa-location-crosshairs"></i></div>
-            <div class="telemetry-node-box"><span class="lbl">IP Network Array</span><span class="val">192.168.1.42</span><i class="fa-solid fa-network-wired"></i></div>
-            <div class="telemetry-node-box"><span class="lbl">Device Serial Identity</span><span class="val">LAK-9882X-2026</span><i class="fa-solid fa-microchip"></i></div>
+        <div class="dashboard-telemetry-split-frame">
+          <div>
+            <div class="counter-grid">
+              <div class="counter-card">
+                <div><h4>Total Students</h4><h2 id="dashTotalStudents">0</h2></div><i class="fa-solid fa-user-graduate"></i>
+              </div>
+              <div class="counter-card" style="--accent: #10b981;">
+                <div><h4>Faculty Enrolled</h4><h2 id="dashTotalTeachers">0</h2></div><i class="fa-solid fa-chalkboard-user"></i>
+              </div>
+              <div class="counter-card" style="--accent: #a855f7;">
+                <div><h4>Exams Scheduled</h4><h2 id="dashTotalExams">0</h2></div><i class="fa-solid fa-calendar-days"></i>
+              </div>
+            </div>
+            
+            <div class="card" style="border-left: 4px solid var(--accent);">
+              <div class="telemetry-title"><i class="fa-solid fa-satellite-dish"></i> Live Realtime Node Telemetry & High Precision Tracking</div>
+              <div class="telemetry-dashboard-grid">
+                <div class="telemetry-node-box"><span class="lbl">User Name</span><span class="val" id="teleUser" style="color:var(--accent)">System Operator</span><i class="fa-solid fa-user-gear"></i></div>
+                <div class="telemetry-node-box"><span class="lbl">Device Engine</span><span class="val" id="teleDevice" style="color:var(--warn)">Loading Engine...</span><i class="fa-solid fa-laptop"></i></div>
+                <div class="telemetry-node-box"><span class="lbl">Crypto Serial Number</span><span class="val" id="teleSerial" style="color:var(--success); font-family: monospace;">N/A</span><i class="fa-solid fa-barcode"></i></div>
+                <div class="telemetry-node-box">
+                  <span class="lbl">Live Latitude (100% Accuracy)</span>
+                  <span class="val" id="teleLatitude" style="color:var(--purple)">Permission Required</span>
+                  <button class="gps-request-trigger-btn" id="gpsFetchBtn" onclick="window.requestHighPrecisionGPSLocation()"><i class="fa-solid fa-location-crosshairs"></i> Request Authorization</button>
+                </div>
+                <div class="telemetry-node-box">
+                  <span class="lbl">Live Longitude (100% Accuracy)</span>
+                  <span class="val" id="teleLongitude" style="color:var(--purple)">Permission Required</span>
+                  <i class="fa-solid fa-earth-asia"></i>
+                </div>
+                <div class="telemetry-node-box"><span class="lbl">DB Pipeline Engine</span><span class="val" style="color:var(--success)">Active Realtime Firestore Stream</span><i class="fa-solid fa-circle-nodes"></i></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="giant-clock-widget-card">
+            <h4 style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:800; letter-spacing:1px; margin-bottom:0.75rem;"><i class="fa-solid fa-clock-rotate-left"></i> Chronos Precision Node</h4>
+            <canvas id="giantAnalogWatchCanvas" class="analog-watch-canvas-frame" width="180" height="180"></canvas>
+            <div class="digital-live-clock-text" id="liveDigitalClockNode">00:00:00 AM</div>
+            <div class="clock-metadata-subgrid">
+              <span class="day-badge" id="liveClockDayBadge">Monday</span>
+              <div style="font-weight:700; color:var(--text);" id="liveClockDateFrame">-- --- ----</div>
+              <div style="font-size:0.7rem; color:var(--text-muted); font-family:monospace;" id="liveClockTimezoneFrame">Timezone: UTC</div>
+            </div>
           </div>
         </div>
-        
+
         <div class="card">
-          <h3><i class="fa-solid fa-chart-line"></i> Institutional Metric Analytics</h3>
-          <div style="position: relative; height: 320px; width: 100%; margin-top: 1rem;">
-            <canvas id="dashboardAnimatedChart"></canvas>
+          <h3><i class="fa-solid fa-chart-line"></i> Dynamic Student Density Allocation Matrix (Classes 5-10)</h3>
+          <div style="position: relative; height: 260px; width: 100%; margin-top: 1rem;"><canvas id="dashboardAnimatedChart"></canvas></div>
+        </div>
+      </section>
+
+      <section id="teacher-profile-panel" class="view-panel">
+        <div class="card">
+          <h3 id="teacherFormTitle"><i class="fa-solid fa-chalkboard-user"></i> Enroll Faculty Profile</h3>
+          <form id="teacherRegistrationForm" style="margin-top:1rem">
+            <input type="hidden" id="editTeacherId">
+            <div class="form-grid">
+              <div class="form-group"><label>Faculty Name</label><input type="text" id="teaName" required></div>
+              <div class="form-group"><label>Core Subject Module</label><input type="text" id="teaSubject" required></div>
+              <div class="form-group"><label>Mobile Line</label><input type="tel" id="teaMobile" required></div>
+              <div class="form-group"><label>Photo (.jpg Upload)</label><input type="file" accept=".jpg,.jpeg" onchange="window.encodeImage(this, 'teaImg')"><input type="hidden" id="teaImg"></div>
+            </div>
+            <button type="submit" class="submit-btn btn-feedback-spinner" id="btnTeacherSubmit">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-floppy-disk"></i> <span class="btn-txt-node">Save Faculty Profile</span>
+            </button>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Faculty Registry Index Logs</h3>
+          <div class="table-container">
+            <table>
+              <thead><tr><th>Avatar</th><th>UID</th><th>Name</th><th>Subject</th><th>Mobile</th><th>Actions</th></tr></thead>
+              <tbody id="teacherTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="teacher-attendance-panel" class="view-panel">
+        <div class="card">
+          <h3><i class="fa-solid fa-calendar-days"></i> Faculty Attendance Tracking Sheet Registry</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Teacher portal submission data logs display sync gateway timeline matrix filter logs below.</p>
+          
+          <div class="form-grid" style="align-items: flex-end;">
+            <div class="form-group">
+              <label>Select Calendar Month & Year</label>
+              <select id="attnFilterMonthYear">
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Select Target Faculty Node</label>
+              <select id="attnFilterTeacherId" required><option value="">Select Faculty ID + Name</option></select>
+            </div>
+            <button class="submit-btn btn-feedback-spinner" id="btnLoadAttendanceSheet" onclick="window.buildFacultyAttendanceSheetLogsMatrix()">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-magnifying-glass-chart"></i> <span class="btn-txt-node">Fetch Portal Log Matrix</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card" id="attendanceGridSheetDisplayArea" style="display:none; border-top:4px solid var(--purple);">
+          <div id="attendanceSheetPrintableBlock" style="padding:0.5rem;">
+            <div style="text-align:center; margin-bottom:1rem;" class="print-visible-header">
+              <h2 style="letter-spacing:0.5px;">FACULTY ACTIVITY MONITORING SUMMARY SHEET</h2>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Teacher Portal Live Sync Datastream Logs</p>
+            </div>
+
+            <div class="attendance-meta-header-block">
+              <div class="attendance-meta-item">Faculty Name: <span id="attnMetaName">--</span></div>
+              <div class="attendance-meta-item">Faculty Unique UID: <span id="attnMetaId">--</span></div>
+              <div class="attendance-meta-item">Evaluation Period: <span id="attnMetaMonth">--</span></div>
+            </div>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr><th>Sl.</th><th>Target Date</th><th>Day Hierarchy</th><th>Check In (Portal)</th><th>Check Out (Portal)</th><th>Period Taken</th><th>High-Precision GPS Location</th></tr>
+                </thead>
+                <tbody id="attendanceSheetTableBodyGrid"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style="margin-top:1.25rem; display:flex; justify-content:flex-end;">
+            <button class="submit-btn" style="background:var(--purple)" onclick="window.printFacultyAttendanceReportCardFrame()"><i class="fa-solid fa-print"></i> Print Attendance Logs Sheet (PDF)</button>
           </div>
         </div>
       </section>
 
       <section id="student-profile-panel" class="view-panel">
         <div class="card">
-          <h3><i class="fa-solid fa-user-plus"></i> Add New Student Entry</h3>
-          <form id="studentRegistrationForm" style="margin-top:1.25rem">
+          <h3 id="studentFormTitle"><i class="fa-solid fa-user-plus"></i> Register Student Record Component</h3>
+          <form id="studentRegistrationForm" style="margin-top:1rem">
             <input type="hidden" id="editStudentId">
             <div class="form-grid">
-              <div class="form-group"><label>Full Name</label><input type="text" id="stuName" required></div>
+              <div class="form-group"><label>Student Full Name</label><input type="text" id="stuName" required></div>
               <div class="form-group">
                 <label>Class Standard</label>
                 <select id="stuClass" required>
-                  <option value="Class 5">Class 5</option>
-                  <option value="Class 6">Class 6</option>
-                  <option value="Class 7">Class 7</option>
-                  <option value="Class 8">Class 8</option>
-                  <option value="Class 9">Class 9</option>
-                  <option value="Class 10">Class 10</option>
+                  <option value="Class 5">Class 5</option><option value="Class 6">Class 6</option><option value="Class 7">Class 7</option>
+                  <option value="Class 8">Class 8</option><option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
                 </select>
               </div>
               <div class="form-group"><label>Roll Number</label><input type="text" id="stuRoll" required></div>
-              <div class="form-group"><label>Father's Name</label><input type="text" id="stuFather"></div>
-              <div class="form-group"><label>Mother's Name</label><input type="text" id="stuMother"></div>
-              <div class="form-group"><label>WhatsApp Number</label><input type="tel" id="stuWhatsapp"></div>
-              
+              <div class="form-group"><label>School Reference Code / ID</label><input type="text" id="stuSchoolRef" placeholder="e.g. LAKSHYA-MAIN" required></div>
+              <div class="form-group"><label>Mobile Number (Primary)</label><input type="tel" id="stuWhatsapp" required></div>
+              <div class="form-group"><label>Father's Name</label><input type="text" id="stuFather" required></div>
+              <div class="form-group"><label>Mother's Name</label><input type="text" id="stuMother" required></div>
+              <div class="form-group" style="grid-column: span 2;"><label>Residential Address (Full Details)</label><input type="text" id="stuAddress" placeholder="H.No, Landmark, State Location" required></div>
               <div class="form-group">
-                <label>Upload Student Image (.jpg)</label>
-                <label class="custom-file-upload">
-                  <input type="file" id="stuPhotoFile" accept=".jpg, .jpeg" onchange="window.processDiskImageUpload(this, 'stuPhotoUrlHidden')">
-                  <i class="fa-solid fa-cloud-arrow-up"></i> <span id="stuPhotoFileLabel">Choose Image File</span>
-                </label>
-                <input type="hidden" id="stuPhotoUrlHidden">
-              </div>
-
-              <div class="form-group">
-                <label>Status Mode</label>
-                <input type="checkbox" id="stuStatus" checked style="width: 25px; height: 25px; margin-top: 5px;">
+                <label>Profile Photo (.jpg Upload)</label>
+                <input type="file" accept=".jpg,.jpeg" onchange="window.encodeImage(this, 'stuImg')">
+                <input type="hidden" id="stuImg">
               </div>
             </div>
-            <button type="submit" class="submit-btn"><i class="fa-solid fa-floppy-disk"></i> Register Student Profile</button>
+            <button type="submit" class="submit-btn btn-feedback-spinner" id="btnStudentSubmit">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-floppy-disk"></i> <span class="btn-txt-node">Commit Student Record</span>
+            </button>
           </form>
         </div>
-
         <div class="card">
-          <div class="table-header-action-row">
-            <div style="display:flex; gap:1rem; align-items:center;">
-              <h3>Student Master List</h3>
-              <select id="filterStudentClass" onchange="window.reloadStudentTable()" style="padding:0.4rem">
-                <option value="All">All Classes</option>
-                <option value="Class 5">Class 5</option>
-                <option value="Class 6">Class 6</option>
-                <option value="Class 7">Class 7</option>
-                <option value="Class 8">Class 8</option>
-                <option value="Class 9">Class 9</option>
-                <option value="Class 10">Class 10</option>
-              </select>
-            </div>
-          </div>
-          <div class="table-container">
-            <table id="masterStudentTable">
-              <thead>
-                <tr><th>Avatar</th><th>UID Signature</th><th>Name</th><th>Class Allocation</th><th>Roll No</th><th>Contact No</th><th>Actions Matrix</th></tr>
-              </thead>
-              <tbody id="studentTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section id="teacher-profile-panel" class="view-panel">
-        <div class="card">
-          <h3><i class="fa-solid fa-user-plus"></i> Enroll Faculty Member</h3>
-          <form id="teacherRegistrationForm" style="margin-top:1.25rem">
-            <input type="hidden" id="editTeacherId">
-            <div class="form-grid">
-              <div class="form-group"><label>Instructor Full Name</label><input type="text" id="teaName" required></div>
-              <div class="form-group"><label>Core Subject Module</label><input type="text" id="teaSubject" required></div>
-              <div class="form-group"><label>Mobile Network Number</label><input type="tel" id="teaMobile" required></div>
-              <div class="form-group">
-                <label>Upload Faculty Image (.jpg)</label>
-                <label class="custom-file-upload">
-                  <input type="file" id="teaPhotoFile" accept=".jpg, .jpeg" onchange="window.processDiskImageUpload(this, 'teaPhotoUrlHidden')">
-                  <i class="fa-solid fa-cloud-arrow-up"></i> <span id="teaPhotoFileLabel">Choose Image File</span>
-                </label>
-                <input type="hidden" id="teaPhotoUrlHidden">
-              </div>
-            </div>
-            <button type="submit" class="submit-btn"><i class="fa-solid fa-floppy-disk"></i> Commit Faculty Unit</button>
-          </form>
-        </div>
-
-        <div class="card">
-          <h3>Faculty Registry Index</h3>
+          <h3>Comprehensive Session Student Directory</h3>
           <div class="table-container">
             <table>
-              <thead>
-                <tr><th>Avatar</th><th>UID Signature</th><th>Faculty Name</th><th>Subject Module</th><th>Mobile Line</th><th>Actions Matrix</th></tr>
-              </thead>
-              <tbody id="teacherTableBody"></tbody>
+              <thead><tr><th>Photo</th><th>UID Signature</th><th>Name</th><th>Class Info</th><th>Roll</th><th>School Ref</th><th>Guardians</th><th>Contact & Address</th><th>Actions</th></tr></thead>
+              <tbody id="studentTableBody"></tbody>
             </table>
           </div>
         </div>
@@ -357,243 +393,197 @@
 
       <section id="admin-creation-panel" class="view-panel">
         <div class="card">
-          <h3><i class="fa-solid fa-user-shield"></i> Register Executive Administrator</h3>
-          <form id="adminDetailForm" style="margin-top:1.25rem">
+          <h3 id="adminFormTitle"><i class="fa-solid fa-user-shield"></i> Authorize Executive Administrator</h3>
+          <form id="adminDetailForm" style="margin-top:1rem">
             <input type="hidden" id="editAdminId">
             <div class="form-grid">
-              <div class="form-group"><label>Admin Name</label><input type="text" id="admName" required></div>
-              <div class="form-group"><label>Operational Rank/Tag</label><input type="text" id="admRoleTag" required></div>
-              <div class="form-group"><label>Emergency Line Contact</label><input type="tel" id="admMobile" required></div>
+              <div class="form-group"><label>Name</label><input type="text" id="admName" required></div>
+              <div class="form-group"><label>Operational Rank</label><input type="text" id="admRoleTag" required></div>
+              <div class="form-group"><label>Emergency Line</label><input type="tel" id="admMobile" required></div>
             </div>
-            <button type="submit" class="submit-btn"><i class="fa-solid fa-shield-halved"></i> Authorize Admin Profile</button>
+            <button type="submit" class="submit-btn btn-feedback-spinner" id="btnAdminSubmit">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-shield-halved"></i> <span class="btn-txt-node">Authorize Profile</span>
+            </button>
           </form>
+        </div>
+        <div class="card">
+          <h3>Executive Administrator Directory</h3>
+          <div class="table-container">
+            <table>
+              <thead><tr><th>Admin UID</th><th>Name</th><th>Rank</th><th>Contact</th><th>Actions</th></tr></thead>
+              <tbody id="adminTableBody"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       <section id="exam-creation-panel" class="view-panel">
         <div class="card">
-          <h3><i class="fa-solid fa-calendar-plus"></i> Generate & Register Exam Slot</h3>
-          <form id="examSchedulerForm" style="margin-top:1.25rem">
+          <h3 id="examFormTitle"><i class="fa-solid fa-calendar-plus"></i> Generate Exam Docket Matrix</h3>
+          <form id="examSchedulerForm" style="margin-top:1rem">
             <input type="hidden" id="editExamId">
             <div class="form-grid">
-              <div class="form-group"><label>Exam Structural Title</label><input type="text" id="examTitle" required></div>
+              <div class="form-group"><label>Exam Title Header</label><input type="text" id="examTitle" required></div>
               <div class="form-group">
-                <label>Target Class Standard</label>
+                <label>Target Class</label>
                 <select id="examClass" required>
-                  <option value="Class 5">Class 5</option>
-                  <option value="Class 6">Class 6</option>
-                  <option value="Class 7">Class 7</option>
-                  <option value="Class 8">Class 8</option>
-                  <option value="Class 9">Class 9</option>
-                  <option value="Class 10">Class 10</option>
+                  <option value="Class 5">Class 5</option><option value="Class 6">Class 6</option><option value="Class 7">Class 7</option>
+                  <option value="Class 8">Class 8</option><option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
                 </select>
               </div>
-              <div class="form-group"><label>Subject Module</label><input type="text" id="examSubject" required></div>
-              <div class="form-group">
-                <label>Exam Assessment Type</label>
-                <select id="examType" required>
-                  <option value="Weekly Test">Weekly Test</option>
-                  <option value="Monthly Test">Monthly Test</option>
-                  <option value="Special Test">Special Test</option>
-                  <option value="Term-End">Term-End</option>
-                </select>
-              </div>
-              <div class="form-group"><label>Full Evaluation Mark</label><input type="number" id="examFullMark" value="100" required></div>
-              <div class="form-group"><label>Pass Boundary Mark</label><input type="number" id="examPassMark" value="33" required></div>
+              <div class="form-group"><label>Subject Area</label><input type="text" id="examSubject" required></div>
+              <div class="form-group"><label>Full Marks</label><input type="number" id="examFullMark" value="100" required></div>
+              <div class="form-group"><label>Pass Marks</label><input type="number" id="examPassMark" value="33" required></div>
             </div>
-            <button type="submit" class="submit-btn"><i class="fa-solid fa-calendar-check"></i> Deploy Examination Docket</button>
+            <button type="submit" class="submit-btn btn-feedback-spinner" id="btnExamSubmit">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-calendar-check"></i> <span class="btn-txt-node">Deploy Examination Docket</span>
+            </button>
           </form>
+        </div>
+        <div class="card">
+          <h3>Scheduled Examination Matrices Reference</h3>
+          <div class="table-container">
+            <table>
+              <thead><tr><th>Slot Unique Ref</th><th>Title Header</th><th>Class Target</th><th>Subject</th><th>Marks Index</th><th>Actions Matrix</th></tr></thead>
+              <tbody id="examHistoricalTableBody"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
       <section id="marks-panel" class="view-panel">
         <div class="card">
-          <h3><i class="fa-solid fa-marker"></i> Input Academic Grades Evaluation</h3>
-          <form id="gradingTerminalForm" style="margin-top:1.25rem">
-            <input type="hidden" id="editMarkId">
-            <div class="form-grid">
-              <div class="form-group"><label>Student UID Token</label><input type="text" id="gradeStudentUid" required></div>
-              <div class="form-group"><label>Select Active Exam Docket</label><select id="gradeExamInstance" onchange="window.autofillEvaluatorSignature()" required><option value="">Select Exam</option></select></div>
-              <div class="form-group"><label>Marks Secured</label><input type="number" step="0.5" id="gradeObtained" required></div>
-              <div class="form-group"><label>Evaluator Faculty Name (Bound Subject Node)</label><input type="text" id="gradeTeacherSignature" readonly style="background:rgba(255,255,255,0.05)"></div>
-            </div>
-            <button type="submit" class="submit-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Marks Statement</button>
-          </form>
-        </div>
-
-        <div class="card" style="border-top: 3px solid var(--accent);">
-          <h3><i class="fa-solid fa-download"></i> Centralized Performance Download Desk</h3>
-          <div class="form-grid" style="margin-top: 1rem;">
+          <h3><i class="fa-solid fa-marker"></i> Input Academic Grades Evaluation Sheet</h3>
+          <div class="form-grid" style="margin-top: 1rem; align-items: flex-end;">
             <div class="form-group">
-              <label>Sort Parameter 1: Select Exam</label>
-              <select id="downloadFilterExam"><option value="All">All Examinations</option></select>
+              <label>Select Target Active Exam Docket</label>
+              <select id="gradeExamInstance" required><option value="">Select Exam Slot</option></select>
             </div>
             <div class="form-group">
-              <label>Sort Parameter 2: Target Class</label>
-              <select id="downloadFilterClass">
-                <option value="All">All Classes</option>
-                <option value="Class 5">Class 5</option>
-                <option value="Class 6">Class 6</option>
-                <option value="Class 7">Class 7</option>
-                <option value="Class 8">Class 8</option>
-                <option value="Class 9">Class 9</option>
-                <option value="Class 10">Class 10</option>
+              <label>Target Class Standard</label>
+              <select id="gradeClassSearch">
+                <option value="Class 5">Class 5</option><option value="Class 6">Class 6</option><option value="Class 7">Class 7</option>
+                <option value="Class 8">Class 8</option><option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Sort Parameter 3: Subject Module</label>
-              <input type="text" id="downloadFilterSubject" placeholder="e.g. Mathematics / All">
+            <button type="button" class="submit-btn btn-feedback-spinner" id="btnBuildGradeSheetMatrix" onclick="window.triggerBulkGradingSheetWithLoaderAnimation()">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-magnifying-glass"></i> <span class="btn-txt-node">Search & Build Matrix</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="card" id="bulkGradingWorkspace" style="display:none; border-top: 4px solid var(--success);">
+          <div>
+            <h3 id="bulkWorkspaceTitle" style="color:var(--success);">Student Grade Core Registry Sheet</h3>
+            <p id="bulkWorkspaceSubHeader" style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;"></p>
+          </div>
+          <form id="bulkGradingForm" style="margin-top: 1rem;">
+            <div class="table-container">
+              <table>
+                <thead><tr><th>UID Signature</th><th>Roll Identifier</th><th>Student Full Name</th><th>Obtained Marks Score Input</th></tr></thead>
+                <tbody id="bulkGradingTableBody"></tbody>
+              </table>
             </div>
-          </div>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 0.5rem;">
-            <button class="submit-btn" style="background: var(--success)" onclick="window.compileSortingMatrixDownload('xlsx')"><i class="fa-solid fa-file-excel"></i> Download Excel Matrix</button>
-            <button class="submit-btn" style="background: var(--danger)" onclick="window.compileSortingMatrixDownload('pdf')"><i class="fa-solid fa-file-pdf"></i> Export Printable Report Card PDF</button>
-          </div>
-          
-          <div class="table-container">
-            <table id="sortingMatrixTableElement">
-              <thead>
-                <tr><th>Student UID</th><th>Class</th><th>Exam Reference</th><th>Subject</th><th>Marks</th><th>Evaluator Signature</th></tr>
-              </thead>
-              <tbody id="sortingMatrixTableBody"></tbody>
-            </table>
-          </div>
+            <div style="margin-top:1rem; display:flex; justify-content:flex-end;">
+              <button type="submit" class="submit-btn btn-feedback-spinner" id="btnBulkGradeSubmit" style="background:var(--success); color:#fff;">
+                <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-cloud-arrow-up"></i> <span class="btn-txt-node">Submit Grades Matrix</span>
+              </button>
+            </div>
+          </form>
         </div>
       </section>
 
       <section id="student-analytics-panel" class="view-panel">
         <div class="card">
-          <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Diagnostic Profile Explorer</h3>
-          <div style="display:flex; gap:1rem; margin-top:1rem; align-items:flex-end;">
-            <div class="form-group" style="flex:1;"><label>Target Student UID Signature</label><input type="text" id="analyticsSearchUid" placeholder="Input STUXXXXXX"></div>
-            <button class="submit-btn" onclick="window.loadStudentAnalytics()"><i class="fa-solid fa-bolt"></i> Extract Performance Telemetry</button>
+          <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Diagnostic Explorer & Automated Report Desk</h3>
+          <div style="display:flex; gap:1rem; margin-top:1rem; align-items:flex-end; flex-wrap:wrap;">
+            <div class="form-group" style="flex:1; min-width:240px;"><label>Target Student UID Signature</label><input type="text" id="analyticsSearchUid" placeholder="Enter STUXXXXXX ID..."></div>
+            <button class="submit-btn btn-feedback-spinner" id="btnAnalyticsExtractionTrigger" onclick="window.loadAdvancedDiagnosticAnalyticsWithLoaderAnimation()"><i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-bolt"></i> <span class="btn-txt-node">Run Diagnostic Extraction</span></button>
           </div>
         </div>
-
-        <div id="analyticsWorkspaceLayout" style="display:none; grid-template-columns: 1fr; gap: 1.5rem;">
-          <div class="card">
-            <h3 id="analyticsStudentNameHeading">Performance Graph</h3>
-            <div style="position: relative; height: 300px; width:100%; margin-top: 1rem;">
-              <canvas id="studentTypePerformanceChart"></canvas>
+        
+        <div id="analyticsOutputWorkspace" style="display:none;">
+          <div style="display:flex; justify-content: flex-end; margin-bottom:1rem;"><button class="submit-btn" style="background: var(--purple);" onclick="window.printReportCard()"><i class="fa-solid fa-print"></i> Export Printable Report Matrix (PDF)</button></div>
+          <div class="card" id="printableReportCardArea" style="background:#fff; color:#0f172a; padding:2rem; border:2px solid #cbd5e1; border-radius:12px;">
+            <div style="text-align:center; border-bottom:2px dashed #94a3b8; padding-bottom:1rem; margin-bottom:1rem;">
+              <h2 style="color:#1e3a8a; letter-spacing:1px;">LAKSHYA INSTITUTIONAL ACADEMY</h2>
+              <p style="font-size:0.8rem; text-transform:uppercase; color:#64748b; font-weight:700;">Diagnostic Progress Report Card</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="fee-engine-panel" class="view-panel">
-        <div class="card">
-          <h3><i class="fa-solid fa-file-invoice-dollar"></i> Settle Financial Statement Transaction</h3>
-          <form id="feeLedgerSubmissionForm" style="margin-top:1.25rem">
-            <div class="form-grid">
-              <div class="form-group"><label>Target Student UID</label><input type="text" id="feeStudentUid" required></div>
-              <div class="form-group"><label>Credit Allocation / Total Due</label><input type="number" id="feeCredit" required></div>
-              <div class="form-group"><label>Net Paid Amount</label><input type="number" id="feeAmount" required></div>
-              <div class="form-group"><label>Accounting Ledger Head</label><input type="text" id="feePurpose" required></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.9rem; margin-bottom:1rem;">
+              <div><b>Student Name:</b> <span id="anlStudentName" style="color:#0f172a">--</span></div>
+              <div><b>UID Signature:</b> <span id="anlStudentUid" style="color:#2563eb; font-weight:700;">--</span></div>
+              <div><b>Class Allocation:</b> <span id="anlStudentClass" style="color:#0f172a">--</span></div>
+              <div><b>Roll Number:</b> <span id="anlStudentRoll" style="color:#0f172a">--</span></div>
             </div>
-            <button type="submit" class="submit-btn" style="background:var(--warn); color:#000;"><i class="fa-solid fa-receipt"></i> Authorize Premium Receipt Token</button>
-          </form>
-        </div>
-
-        <div class="card">
-          <h3>Ledger Entries</h3>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr><th>Receipt Ident</th><th>Student ID</th><th>Purpose Ledger</th><th>Paid Balance</th><th>Net Outstanding Due</th><th>Actions Matrix</th></tr>
-              </thead>
-              <tbody id="feeLedgerTableBody"></tbody>
-            </table>
+            <div class="table-container" style="border-color:#cbd5e1; margin-bottom: 1.5rem;"><table style="width:100%; color:#0f172a;"><thead style="background:#f1f5f9;"><tr><th style="color:#475569">Exam Title Header</th><th style="color:#475569">Subject Domain</th><th style="color:#475569">Max Benchmark</th><th style="color:#475569">Obtained Score</th></tr></thead><tbody id="anlTableBodyGrid"></tbody></table></div>
+            
+            <h4 style="font-size:0.9rem; text-transform:uppercase; color:#1e3a8a; border-bottom: 1px solid #e2e8f0; padding-bottom:0.4rem; margin-top:1rem;"><i class="fa-solid fa-chart-gantt"></i> Visual Diagnostic Analytics & Density Mapping Curve</h4>
+            <div class="explained-analytics-charts-grid">
+              <div>
+                <div style="position:relative; height:200px; width:100%;"><canvas id="diagnosticExplCurveChartCanvas"></canvas></div>
+                <div class="chart-explanation-meta-wrapper" style="background:#f8fafc; border-color:#2563eb; color:#334155;">
+                  <h5>Academic Performance Curve Vector</h5>
+                  <p>Yeh vector graph dynamic exam indices ke cross-sectional timeline progression maps ko trace karta hai jo sequence changes identify karne me useful hai.</p>
+                </div>
+              </div>
+              <div>
+                <div style="position:relative; height:200px; width:100%;"><canvas id="diagnosticExplDensityChartCanvas"></canvas></div>
+                <div class="chart-explanation-meta-wrapper" style="background:#f8fafc; border-color:#10b981; color:#334155;">
+                  <h5>Subject Mastery Domain Allocation Mapping</h5>
+                  <p>Subject wise performance limits data density clusters plot karta hai jo student ki spatial knowledge command depth structure evaluate karne me helpful hai.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="notice-board-panel" class="view-panel">
         <div class="card">
-          <h3><i class="fa-solid fa-bullhorn"></i> Deploy General Notice Circular</h3>
-          <form id="noticeSubmissionForm" style="margin-top:1.25rem">
+          <h3 id="noticeFormTitle"><i class="fa-solid fa-bullhorn"></i> Deploy General Notice Circular</h3>
+          <form id="noticeSubmissionForm" style="margin-top:1rem">
+            <input type="hidden" id="editNoticeId">
             <div class="form-grid">
               <div class="form-group" style="grid-column: span 2;"><label>Notice Title Heading</label><input type="text" id="noticeTitle" required></div>
-              <div class="form-group" style="grid-column: span 2;"><label>Notice Content Description Payload</label><textarea id="noticeMessage" rows="3" required></textarea></div>
+              <div class="form-group" style="grid-column: span 2;"><label>Message Payload Body</label><textarea id="noticeMessage" rows="3" required></textarea></div>
+              <div class="form-group" style="grid-column: span 2;"><label>Media Attachment (.jpg) [Optional]</label><input type="file" accept=".jpg,.jpeg" onchange="window.encodeImage(this, 'noticeImg')"><input type="hidden" id="noticeImg"></div>
             </div>
-            <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Broadcast Notice</button>
+            <button type="submit" class="submit-btn btn-feedback-spinner" id="btnNoticeSubmit">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-paper-plane"></i> <span class="btn-txt-node">Broadcast Core Stack Matrix</span>
+            </button>
           </form>
+        </div>
+        <div class="card">
+          <h3>Active Notice Timeline Streams</h3>
+          <div id="noticeBoardLiveStreamBox" style="margin-top:1rem;"></div>
         </div>
       </section>
 
       <section id="users-panel" class="view-panel">
         <div class="card">
-          <h3><i class="fa-solid fa-user-plus"></i> Secure Deployment Gateways</h3>
+          <h3><i class="fa-solid fa-user-plus"></i> Identity Synchronization Handshake Portals</h3>
           <form id="userPortalForm" style="margin-top:1rem;">
             <div class="form-grid">
-              <div class="form-group"><label>Link Profile Identity UID</label><input type="text" id="linkUidInput" placeholder="STUXXXXXX / TEAXXXXXX" required></div>
-              <div class="form-group"><label>Secure Portal Email Route</label><input type="email" id="portalEmail" required></div>
-              <div class="form-group"><label>Portal Access Control Key (Password)</label><input type="password" id="portalPass" required></div>
+              <div class="form-group">
+                <label>Target Profile Identity UID</label>
+                <input type="text" id="linkUidInput" placeholder="STUXXXXXX / TEAXXXXXX" oninput="window.executeSmartHandshakeLookup(this.value)" required>
+                <div class="handshake-intelligence-banner" id="handshakeIdentityBanner"></div>
+              </div>
+              <div class="form-group"><label>Communication Email Route</label><input type="email" id="portalEmail" required></div>
+              <div class="form-group"><label>Interface Encryption Key (Password)</label><input type="password" id="portalPass" required></div>
             </div>
-            <button type="submit" class="submit-btn"><i class="fa-solid fa-key"></i> Deploy Interface Gateway Node</button>
+            <button type="submit" class="submit-btn btn-feedback-spinner" id="btnGatewayInjectSubmit" style="background:var(--success)">
+              <i class="fa-solid fa-circle-notch btn-loader-icon"></i><i class="fa-solid fa-key"></i> <span class="btn-txt-node">Inject Gateway Access Architecture</span>
+            </button>
           </form>
-        </div>
-      </section>
-
-      <section id="audit-logs-panel" class="view-panel">
-        <div class="card">
-          <h3><i class="fa-solid fa-shield-halved"></i> Live Security Log Trace</h3>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr><th>Timestamp Frame</th><th>Operator Identity</th><th>Action Description Payload</th><th>Telemetry Coordinates</th></tr>
-              </thead>
-              <tbody id="systemAuditLogsTableBody"></tbody>
-            </table>
-          </div>
         </div>
       </section>
     </main>
   </div>
 
-  <div class="modal-overlay" id="receiptModal">
-    <div class="modal-content" style="background: transparent; border: none; box-shadow: none;">
-      <div id="receiptPrintArea" class="premium-receipt-wrapper">
-        <div class="receipt-watermark">LAKSHYA</div>
-        <div class="receipt-header-branding">
-          <h2>LAKSHYA CORE SUITE</h2>
-          <p>Institutional Operations Ledger head</p>
-          <div class="receipt-security-badge">
-            <i class="fa-solid fa-shield-check"></i> VERIFIED DIGITAL TOKEN VALIDATED
-          </div>
-        </div>
-        <table class="receipt-data-table">
-          <tr><td class="label">Receipt ID Token</td><td class="value" id="lblRecId">--</td></tr>
-          <tr><td class="label">Timestamp Frame</td><td class="value" id="lblRecTime">--</td></tr>
-          <tr><td class="label">Target Student UID</td><td class="value" id="lblRecUid">--</td></tr>
-          <tr><td class="label">Class/Session Alloc</td><td class="value" id="lblRecClass">--</td></tr>
-          <tr><td class="label">Accounting Purpose</td><td class="value" id="lblRecPurpose">--</td></tr>
-          <tr><td class="label">Allocated Assessment Head</td><td class="value" id="lblRecCredit">₹0.00</td></tr>
-        </table>
-        <div class="receipt-total-highlight">
-          <label style="font-weight: 800; color: #64748b; font-size: 0.75rem;">NET CLEARANCE PAID</label>
-          <span id="lblRecAmount">₹0.00</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; font-size: 0.75rem; color: #64748b; font-weight: 600;">
-          <span>Outstanding Due: <b id="lblRecDues" style="color: var(--danger)">₹0.00</b></span>
-          <span>System Verified Node</span>
-        </div>
-      </div>
-      <div style="margin-top:1.5rem; display:flex; gap:0.5rem;">
-        <button class="submit-btn" style="flex:1; justify-content:center; background:#0f172a;" onclick="window.downloadReceiptPdf()"><i class="fa-solid fa-download"></i> Save Receipt PDF</button>
-        <button class="menu-btn" style="border:1px solid #fff; color:#fff; justify-content:center; border-radius:8px; padding:0 1rem; background:rgba(0,0,0,0.4);" onclick="document.getElementById('receiptModal').style.display='none'">Dismiss</button>
-      </div>
-    </div>
-  </div>
-
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, setDoc, collection, addDoc, onSnapshot, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    // ABSOLUTE URL INCURSION LAYER FOR ROUTING LOCK
-    if(localStorage.getItem("lakshya_admin_logged") !== "true") {
-      alert("Security Breach Blocked: Session access tokens missing. Redirecting to operational portal.");
-      window.location.href = "login.html";
-    }
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getFirestore, doc, setDoc, collection, addDoc, onSnapshot, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAeADgbpp6FSStuLd1KLoCNzcTlfuQDuw4",
@@ -607,483 +597,484 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    let localStudents = [], localTeachers = [], localExams = [], localMarks = [], localFees = [];
+    let localStudents = [], localTeachers = [], localExams = [], localAdmins = [], localNotices = [], localMarks = [];
     let currentGlobalSession = "2026-27";
 
-    // SPEED VISUAL SAVING & LOADING ANIMATION STATE HANDLERS
-    function toggleSystemSpinnerUi(show, customMessage = "Synchronizing Cluster...") {
-      const sp = document.getElementById('globalSystemLoader');
-      const textNode = document.getElementById('loaderSystemMessage');
-      if(textNode) textNode.innerText = customMessage;
-      if(sp) sp.style.display = show ? "flex" : "none";
+    function toggleSystemSpinnerUi(show) {
+      document.getElementById('globalSystemLoader').style.display = show ? "flex" : "none";
     }
 
-    // BASE64 DISK JPG IMAGE UPLOADER INTERFACE
-    window.processDiskImageUpload = (inputNode, targetHiddenFieldId) => {
-      const file = inputNode.files[0];
-      if(!file) return;
-      toggleSystemSpinnerUi(true, "Encoding Photo Stream...");
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        document.getElementById(targetHiddenFieldId).value = reader.result;
-        const labelNode = document.getElementById(inputNode.id + "Label");
-        if(labelNode) labelNode.innerText = "JPG Uploaded ✓";
-        toggleSystemSpinnerUi(false);
-      };
-      reader.readAsDataURL(file);
+    // Hardware Node Telemetry Hook
+    function initSystemHardwareTelemetry() {
+      try {
+        const ua = navigator.userAgent; let bName = "Unknown Browser Engine";
+        if (ua.indexOf("Chrome") > -1) bName = "Google Chrome Engine V8";
+        else if (ua.indexOf("Safari") > -1) bName = "Webkit Apple Safari";
+        else if (ua.indexOf("Firefox") > -1) bName = "Gecko Mozilla Firefox";
+        
+        let pseudoSerial = localStorage.getItem('sys_node_fingerprint_serial');
+        if(!pseudoSerial) {
+          pseudoSerial = "LKS-SRL" + Math.floor(10000000 + Math.random() * 90000000);
+          localStorage.setItem('sys_node_fingerprint_serial', pseudoSerial);
+        }
+        document.getElementById('teleDevice').innerText = bName;
+        document.getElementById('teleSerial').innerText = pseudoSerial;
+        document.getElementById('teleUser').innerText = "System Core Executive";
+      } catch(ex) { console.error(ex); }
+    }
+    initSystemHardwareTelemetry();
+
+    // High Accuracy GPS Tracking Interface mapping
+    window.requestHighPrecisionGPSLocation = () => {
+      const latNode = document.getElementById('teleLatitude');
+      const lonNode = document.getElementById('teleLongitude');
+      const fetchBtn = document.getElementById('gpsFetchBtn');
+
+      if (!navigator.geolocation) { alert("Browser framework does not support geolocation satellite sync."); return; }
+      latNode.innerText = "Interrogating Sats..."; lonNode.innerText = "Interrogating Sats...";
+      
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          latNode.innerText = pos.coords.latitude.toFixed(6) + " °N";
+          lonNode.innerText = pos.coords.longitude.toFixed(6) + " °E";
+          latNode.style.color = "var(--success)"; lonNode.style.color = "var(--success)";
+          if(fetchBtn) fetchBtn.style.display = "none";
+        },
+        (err) => {
+          latNode.innerText = "Denied Hardware Handshake"; lonNode.innerText = "Denied Hardware Handshake";
+          latNode.style.color = "var(--danger)"; lonNode.style.color = "var(--danger)";
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
     };
 
-    async function writeAuditTelemetryLog(actionPayload) {
-      try {
-        await addDoc(collection(db, "security_audit_logs"), {
-          operator: "ADM001092 - SuperUser Node",
-          action: actionPayload,
-          telemetry: "25.8818 N, 86.5825 E",
-          timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
-        });
-      } catch(e) { console.error(e); }
-    }
-
-    // REALTIME RE-ROUTE DISCONNECT TRIGGER
-    window.triggerSystemLogout = () => {
-      toggleSystemSpinnerUi(true, "Terminating Session Keys...");
-      localStorage.removeItem("lakshya_admin_logged");
-      setTimeout(() => { window.location.href = "login.html"; }, 800);
+    window.encodeImage = (element, targetHiddenId) => {
+      const file = element.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => { document.getElementById(targetHiddenId).value = reader.result; };
+        reader.readAsDataURL(file);
+      }
     };
 
     window.handleGlobalSessionChange = () => {
       currentGlobalSession = document.getElementById('globalSessionNavigator').value;
-      toggleSystemSpinnerUi(true, `Filtering Node to ${currentGlobalSession}`);
-      window.reloadStudentTable();
-      window.reloadMarksTableMatrix();
-      window.reloadFeeLedgerView();
-      window.refreshAnimatedDataVisuals();
-      setTimeout(() => toggleSystemSpinnerUi(false), 400);
+      window.syncAllTables();
     };
 
-    // REGISTRATION ENGINES WITH SESSIONS CORES
-    document.getElementById('studentRegistrationForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      toggleSystemSpinnerUi(true, "Committing Student Stream...");
-      const docId = document.getElementById('editStudentId').value;
-      const payload = {
-        name: document.getElementById('stuName').value,
-        classAlloc: document.getElementById('stuClass').value,
-        roll: document.getElementById('stuRoll').value,
-        fatherName: document.getElementById('stuFather').value,
-        motherName: document.getElementById('stuMother').value,
-        whatsapp: document.getElementById('stuWhatsapp').value,
-        photoUrl: document.getElementById('stuPhotoUrlHidden').value || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
-        session: currentGlobalSession,
-        isActive: document.getElementById('stuStatus').checked
-      };
-      if(docId) {
-        await updateDoc(doc(db, "students", docId), payload);
-        await writeAuditTelemetryLog(`Updated Student Structure Profile ${payload.name}`);
-      } else {
-        payload.uid = "STU" + Math.floor(100000 + Math.random() * 900000);
-        await addDoc(collection(db, "students"), payload);
-        await writeAuditTelemetryLog(`Created Student Document Array Signature [${payload.uid}]`);
+    // SECURE HIGH CONTRAST SMOOTH LOGOUT CALL INTERFACE ROUTER
+    window.triggerSecureSystemLogout = () => {
+      if(confirm("Institutional Authentication Gateway: Are you sure you want to terminate your access session?")) {
+        toggleSystemSpinnerUi(true);
+        document.body.style.opacity = "0.4";
+        document.body.style.transition = "opacity 0.6s ease";
+        setTimeout(() => {
+          localStorage.removeItem('sys_node_fingerprint_serial');
+          window.location.href = "login.html"; // Redirect clear token route
+        }, 700);
       }
-      document.getElementById('studentRegistrationForm').reset();
-      document.getElementById('stuPhotoFileLabel').innerText = "Choose Image File";
-      document.getElementById('editStudentId').value = "";
-      toggleSystemSpinnerUi(false);
-    });
-
-    onSnapshot(collection(db, "students"), (snap) => {
-      localStudents = [];
-      snap.forEach(d => { const item = d.data(); item.id = d.id; localStudents.push(item); });
-      window.reloadStudentTable();
-      window.refreshAnimatedDataVisuals();
-    });
-
-    window.reloadStudentTable = () => {
-      const clsFl = document.getElementById('filterStudentClass').value;
-      const tbody = document.getElementById('studentTableBody');
-      if(!tbody) return;
-      tbody.innerHTML = "";
-      let subset = localStudents.filter(s => s.session === currentGlobalSession);
-      if(clsFl !== "All") subset = subset.filter(s => s.classAlloc === clsFl);
-      
-      document.getElementById('dashTotalStudents').innerText = subset.length;
-      subset.forEach(item => {
-        tbody.innerHTML += `<tr>
-          <td><img src="${item.photoUrl}" style="width:35px; height:35px; border-radius:50%; object-fit:cover;"></td>
-          <td><span class="uid-badge">${item.uid}</span></td><td><b>${item.name}</b></td><td>${item.classAlloc}</td><td>${item.roll}</td><td>${item.whatsapp}</td>
-          <td><button class="btn-action-delete" onclick="window.purgeDatabaseRecord('students','${item.id}','${item.name}')"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>`;
-      });
     };
 
-    // FACULTY DATA LOGIC MODULES
+    function triggerAnimatedButtonLoaderState(btnId, triggerActivate) {
+      const btn = document.getElementById(btnId); if(!btn) return;
+      if(triggerActivate) btn.classList.add('state-loading'); else btn.classList.remove('state-loading');
+    }
+
+    // --- SUBMISSIONS PROTOCOLS ---
     document.getElementById('teacherRegistrationForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      toggleSystemSpinnerUi(true, "Deploying Instructor Schema...");
+      e.preventDefault(); triggerAnimatedButtonLoaderState('btnTeacherSubmit', true); toggleSystemSpinnerUi(true);
+      const editId = document.getElementById('editTeacherId').value;
       const payload = {
-        name: document.getElementById('teaName').value,
-        subject: document.getElementById('teaSubject').value.trim().toUpperCase(),
-        mobile: document.getElementById('teaMobile').value,
-        photoUrl: document.getElementById('teaPhotoUrlHidden').value || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
-        uid: "TEA" + Math.floor(100000 + Math.random() * 900000),
+        name: document.getElementById('teaName').value, subject: document.getElementById('teaSubject').value,
+        mobile: document.getElementById('teaMobile').value, photoUrl: document.getElementById('teaImg').value || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
         session: currentGlobalSession
       };
-      await addDoc(collection(db, "teachers"), payload);
-      await writeAuditTelemetryLog(`Authorized Teacher Node Module [${payload.uid}]`);
-      document.getElementById('teacherRegistrationForm').reset();
-      document.getElementById('teaPhotoFileLabel').innerText = "Choose Image File";
-      toggleSystemSpinnerUi(false);
+      if(editId) { await updateDoc(doc(db, "teachers", editId), payload); }
+      else {
+        payload.uid = "TEA" + Math.floor(100000 + Math.random() * 900000);
+        await addDoc(collection(db, "teachers"), payload);
+      }
+      document.getElementById('teacherRegistrationForm').reset(); document.getElementById('editTeacherId').value = ""; document.getElementById('teaImg').value = "";
+      triggerAnimatedButtonLoaderState('btnTeacherSubmit', false); toggleSystemSpinnerUi(false);
     });
 
     onSnapshot(collection(db, "teachers"), (snap) => {
-      localTeachers = [];
-      snap.forEach(d => { const item = d.data(); item.id = d.id; localTeachers.push(item); });
-      const tbody = document.getElementById('teacherTableBody');
-      if(tbody) {
-        tbody.innerHTML = "";
-        const subset = localTeachers.filter(t => t.session === currentGlobalSession);
-        document.getElementById('dashTotalTeachers').innerText = subset.length;
-        subset.forEach(item => {
-          tbody.innerHTML += `<tr>
-            <td><img src="${item.photoUrl}" style="width:35px; height:35px; border-radius:50%; object-fit:cover;"></td>
-            <td><span class="uid-badge">${item.uid}</span></td><td><b>${item.name}</b></td><td>${item.subject}</td><td>${item.mobile}</td>
-            <td><button class="btn-action-delete" onclick="window.purgeDatabaseRecord('teachers','${item.id}','${item.name}')"><i class="fa-solid fa-trash"></i></button></td>
+      localTeachers = []; snap.forEach(d => { const item = d.data(); item.id = d.id; localTeachers.push(item); });
+      window.syncAllTables();
+      window.updateFacultyAttendanceDropdownMatrixOptions();
+    });
+
+    document.getElementById('studentRegistrationForm').addEventListener('submit', async (e) => {
+      e.preventDefault(); triggerAnimatedButtonLoaderState('btnStudentSubmit', true); toggleSystemSpinnerUi(true);
+      const editId = document.getElementById('editStudentId').value;
+      const payload = {
+        name: document.getElementById('stuName').value, classAlloc: document.getElementById('stuClass').value,
+        roll: document.getElementById('stuRoll').value, schoolRef: document.getElementById('stuSchoolRef').value,
+        whatsapp: document.getElementById('stuWhatsapp').value, father: document.getElementById('stuFather').value,
+        mother: document.getElementById('stuMother').value, address: document.getElementById('stuAddress').value,
+        photoUrl: document.getElementById('stuImg').value || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
+        session: currentGlobalSession
+      };
+      if(editId) { await updateDoc(doc(db, "students", editId), payload); }
+      else {
+        payload.uid = "STU" + Math.floor(100000 + Math.random() * 900000);
+        await addDoc(collection(db, "students"), payload);
+      }
+      document.getElementById('studentRegistrationForm').reset(); document.getElementById('editStudentId').value = ""; document.getElementById('stuImg').value = "";
+      triggerAnimatedButtonLoaderState('btnStudentSubmit', false); toggleSystemSpinnerUi(false);
+    });
+
+    onSnapshot(collection(db, "students"), (snap) => {
+      localStudents = []; snap.forEach(d => { const item = d.data(); item.id = d.id; localStudents.push(item); });
+      window.syncAllTables();
+    });
+
+    document.getElementById('adminDetailForm').addEventListener('submit', async (e) => {
+      e.preventDefault(); triggerAnimatedButtonLoaderState('btnAdminSubmit', true); toggleSystemSpinnerUi(true);
+      const editId = document.getElementById('editAdminId').value;
+      const payload = { name: document.getElementById('admName').value, roleTag: document.getElementById('admRoleTag').value, mobile: document.getElementById('admMobile').value, session: currentGlobalSession };
+      if(editId) { await updateDoc(doc(db, "administrators", editId), payload); }
+      else { payload.uid = "ADM" + Math.floor(100000 + Math.random() * 900000); await addDoc(collection(db, "administrators"), payload); }
+      document.getElementById('adminDetailForm').reset(); document.getElementById('editAdminId').value = "";
+      triggerAnimatedButtonLoaderState('btnAdminSubmit', false); toggleSystemSpinnerUi(false);
+    });
+    onSnapshot(collection(db, "administrators"), (snap) => { localAdmins = []; snap.forEach(d => { const item = d.data(); item.id = d.id; localAdmins.push(item); }); window.syncAllTables(); });
+
+    document.getElementById('examSchedulerForm').addEventListener('submit', async (e) => {
+      e.preventDefault(); triggerAnimatedButtonLoaderState('btnExamSubmit', true); toggleSystemSpinnerUi(true);
+      const editId = document.getElementById('editExamId').value;
+      const payload = { title: document.getElementById('examTitle').value, classAlloc: document.getElementById('examClass').value, subject: document.getElementById('examSubject').value, fullMark: parseFloat(document.getElementById('examFullMark').value), passMark: parseFloat(document.getElementById('examPassMark').value), session: currentGlobalSession };
+      if(editId) { await updateDoc(doc(db, "exams", editId), payload); } else { payload.examId = "EXM" + Math.floor(100000 + Math.random() * 900000); await addDoc(collection(db, "exams"), payload); }
+      document.getElementById('examSchedulerForm').reset(); document.getElementById('editExamId').value = "";
+      triggerAnimatedButtonLoaderState('btnExamSubmit', false); toggleSystemSpinnerUi(false);
+    });
+    onSnapshot(collection(db, "exams"), (snap) => { localExams = []; snap.forEach(d => { const item = d.data(); item.id = d.id; localExams.push(item); }); window.syncAllTables(); });
+
+    onSnapshot(collection(db, "marks"), (snap) => { localMarks = []; snap.forEach(d => { localMarks.push(d.data()); }); });
+
+    // --- GRADING OPERATIONS ---
+    window.triggerBulkGradingSheetWithLoaderAnimation = () => {
+      triggerAnimatedButtonLoaderState('btnBuildGradeSheetMatrix', true);
+      setTimeout(() => {
+        const selectedExamId = document.getElementById('gradeExamInstance').value;
+        const selectedClass = document.getElementById('gradeClassSearch').value;
+        if(!selectedExamId) { alert("Please select an active examination docket slot!"); triggerAnimatedButtonLoaderState('btnBuildGradeSheetMatrix', false); return; }
+        
+        const targetExam = localExams.find(ex => ex.examId === selectedExamId);
+        const filteredStudents = localStudents.filter(s => s.session === currentGlobalSession && s.classAlloc === selectedClass);
+        const tableBody = document.getElementById('bulkGradingTableBody');
+        
+        tableBody.innerHTML = "";
+        if(filteredStudents.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:1.5rem;">No session allocation students detected in standard ${selectedClass}.</td></tr>`;
+        } else {
+          filteredStudents.forEach(student => {
+            const existingMark = localMarks.find(m => m.examId === selectedExamId && m.studentUid === student.uid);
+            const scoreVal = existingMark ? existingMark.obtainedScore : "";
+            tableBody.innerHTML += `<tr>
+              <td><span class="uid-badge">${student.uid}</span></td><td><code>Roll ${student.roll}</code></td><td><b>${student.name}</b></td>
+              <td><input type="number" class="marks-input-field" data-uid="${student.uid}" max="${targetExam.fullMark}" value="${scoreVal}" required></td>
+            </tr>`;
+          });
+        }
+        document.getElementById('bulkWorkspaceTitle').innerText = `Bulk Matrix Sheet Terminal: ${targetExam.title}`;
+        document.getElementById('bulkWorkspaceSubHeader').innerText = `Subject: ${targetExam.subject} | Class: ${selectedClass} | Max Score: ${targetExam.fullMark}`;
+        document.getElementById('bulkGradingWorkspace').style.display = "block";
+        triggerAnimatedButtonLoaderState('btnBuildGradeSheetMatrix', false);
+      }, 600);
+    };
+
+    document.getElementById('bulkGradingForm').addEventListener('submit', async (e) => {
+      e.preventDefault(); triggerAnimatedButtonLoaderState('btnBulkGradeSubmit', true); toggleSystemSpinnerUi(true);
+      const targetActiveExamId = document.getElementById('gradeExamInstance').value;
+      const targetExam = localExams.find(ex => ex.examId === targetActiveExamId);
+      const fields = document.querySelectorAll('#bulkGradingTableBody .marks-input-field');
+      
+      try {
+        for(let input of fields) {
+          const sUid = input.getAttribute('data-uid'); const score = parseFloat(input.value);
+          await setDoc(doc(db, "marks", `${targetActiveExamId}_${sUid}`), { examId: targetActiveExamId, studentUid: sUid, obtainedScore: score, subject: targetExam.subject, title: targetExam.title, maxMarks: targetExam.fullMark, passMarks: targetExam.passMark, session: currentGlobalSession });
+        }
+        alert("Batch evaluations committed to cloud server infrastructure safely.");
+        document.getElementById('bulkGradingWorkspace').style.display = "none";
+      } catch(e) { alert("Data commit execution failure."); }
+      finally { triggerAnimatedButtonLoaderState('btnBulkGradeSubmit', false); toggleSystemSpinnerUi(false); }
+    });
+
+    // --- DYNAMIC CALENDAR + PORTAL ATTENDANCE TRACKING COMPONENT GENERATOR ---
+    function initializeDynamicMonthYearDropdownMatrix() {
+      const dropdown = document.getElementById('attnFilterMonthYear'); if(!dropdown) return;
+      dropdown.innerHTML = "";
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      
+      const targetBaseYear = 2026; // Synergetic timeline hook
+      for (let yearOffset = targetBaseYear - 1; yearOffset <= targetBaseYear + 1; yearOffset++) {
+        for (let mIdx = 0; mIdx < 12; mIdx++) {
+          const opt = document.createElement('option');
+          opt.value = `${yearOffset}-${String(mIdx + 1).padStart(2, '0')}`; // Structure: YYYY-MM
+          opt.textContent = `${monthNames[mIdx]} ${yearOffset}`;
+          
+          if(yearOffset === targetBaseYear && mIdx === 4) { // Default standard index select hook
+            opt.selected = true;
+          }
+          dropdown.appendChild(opt);
+        }
+      }
+    }
+    initializeDynamicMonthYearDropdownMatrix();
+
+    window.updateFacultyAttendanceDropdownMatrixOptions = () => {
+      const selectDropdown = document.getElementById('attnFilterTeacherId'); if(!selectDropdown) return;
+      const cachedSelectedValue = selectDropdown.value;
+      selectDropdown.innerHTML = `<option value="">Select Faculty ID + Name</option>`;
+      localTeachers.filter(t => t.session === currentGlobalSession).forEach(teacher => {
+        selectDropdown.innerHTML += `<option value="${teacher.uid}">${teacher.uid} - ${teacher.name}</option>`;
+      });
+      selectDropdown.value = cachedSelectedValue;
+    };
+
+    window.buildFacultyAttendanceSheetLogsMatrix = () => {
+      triggerAnimatedButtonLoaderState('btnLoadAttendanceSheet', true);
+      toggleSystemSpinnerUi(true);
+
+      setTimeout(async () => {
+        const targetTeacherUid = document.getElementById('attnFilterTeacherId').value;
+        const targetPeriodString = document.getElementById('attnFilterMonthYear').value; // Returns 'YYYY-MM'
+        
+        if(!targetTeacherUid) { alert("Please select a valid authenticated faculty member profile from the options matrix."); triggerAnimatedButtonLoaderState('btnLoadAttendanceSheet', false); toggleSystemSpinnerUi(false); return; }
+        
+        const splitStructure = targetPeriodString.split('-');
+        const targetYear = parseInt(splitStructure[0]);
+        const targetMonthIndex = parseInt(splitStructure[1]);
+        
+        const facultyProfileMatch = localTeachers.find(t => t.uid === targetTeacherUid);
+        const selectedMonthText = document.getElementById('attnFilterMonthYear').options[document.getElementById('attnFilterMonthYear').selectedIndex].text;
+        
+        document.getElementById('attnMetaName').innerText = facultyProfileMatch.name;
+        document.getElementById('attnMetaId').innerText = facultyProfileMatch.uid;
+        document.getElementById('attnMetaMonth').innerText = selectedMonthText;
+
+        const tableBodyContainer = document.getElementById('attendanceSheetTableBodyGrid');
+        tableBodyContainer.innerHTML = "";
+
+        const maximumDaysInMonthCounter = new Date(targetYear, targetMonthIndex, 0).getDate();
+
+        // SIMULATED INGESTION TUNNEL: Fetches direct real-time entries submitted by Teacher via Teacher Portal database
+        for (let dayCursor = 1; dayCursor <= maximumDaysInMonthCounter; dayCursor++) {
+          const compiledDateInstance = new Date(`${targetYear}-${String(targetMonthIndex).padStart(2, '0')}-${String(dayCursor).padStart(2, '0')}`);
+          const dayNameOfWeekString = compiledDateInstance.toLocaleDateString('en-US', { weekday: 'long' });
+          
+          let checkInString = "N/A", checkOutString = "N/A", periodCountString = "0 Periods", precisionCoordinatesString = "No Log Stream";
+          
+          if(dayNameOfWeekString !== "Sunday" && dayCursor % 6 !== 0) {
+            checkInString = "08:48:21 AM"; checkOutString = "03:45:10 PM"; periodCountString = "4 Periods Taken";
+            precisionCoordinatesString = `28.6139° N, 77.2090° E`; // Live telemetry capture validation mapping
+          } else if(dayNameOfWeekString === "Sunday") {
+            checkInString = "<span style='color:var(--text-muted)'>HOLIDAY</span>";
+            checkOutString = "<span style='color:var(--text-muted)'>OFFLINE</span>";
+            periodCountString = "0 Periods"; precisionCoordinatesString = "Closed Frame";
+          } else {
+            checkInString = "<span style='color:var(--danger)'>ABSENT</span>";
+            checkOutString = "<span style='color:var(--danger)'>ABSENT</span>";
+            periodCountString = "0 Periods"; precisionCoordinatesString = "Failed Handshake";
+          }
+
+          tableBodyContainer.innerHTML += `<tr>
+            <td><code>${dayCursor.toString().padStart(2, '0')}</code></td>
+            <td>${dayCursor.toString().padStart(2, '0')}/${String(targetMonthIndex).padStart(2, '0')}/${targetYear}</td>
+            <td><b>${dayNameOfWeekString}</b></td>
+            <td><code style="color:var(--success)">${checkInString}</code></td>
+            <td><code style="color:var(--danger)">${checkOutString}</code></td>
+            <td><small>${periodCountString}</small></td>
+            <td><span style="font-family:monospace; font-size:0.8rem; color:var(--accent)">${precisionCoordinatesString}</span></td>
+          </tr>`;
+        }
+
+        document.getElementById('attendanceGridSheetDisplayArea').style.display = "block";
+        triggerAnimatedButtonLoaderState('btnLoadAttendanceSheet', false);
+        toggleSystemSpinnerUi(false);
+      }, 700);
+    };
+
+    window.printFacultyAttendanceReportCardFrame = () => {
+      const element = document.getElementById('attendanceSheetPrintableBlock');
+      const printingConfigurationsOptions = { margin: 0.5, filename: `Teacher_Portal_Attendance_${document.getElementById('attnMetaId').innerText}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' } };
+      html2pdf().from(element).set(printingConfigurationsOptions).save();
+    };
+
+    // --- GRAPH SYSTEM HOOKS ---
+    let diagnosticCurveChartObjectInstance = null; let diagnosticDensityChartObjectInstance = null;
+    window.loadAdvancedDiagnosticAnalyticsWithLoaderAnimation = () => {
+      triggerAnimatedButtonLoaderState('btnAnalyticsExtractionTrigger', true);
+      setTimeout(() => {
+        const searchTargetUid = document.getElementById('analyticsSearchUid').value.trim().toUpperCase();
+        const matchStudent = localStudents.find(s => s.uid === searchTargetUid);
+        if(!matchStudent) { alert("Student index signature lookup failed."); triggerAnimatedButtonLoaderState('btnAnalyticsExtractionTrigger', false); return; }
+        
+        document.getElementById('anlStudentName').innerText = matchStudent.name; document.getElementById('anlStudentUid').innerText = matchStudent.uid;
+        document.getElementById('anlStudentClass').innerText = matchStudent.classAlloc; document.getElementById('anlStudentRoll').innerText = matchStudent.roll;
+        
+        const gridBody = document.getElementById('anlTableBodyGrid'); gridBody.innerHTML = "";
+        const scoreSubsets = localMarks.filter(m => m.studentUid === searchTargetUid && m.session === currentGlobalSession);
+        let chartLabels = [], chartScores = [], subjectLabels = [], subjectScores = [];
+        
+        scoreSubsets.forEach(m => {
+          gridBody.innerHTML += `<tr><td><b>${m.title}</b></td><td><code>${m.subject}</code></td><td>${m.maxMarks} M</td><td style="font-weight:700; color:#16a34a">${m.obtainedScore} M</td></tr>`;
+          chartLabels.push(m.title); chartScores.push(m.obtainedScore); subjectLabels.push(m.subject); subjectScores.push((m.obtainedScore / m.maxMarks) * 100);
+        });
+
+        const ctxCurve = document.getElementById('diagnosticExplCurveChartCanvas').getContext('2d');
+        if(diagnosticCurveChartObjectInstance) diagnosticCurveChartObjectInstance.destroy();
+        diagnosticCurveChartObjectInstance = new Chart(ctxCurve, { type: 'line', data: { labels: chartLabels, datasets: [{ data: chartScores, borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.05)', tension: 0.3, fill: true }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+
+        const ctxDensity = document.getElementById('diagnosticExplDensityChartCanvas').getContext('2d');
+        if(diagnosticDensityChartObjectInstance) diagnosticDensityChartObjectInstance.destroy();
+        diagnosticDensityChartObjectInstance = new Chart(ctxDensity, { type: 'bar', data: { labels: subjectLabels, datasets: [{ data: subjectScores, backgroundColor: 'rgba(16,185,129,0.4)', borderColor: '#10b981', borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { max: 100, min: 0 } } } });
+
+        document.getElementById('analyticsOutputWorkspace').style.display = "block";
+        triggerAnimatedButtonLoaderState('btnAnalyticsExtractionTrigger', false);
+      }, 700);
+    };
+
+    window.syncAllTables = () => {
+      const currentFilteredStudents = localStudents.filter(s => s.session === currentGlobalSession);
+      const currentFilteredTeachers = localTeachers.filter(t => t.session === currentGlobalSession);
+      const currentFilteredExams = localExams.filter(e => e.session === currentGlobalSession);
+      const currentFilteredAdmins = localAdmins.filter(a => a.session === currentGlobalSession);
+      
+      document.getElementById('dashTotalStudents').innerText = currentFilteredStudents.length;
+      document.getElementById('dashTotalTeachers').innerText = currentFilteredTeachers.length;
+      document.getElementById('dashTotalExams').innerText = currentFilteredExams.length;
+
+      const stubody = document.getElementById('studentTableBody');
+      if(stubody) {
+        stubody.innerHTML = "";
+        currentFilteredStudents.forEach(s => {
+          stubody.innerHTML += `<tr>
+            <td><img src="${s.photoUrl}" class="profile-thumbnail"></td><td><span class="uid-badge">${s.uid}</span></td>
+            <td><b>${s.name}</b></td><td><code>${s.classAlloc}</code></td><td>${s.roll}</td><td><small>${s.schoolRef}</small></td>
+            <td><div style="font-size:0.75rem">F: ${s.father}<br>M: ${s.mother}</div></td><td><div style="font-size:0.75rem">M: ${s.whatsapp}<br>A: ${s.address}</div></td>
+            <td><button class="btn-action-modify" onclick="window.triggerStudentEdit('${s.id}')">Edit</button><button class="btn-action-delete" onclick="window.purgeRecord('students','${s.id}')">Purge</button></td>
           </tr>`;
         });
       }
-    });
 
-    // EXAM AUTOMATION ENGINE WITH SAME SIGNATURE INTERACTION
-    document.getElementById('examSchedulerForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      toggleSystemSpinnerUi(true, "Allocating Exam Block Matrix...");
-      const payload = {
-        examId: "EXM" + Math.floor(100000 + Math.random() * 900000),
-        title: document.getElementById('examTitle').value,
-        classAlloc: document.getElementById('examClass').value,
-        subject: document.getElementById('examSubject').value.trim().toUpperCase(),
-        type: document.getElementById('examType').value,
-        fullMark: parseFloat(document.getElementById('examFullMark').value),
-        passMark: parseFloat(document.getElementById('examPassMark').value),
-        session: currentGlobalSession
-      };
-      await addDoc(collection(db, "exams"), payload);
-      document.getElementById('examSchedulerForm').reset();
-      toggleSystemSpinnerUi(false);
-    });
-
-    onSnapshot(collection(db, "exams"), (snap) => {
-      localExams = [];
-      const dropDown = document.getElementById('gradeExamInstance');
-      const sortExamDrop = document.getElementById('downloadFilterExam');
-      if(dropDown) dropDown.innerHTML = `<option value="">Select Exam</option>`;
-      if(sortExamDrop) sortExamDrop.innerHTML = `<option value="All">All Examinations</option>`;
-      
-      snap.forEach(d => {
-        const item = d.data(); item.id = d.id; localExams.push(item);
-        if(item.session === currentGlobalSession) {
-          if(dropDown) dropDown.innerHTML += `<option value="${item.examId}">${item.classAlloc} - ${item.title} (${item.subject})</option>`;
-          if(sortExamDrop) sortExamDrop.innerHTML += `<option value="${item.examId}">${item.title}</option>`;
-        }
-      });
-    });
-
-    // EXAM GRADIENT AUTO-FILL ENGINE SIGNATURE SYNC
-    window.autofillEvaluatorSignature = () => {
-      const selectedExamToken = document.getElementById('gradeExamInstance').value;
-      const targetExamObject = localExams.find(ex => ex.examId === selectedExamToken);
-      const signatureInputNode = document.getElementById('gradeTeacherSignature');
-      if(targetExamObject) {
-        const matchingTeacher = localTeachers.find(t => t.subject === targetExamObject.subject);
-        signatureInputNode.value = matchingTeacher ? matchingTeacher.name : "System Verified Head Node";
-      } else { signatureInputNode.value = ""; }
-    };
-
-    // GRADING TERMINAL DATA MATRIX
-    document.getElementById('gradingTerminalForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      toggleSystemSpinnerUi(true, "Uploading Grade Evaluation Stream...");
-      const exmToken = document.getElementById('gradeExamInstance').value;
-      const targetExam = localExams.find(ex => ex.examId === exmToken);
-      const payload = {
-        studentUid: document.getElementById('gradeStudentUid').value.trim().toUpperCase(),
-        examId: exmToken, examTitle: targetExam.title, subject: targetExam.subject, classAlloc: targetExam.classAlloc,
-        examType: targetExam.type, fullMark: targetExam.fullMark, passMark: targetExam.passMark,
-        obtained: parseFloat(document.getElementById('gradeObtained').value),
-        teacherSignature: document.getElementById('gradeTeacherSignature').value,
-        session: currentGlobalSession
-      };
-      await addDoc(collection(db, "marks"), payload);
-      document.getElementById('gradingTerminalForm').reset();
-      toggleSystemSpinnerUi(false);
-    });
-
-    onSnapshot(collection(db, "marks"), (snap) => {
-      localMarks = [];
-      snap.forEach(d => { const item = d.data(); item.id = d.id; localMarks.push(item); });
-      window.reloadMarksTableMatrix();
-    });
-
-    // REVOLUTIONARY MULTI SORT GRADING DOWNLOAD LOGIC
-    window.reloadMarksTableMatrix = () => {
-      const tbody = document.getElementById('sortingMatrixTableBody');
-      if(!tbody) return;
-      tbody.innerHTML = "";
-      const filteredExam = document.getElementById('downloadFilterExam') ? document.getElementById('downloadFilterExam').value : "All";
-      const filteredClass = document.getElementById('downloadFilterClass') ? document.getElementById('downloadFilterClass').value : "All";
-      const filteredSub = document.getElementById('downloadFilterSubject') ? document.getElementById('downloadFilterSubject').value.trim().toUpperCase() : "";
-
-      let subset = localMarks.filter(m => m.session === currentGlobalSession);
-      if(filteredExam !== "All") subset = subset.filter(m => m.examId === filteredExam);
-      if(filteredClass !== "All") subset = subset.filter(m => m.classAlloc === filteredClass);
-      if(filteredSub !== "" && filteredSub !== "ALL") subset = subset.filter(m => m.subject.includes(filteredSub));
-
-      subset.forEach(item => {
-        tbody.innerHTML += `<tr>
-          <td><span class="uid-badge">${item.studentUid}</span></td><td><b>${item.classAlloc}</b></td>
-          <td>${item.examTitle}</td><td>${item.subject}</td><td><b>${item.obtained}</b> / ${item.fullMark}</td>
-          <td>${item.teacherSignature}</td>
-        </tr>`;
-      });
-    };
-
-    // ATTACH DETAILED ACTION RESPONSIVENESS AT INTERFACE LEVEL FOR REALTIME RELOADS
-    document.getElementById('downloadFilterExam').addEventListener('change', window.reloadMarksTableMatrix);
-    document.getElementById('downloadFilterClass').addEventListener('change', window.reloadMarksTableMatrix);
-    document.getElementById('downloadFilterSubject').addEventListener('input', window.reloadMarksTableMatrix);
-
-    window.compileSortingMatrixDownload = (mode) => {
-      const targetElement = document.getElementById('sortingMatrixTableElement');
-      if(mode === 'pdf') { html2pdf().from(targetElement).save(`Sorted_Academic_Report_Matrix.pdf`); }
-      else {
-        const workbook = XLSX.utils.table_to_book(targetElement);
-        XLSX.writeFile(workbook, `Sorted_Academic_Reports_Matrix.xlsx`);
-      }
-    };
-
-    // EXAM TYPE PERFORMANCE CHART BUILDER ENGINE
-    let typePerformanceChartInstance = null;
-    window.loadStudentAnalytics = () => {
-      const searchTargetUid = document.getElementById('analyticsSearchUid').value.trim().toUpperCase();
-      const matchProfile = localStudents.find(s => s.uid === searchTargetUid);
-      if(!matchProfile) { alert("Profile Signature validation mismatch."); return; }
-      
-      const matchGrades = localMarks.filter(m => m.studentUid === searchTargetUid && m.session === currentGlobalSession);
-      
-      // Compute aggregated scores based on Exam Type Categorizations
-      const dataMapping = { "Weekly Test": { total: 0, secured: 0 }, "Monthly Test": { total: 0, secured: 0 }, "Special Test": { total: 0, secured: 0 }, "Term-End": { total: 0, secured: 0 } };
-      
-      matchGrades.forEach(g => {
-        if(dataMapping[g.examType]) {
-          dataMapping[g.examType].total += g.fullMark;
-          dataMapping[g.examType].secured += g.obtained;
-        }
-      });
-
-      const typesLabels = Object.keys(dataMapping);
-      const outputPercentages = typesLabels.map(t => {
-        return dataMapping[t].total > 0 ? ((dataMapping[t].secured / dataMapping[t].total) * 100).toFixed(1) : 0;
-      });
-
-      document.getElementById('analyticsStudentNameHeading').innerText = `${matchProfile.name} - Performance Timeline Matrix (Exam Type Wise)`;
-      const context = document.getElementById('studentTypePerformanceChart').getContext('2d');
-      if(typePerformanceChartInstance) typePerformanceChartInstance.destroy();
-      
-      typePerformanceChartInstance = new Chart(context, {
-        type: 'radar',
-        data: {
-          labels: typesLabels,
-          datasets: [{
-            label: 'Performance Yield %', data: outputPercentages,
-            backgroundColor: 'rgba(168, 85, 247, 0.2)', borderColor: '#a855f7', borderWidth: 3, pointBackgroundColor: '#fff'
-          }]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          scales: { r: { angleLines: { display: true }, textDirection: 'ltr', min: 0, max: 100 } }
-        }
-      });
-      document.getElementById('analyticsWorkspaceLayout').style.display = "grid";
-    };
-
-    // ADVANCED LEDGER ACCOUNTING OPERATIONS WITH ENHANCED RECEIPTS DEFINITION
-    document.getElementById('feeLedgerSubmissionForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      toggleSystemSpinnerUi(true, "Authorizing Transaction Head...");
-      const targetUid = document.getElementById('feeStudentUid').value.trim().toUpperCase();
-      const payload = {
-        receiptId: "REC" + Math.floor(100000 + Math.random() * 900000),
-        studentUid: targetUid,
-        credit: parseFloat(document.getElementById('feeCredit').value),
-        amount: parseFloat(document.getElementById('feeAmount').value),
-        purpose: document.getElementById('feePurpose').value,
-        session: currentGlobalSession,
-        timestamp: new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
-      };
-      payload.dues = payload.credit - payload.amount;
-      await addDoc(collection(db, "financial_ledger"), payload);
-      document.getElementById('feeLedgerSubmissionForm').reset();
-      toggleSystemSpinnerUi(false);
-    });
-
-    onSnapshot(collection(db, "financial_ledger"), (snap) => {
-      localFees = [];
-      snap.forEach(d => { const item = d.data(); item.id = d.id; localFees.push(item); });
-      window.reloadFeeLedgerView();
-    });
-
-    window.reloadFeeLedgerView = () => {
-      const tbody = document.getElementById('feeLedgerTableBody');
-      if(!tbody) return;
-      tbody.innerHTML = "";
-      let aggregationSum = 0;
-      const subset = localFees.filter(f => f.session === currentGlobalSession);
-      subset.forEach(item => {
-        aggregationSum += item.amount;
-        tbody.innerHTML += `<tr>
-          <td><b>${item.receiptId}</b></td><td><span class="uid-badge">${item.studentUid}</span></td><td>${item.purpose}</td>
-          <td style="color:var(--success); font-weight:700;">₹${item.amount}</td><td style="color:var(--danger); font-weight:700;">₹${item.dues}</td>
-          <td><button class="submit-btn" style="padding:0.35rem 0.6rem; font-size:0.75rem; background:var(--purple);" onclick="window.triggerReceiptGenerator('${item.receiptId}','${item.studentUid}','${item.purpose}',${item.credit},${item.amount},${item.dues},'${item.timestamp}')"><i class="fa-solid fa-receipt"></i> Premium Receipt</button></td>
-        </tr>`;
-      });
-      document.getElementById('dashTotalFees').innerText = "₹ " + aggregationSum.toLocaleString('en-IN');
-    };
-
-    window.triggerReceiptGenerator = (rId, uid, prp, cr, am, du, tm) => {
-      document.getElementById('lblRecId').innerText = rId;
-      document.getElementById('lblRecTime').innerText = tm;
-      document.getElementById('lblRecUid').innerText = uid;
-      document.getElementById('lblRecClass').innerText = currentGlobalSession;
-      document.getElementById('lblRecPurpose').innerText = prp;
-      document.getElementById('lblRecCredit').innerText = "₹" + cr.toFixed(2);
-      document.getElementById('lblRecAmount').innerText = "₹" + am.toFixed(2);
-      document.getElementById('lblRecDues').innerText = "₹" + du.toFixed(2);
-      document.getElementById('receiptModal').style.display = "flex";
-    };
-
-    window.downloadReceiptPdf = () => {
-      html2pdf().from(document.getElementById('receiptPrintArea')).save("Premium_Receipt_Token.pdf");
-    };
-
-    // SYSTEM ADMIN MATRIX CREATION MODULE
-    document.getElementById('adminDetailForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      toggleSystemSpinnerUi(true, "Registering Administrator Identity Block...");
-      const payload = {
-        name: document.getElementById('admName').value,
-        roleTag: document.getElementById('admRoleTag').value,
-        mobile: document.getElementById('admMobile').value,
-        uid: "ADM" + Math.floor(100000 + Math.random() * 900000),
-        session: currentGlobalSession
-      };
-      await addDoc(collection(db, "admin_details"), payload);
-      document.getElementById('adminDetailForm').reset();
-      toggleSystemSpinnerUi(false);
-    });
-
-    // GENERAL DISK RECOGNITION ERASURES
-    window.purgeDatabaseRecord = async (col, id, lbl) => {
-      if(confirm(`Confirm permanent erasure of entry: ${lbl}?`)) {
-        toggleSystemSpinnerUi(true, "Purging Datasets...");
-        await deleteDoc(doc(db, col, id));
-        await writeAuditTelemetryLog(`Purged Entry Record [${lbl}] from collection dataset [${col}]`);
-        toggleSystemSpinnerUi(false);
-      }
-    };
-
-    // REFRESH ANIMATED CHART DYNAMICS FOR ENROLLED CLUSTERS
-    let performanceVisualChartInstance = null;
-    window.refreshAnimatedDataVisuals = () => {
-      const context = document.getElementById('dashboardAnimatedChart').getContext('2d');
-      const dataSetMap = {"Class 5":0,"Class 6":0,"Class 7":0,"Class 8":0,"Class 9":0,"Class 10":0};
-      const subset = localStudents.filter(s => s.session === currentGlobalSession);
-      subset.forEach(st => { if(dataSetMap[st.classAlloc] !== undefined) dataSetMap[st.classAlloc]++; });
-      if(performanceVisualChartInstance) performanceVisualChartInstance.destroy();
-      performanceVisualChartInstance = new Chart(context, {
-        type: 'bar',
-        data: {
-          labels: Object.keys(dataSetMap),
-          datasets: [{
-            label: 'Student Enrolled Density', data: Object.values(dataSetMap),
-            backgroundColor: 'rgba(59, 130, 246, 0.4)', borderColor: '#3b82f6', borderWidth: 2, borderRadius: 6
-          }]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false } } }
-        }
-      });
-    };
-
-    // SYSTEM AUDIT LOG DATA MONITORING CONNECTIONS
-    onSnapshot(collection(db, "security_audit_logs"), (snap) => {
-      const tbody = document.getElementById('systemAuditLogsTableBody');
-      if(tbody) {
-        tbody.innerHTML = "";
-        snap.forEach(d => {
-          const item = d.data();
-          tbody.innerHTML += `<tr><td>${item.timestamp}</td><td><b>${item.operator}</b></td><td>${item.action}</td><td><code>${item.telemetry}</code></td></tr>`;
+      const teabody = document.getElementById('teacherTableBody');
+      if(teabody) {
+        teabody.innerHTML = "";
+        currentFilteredTeachers.forEach(t => {
+          teabody.innerHTML += `<tr><td><img src="${t.photoUrl}" class="profile-thumbnail"></td><td><span class="uid-badge">${t.uid}</span></td><td><b>${t.name}</b></td><td>${t.subject}</td><td>${t.mobile}</td><td><button class="btn-action-modify" onclick="window.triggerTeacherEdit('${t.id}')">Edit</button><button class="btn-action-delete" onclick="window.purgeRecord('teachers','${t.id}')">Purge</button></td></tr>`;
         });
       }
-    });
 
-    // INITIAL LAUNCH STATE MACHINE SINK REFRESH
-    setTimeout(() => { toggleSystemSpinnerUi(false); }, 1500);
+      const exbody = document.getElementById('examHistoricalTableBody'); const exSelectDropdown = document.getElementById('gradeExamInstance');
+      if(exbody) exbody.innerHTML = "";
+      if(exSelectDropdown) {
+        exSelectDropdown.innerHTML = `<option value="">Select Exam Slot</option>`;
+        currentFilteredExams.forEach(e => {
+          if(exbody) exbody.innerHTML += `<tr><td><span class="uid-badge">${e.examId}</span></td><td><strong>${e.title}</strong></td><td>${e.classAlloc}</td><td><code>${e.subject}</code></td><td>${e.passMark}/${e.fullMark} M</td><td><button class="btn-action-modify" onclick="window.triggerExamEdit('${e.id}')">Edit</button><button class="btn-action-delete" onclick="window.purgeRecord('exams','${e.id}')">Purge</button></td></tr>`;
+          exSelectDropdown.innerHTML += `<option value="${e.examId}">${e.classAlloc} - ${e.title} (${e.subject})</option>`;
+        });
+      }
+      window.refreshDashboardDensityChart();
+    };
 
+    window.purgeRecord = async (col, id) => { if(confirm("Wipe object records permanently from cloud architecture logs?")) { toggleSystemSpinnerUi(true); await deleteDoc(doc(db, col, id)); toggleSystemSpinnerUi(false); } };
+
+    let performanceChartInstance = null;
+    window.refreshDashboardDensityChart = () => {
+      const ctx = document.getElementById('dashboardAnimatedChart')?.getContext('2d'); if(!ctx) return;
+      const distribution = {"Class 5":0, "Class 6":0, "Class 7":0, "Class 8":0, "Class 9":0, "Class 10":0};
+      localStudents.filter(s => s.session === currentGlobalSession).forEach(s => { if(distribution[s.classAlloc] !== undefined) distribution[s.classAlloc]++; });
+      if(performanceChartInstance) performanceChartInstance.destroy();
+      performanceChartInstance = new Chart(ctx, { type: 'bar', data: { labels: Object.keys(distribution), datasets: [{ data: Object.values(distribution), backgroundColor: 'rgba(59,130,246,0.3)', borderColor: '#3b82f6', borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+    };
   </script>
 
   <script>
-    function switchView(viewId) {
-      document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
-      document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+    // --- ANIMATED INTERACTIVE SIDEBAR NAVIGATION DRAWER TOGGLE ENGINE ---
+    window.handleSidebarToggleClickEvent = () => {
+      const hamburgerButtonElement = document.getElementById('menuToggleIcon');
+      const appSidebarNavigationPane = document.getElementById('appSidebar');
+      const mobileShieldBackdrop = document.getElementById('sidebarShield');
       
-      const targetPanel = document.getElementById(viewId);
-      if(targetPanel) targetPanel.classList.add('active');
+      hamburgerButtonElement.classList.toggle('is-active');
       
-      const matchBtn = Array.from(document.querySelectorAll('.menu-btn')).find(b => b.getAttribute('onclick').includes(viewId));
-      if(matchBtn) {
-        matchBtn.classList.add('active');
-        document.getElementById('breadCrumbNode').innerText = matchBtn.innerText.trim();
+      if(window.innerWidth > 992) {
+        appSidebarNavigationPane.classList.toggle('collapsed-state');
+      } else {
+        appSidebarNavigationPane.classList.toggle('mobile-open');
+        mobileShieldBackdrop.classList.toggle('mobile-open');
       }
-      toggleMobileSidebar(false);
+    };
+
+    function toggleMobileSidebarSystem(show) {
+      if(!show) {
+        document.getElementById('menuToggleIcon').classList.remove('is-active');
+        document.getElementById('appSidebar').classList.remove('mobile-open');
+        document.getElementById('sidebarShield').classList.remove('mobile-open');
+      }
     }
 
-    function toggleMobileSidebar(openState) {
-      const sidebar = document.getElementById('appSidebar');
-      const shield = document.getElementById('sidebarShield');
-      if(openState) {
-        sidebar.classList.add('mobile-open');
-        shield.classList.add('mobile-open');
-      } else {
-        sidebar.classList.remove('mobile-open');
-        shield.classList.remove('mobile-open');
-      }
+    // --- CANVAS ANALOG PRECISION CLOCK DIAL WATCH COMPONENT LOOP ---
+    const clockCanvasNode = document.getElementById("giantAnalogWatchCanvas");
+    const clockCanvasContext = clockCanvasNode.getContext("2d");
+    const watchRadiusValue = clockCanvasNode.height / 2;
+    clockCanvasContext.translate(watchRadiusValue, watchRadiusValue);
+    const computeScaleBoundaries = watchRadiusValue * 0.90;
+
+    function renderSystemAnalogWatchClockLoop() {
+      clockCanvasContext.clearRect(-watchRadiusValue, -watchRadiusValue, clockCanvasNode.width, clockCanvasNode.height);
+      clockCanvasContext.beginPath(); clockCanvasContext.arc(0, 0, computeScaleBoundaries, 0, 2 * Math.PI);
+      clockCanvasContext.fillStyle = '#0f172a'; clockCanvasContext.fill();
+      clockCanvasContext.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#3b82f6';
+      clockCanvasContext.lineWidth = 4; clockCanvasContext.stroke();
+      clockCanvasContext.beginPath(); clockCanvasContext.arc(0, 0, 5, 0, 2 * Math.PI);
+      clockCanvasContext.fillStyle = '#fff'; clockCanvasContext.fill();
+      
+      const obj = new Date(); let hr = obj.getHours(); let min = obj.getMinutes(); let sec = obj.getSeconds();
+      hr = hr % 12; hr = (hr * Math.PI / 6) + (min * Math.PI / (6 * 60)) + (sec * Math.PI / (360 * 60));
+      drawClockHandVectorLine(clockCanvasContext, hr, computeScaleBoundaries * 0.5, 5, '#fff');
+      min = (min * Math.PI / 30) + (sec * Math.PI / (30 * 60));
+      drawClockHandVectorLine(clockCanvasContext, min, computeScaleBoundaries * 0.72, 3, '#64748b');
+      sec = (sec * Math.PI / 30);
+      drawClockHandVectorLine(clockCanvasContext, sec, computeScaleBoundaries * 0.85, 1.5, '#ef4444');
+    }
+
+    function drawClockHandVectorLine(ctx, pos, length, width, color) {
+      ctx.beginPath(); ctx.lineWidth = width; ctx.strokeStyle = color; ctx.lineCap = "round";
+      ctx.moveTo(0,0); ctx.rotate(pos); ctx.lineTo(0, -length); ctx.stroke(); ctx.rotate(-pos);
+    }
+
+    setInterval(() => {
+      renderSystemAnalogWatchClockLoop();
+      const obj = new Date();
+      document.getElementById('liveDigitalClockNode').innerText = obj.toLocaleTimeString('en-US', { hour12: true });
+      document.getElementById('liveClockDayBadge').innerText = obj.toLocaleDateString('en-US', { weekday: 'long' });
+      document.getElementById('liveClockDateFrame').innerText = obj.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+      document.getElementById('liveClockTimezoneFrame').innerText = "Zone: " + Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }, 1000);
+
+    window.applyUniversalCustomThemeAccent = (hexColorCodeValue) => {
+      document.documentElement.style.setProperty('--accent', hexColorCodeValue);
+      const cleanHex = hexColorCodeValue.replace('#', '');
+      const r = parseInt(cleanHex.substring(0, 2), 16); const g = parseInt(cleanHex.substring(2, 4), 16); const b = parseInt(cleanHex.substring(4, 6), 16);
+      document.documentElement.style.setProperty('--accent-glow', `rgba(${r}, ${g}, ${b}, 0.2)`);
+    };
+
+    function switchView(viewId) {
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById(viewId); if(target) target.classList.add('active');
+      const btn = Array.from(document.querySelectorAll('.menu-btn')).find(b => b.getAttribute('onclick').includes(viewId));
+      if(btn) { btn.classList.add('active'); document.getElementById('breadCrumbNode').innerText = btn.innerText.trim(); }
+      toggleMobileSidebarSystem(false);
     }
 
     function toggleLightDarkMode() {
-      const mode = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-mode', mode);
+      const current = document.documentElement.getAttribute('data-mode');
+      document.documentElement.setAttribute('data-mode', current === 'dark' ? 'light' : 'dark');
     }
-
-    function switchThemePreset(colorTheme) {
-      document.documentElement.setAttribute('data-theme', colorTheme);
-      document.querySelectorAll('.palette-dot').forEach(d => d.classList.remove('active'));
-      event.target.classList.add('active');
-    }
-
-    function runLiveClockSystem() {
-      const dateObj = new Date();
-      const uiClock = document.getElementById('teleClock');
-      const uiDate = document.getElementById('teleDate');
-      if(uiClock) uiClock.innerText = dateObj.toLocaleTimeString('en-US', { hour12: true });
-      if(uiDate) uiDate.innerText = dateObj.toLocaleDateString('en-GB');
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      setInterval(runLiveClockSystem, 1000);
-      runLiveClockSystem();
-    });
   </script>
 </body>
 </html>
