@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakshya Academy - Result Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700&family=Cinzel:wght=600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0A2540;
+            --secondary: #639FAB;
+            --accent: #D4AF37;
+            --dark: #1E293B;
+            --light: #F8FAFC;
+            --white: #FFFFFF;
+            --border-color: #E2E8F0;
+            --success: #10B981;
+            --error: #EF4444;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: #F1F5F9;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .splash-logo-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 24px;
+        }
+
+        .splash-logo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--white);
+        }
+
+        .splash-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 3px solid transparent;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .splash-title {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .progress-bar-container {
+            width: 200px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background-color: var(--accent);
+            animation: fillProgress 2s ease-in-out forwards;
+        }
+
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        header.portal-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+
+        .header-title h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .portal-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-control:hover {
+            background-color: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        main.portal-workspace {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .portal-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+            padding: 2.5rem 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .portal-card.wide-card {
+            max-width: 900px;
+        }
+
+        .screen-view {
+            display: none;
+        }
+
+        .screen-view.active-view {
+            display: block;
+        }
+
+        .card-center-logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-center-logo img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+
+        .card-heading {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-heading h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-heading p {
+            color: var(--secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--dark);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.15);
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 1rem;
+        }
+
+        .btn-action:hover {
+            background-color: #133A63;
+        }
+
+        .link-alternate {
+            display: block;
+            text-align: center;
+            margin-top: 1.25rem;
+            color: #475569;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .link-alternate:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .alert-box {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+            font-weight: 500;
+        }
+
+        .alert-box.alert-error {
+            display: block;
+            background-color: #FEF2F2;
+            color: var(--error);
+            border: 1px solid #FEE2E2;
+        }
+
+        .alert-box.alert-success {
+            display: block;
+            background-color: #ECFDF5;
+            color: var(--success);
+            border: 1px solid #D1FAE5;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .student-profile-info {
+            background-color: var(--light);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            font-weight: 600;
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+
+        .profile-value {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .marks-block-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: #E2E8F0;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .marks-summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .marks-summary-table th, .marks-summary-table td {
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .marks-summary-table th {
+            font-weight: 600;
+            color: #475569;
+            background-color: #F8FAFC;
+        }
+
+        .marks-summary-table tr.total-row td {
+            font-weight: 700;
+            color: var(--primary);
+            background-color: #F1F5F9;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .analytics-container {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .svg-chart-wrapper {
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        .bar-group rect {
+            transition: height 0.5s ease-out, y 0.5s ease-out;
+        }
+
+        .bar-part1 { fill: url(#grad-part1); }
+        .bar-part2 { fill: url(#grad-part2); }
+        .axis-line { stroke: #94A3B8; stroke-width: 1.5px; }
+        .grid-line { stroke: #E2E8F0; stroke-width: 1px; stroke-dasharray: 4,4; }
+        .chart-text { font-family: var(--font-sans); font-size: 10px; fill: #64748B; text-anchor: middle; }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-color { width: 14px; height: 14px; border-radius: 3px; }
+
+        #printable-report-wrapper {
+            display: none;
+        }
+
+        footer.portal-footer {
+            background-color: var(--primary);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.85rem;
+            border-top: 3px solid var(--accent);
+            margin-top: auto;
+        }
+
+        @media (max-width: 576px) {
+            .portal-card { padding: 1.5rem 1.25rem; }
+            header.portal-header {
+                padding: 0.75rem 1rem;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+
+        @media print {
+            body, html {
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                width: 210mm;
+                height: 297mm;
+                overflow: hidden;
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            #splash-screen, header.portal-header, main.portal-workspace, footer.portal-footer {
+                display: none !important;
+            }
+
+            #printable-report-wrapper {
+                display: block !important;
+                width: 210mm;
+                height: 297mm;
+                position: relative;
+                box-sizing: border-box;
+                background-color: #FFFFFF;
+                overflow: hidden;
+            }
+
+            .print-border-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 210mm;
+                height: 297mm;
+                border: 4mm solid var(--primary);
+                box-sizing: border-box;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .print-text-border-line-top, .print-text-border-line-bottom {
+                position: absolute;
+                left: 0;
+                width: 100%;
+                font-family: var(--font-sans);
+                font-size: 7.5pt;
+                font-weight: 700;
+                color: rgba(10, 37, 64, 0.25);
+                text-align: center;
+                letter-spacing: 2.2mm;
+                white-space: nowrap;
+                overflow: hidden;
+                z-index: 10;
+                text-transform: uppercase;
+            }
+            
+            .print-text-border-line-top { top: 1mm; }
+            .print-text-border-line-bottom { bottom: 1mm; }
+
+            .print-content-canvas {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .print-header-graphic-frame {
+                width: 190mm;
+                height: 48mm;
+                object-fit: fill;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .print-sheet-body {
+                flex: 1;
+                padding: 3mm 10mm 2mm 10mm;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .print-document-title-box {
+                text-align: center;
+                margin-bottom: 3mm;
+            }
+
+            .print-document-title-box h2 {
+                font-family: 'Cinzel', serif;
+                font-size: 18pt;
+                color: var(--primary);
+                font-weight: 700;
+                letter-spacing: 2px;
+                border-bottom: 2px double var(--primary);
+                display: inline-block;
+                padding: 0 12mm 1mm 12mm;
+                text-transform: uppercase;
+            }
+
+            .print-metadata-layout-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                row-gap: 2mm;
+                column-gap: 8mm;
+                background-color: #F8FAFC;
+                border: 1px solid #CBD5E1;
+                border-radius: 4px;
+                padding: 3mm 5mm;
+                margin-bottom: 4mm;
+            }
+
+            .print-meta-cell { display: flex; font-size: 9.5pt; }
+            .print-meta-label { font-weight: 600; color: #475569; width: 42mm; text-transform: uppercase; font-size: 8.5pt; }
+            .print-meta-value { font-weight: 700; color: #000000; flex: 1; }
+
+            .print-table-sections-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 6mm;
+                margin-bottom: 4mm;
+            }
+
+            .print-ledger-table-block h3 {
+                font-size: 9.5pt;
+                font-weight: 700;
+                background-color: var(--primary) !important;
+                color: var(--white) !important;
+                padding: 1.5mm 3mm;
+                border-radius: 3px 3px 0 0;
+                text-transform: uppercase;
+            }
+
+            .print-ledger-table { width: 100%; border-collapse: collapse; }
+            .print-ledger-table th, .print-ledger-table td { border: 0.25mm solid #94A3B8; padding: 1.5mm 2.5mm; font-size: 9pt; text-align: left; }
+            .print-ledger-table th { background-color: #E2E8F0 !important; font-weight: 700; text-transform: uppercase; font-size: 8pt; }
+            .print-ledger-table td:nth-child(2), .print-ledger-table td:nth-child(3) { text-align: center; }
+            .print-ledger-table tr.print-total-row td { font-weight: 700; background-color: #F1F5F9 !important; }
+
+            .print-aggregate-banner-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                border: 0.5mm solid var(--primary);
+                background-color: #F8FAFC !important;
+                border-radius: 4px;
+                margin-bottom: 4mm;
+                text-align: center;
+            }
+
+            .print-aggregate-cell { padding: 2mm; border-right: 0.25mm solid var(--primary); }
+            .print-aggregate-cell:last-child { border-right: none; }
+            .print-aggregate-label { font-size: 8pt; font-weight: 700; color: #475569; text-transform: uppercase; }
+            .print-aggregate-value { font-size: 11pt; font-weight: 700; color: var(--primary); }
+
+            .print-analytics-panel {
+                border: 0.25mm solid #CBD5E1;
+                border-radius: 4px;
+                padding: 2.5mm;
+                margin-bottom: 4mm;
+                background-color: #FFFFFF;
+            }
+
+            .print-analytics-panel h4 { font-size: 9pt; text-transform: uppercase; font-weight: 700; text-align: center; margin-bottom: 1.5mm; }
+
+            .print-remarks-container {
+                border-left: 3px solid var(--primary);
+                background-color: #F8FAFC !important;
+                padding: 2mm 4mm;
+                font-size: 9pt;
+                margin-bottom: auto;
+            }
+
+            .print-remarks-label { font-weight: 700; color: var(--primary); text-transform: uppercase; font-size: 8pt; }
+            .print-remarks-text { font-style: italic; color: #334155; }
+
+            .print-signature-executive-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                padding: 0 10mm;
+                margin-top: 4mm;
+                margin-bottom: 2mm;
+            }
+
+            .print-sig-block { text-align: center; width: 55mm; }
+            .print-sig-image-wrapper { height: 12mm; display: flex; align-items: center; justify-content: center; margin-bottom: 1mm; }
+            .print-sig-image-wrapper img { max-height: 100%; max-width: 100%; object-fit: contain; }
+            
+            .print-sig-line {
+                border-top: 0.25mm solid #475569;
+                padding-top: 1mm;
+                font-size: 9pt;
+                font-weight: 700;
+                color: var(--primary);
+                text-transform: uppercase;
+                line-height: 1.2;
+            }
+            .print-sig-name {
+                font-size: 8.5pt;
+                color: #334155;
+                font-weight: 500;
+                margin-top: 1px;
+            }
+
+            .print-footer-graphic-frame {
+                width: 198mm;
+                height: 22mm;
+                object-fit: fill;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="splash-logo-container">
+            <img class="splash-logo" src="https://github.com/techbaricade-sudo/lakshya/blob/main/365e3e8c-0502-4751-85e5-db747d5f0326.png?raw=true" alt="Lakshya Academy Logo">
+            <div class="splash-ring"></div>
+        </div>
+        <div class="splash-title">Lakshya Academy</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill"></div>
+        </div>
+    </div>
+
+    <header class="portal-header">
+        <div class="header-brand">
+            <img class="header-logo" src="https://github.com/techbaricade-sudo/lakshya/blob/main/365e3e8c-0502-4751-85e5-db747d5f0326.png?raw=true" alt="Lakshya Academy Logo">
+            <div class="header-title">
+                <h1>Lakshya Academy Portal</h1>
+            </div>
+        </div>
+        <div class="portal-controls">
+            <button class="btn-control" onclick="handleResetPortalState()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.253 8H18"></path></svg>
+                Sync Sheets
+            </button>
+            <button class="btn-control" onclick="handleNavigateToScreen('main-gate-screen')">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Home
+            </button>
+        </div>
+    </header>
+
+    <main class="portal-workspace">
+
+        <div id="main-gate-screen" class="portal-card screen-view active-view">
+            <div class="card-center-logo">
+                <img src="https://github.com/techbaricade-sudo/lakshya/blob/main/365e3e8c-0502-4751-85e5-db747d5f0326.png?raw=true" alt="Lakshya Academy Logo">
+            </div>
+            <div class="card-heading">
+                <h2>Integrated Portal for Results</h2>
+                <p>Monthly Test Assessment</p>
+            </div>
+            
+            <div id="main-gate-error" class="alert-box alert-error"></div>
+
+            <form id="search-uid-form" onsubmit="executeStudentUidSearch(event)">
+                <div class="form-group">
+                    <label for="input-student-uid">Search Your Enrollment</label>
+                    <input type="text" id="input-student-uid" class="form-input" placeholder="Enter Student UID" required autocomplete="off">
+                </div>
+                <button type="submit" id="btn-submit-search" class="btn-action">VIEW Results</button>
+                <a class="link-alternate" onclick="handleNavigateToScreen('forget-uid-screen')">(Forgot UID)</a>
+            </form>
+        </div>
+
+        <div id="forget-uid-screen" class="portal-card screen-view">
+            <div class="card-center-logo">
+                <img src="https://github.com/techbaricade-sudo/lakshya/blob/main/365e3e8c-0502-4751-85e5-db747d5f0326.png" alt="Lakshya Academy Logo">
+            </div>
+            <div class="card-heading">
+                <h2>Forget UID Portal</h2>
+                <p>Search Unique Identification Number</p>
+            </div>
+
+            <div id="forget-uid-alert" class="alert-box"></div>
+
+            <form id="recover-uid-form" onsubmit="executeUidRecoveryVerification(event)">
+                <div class="form-group">
+                    <label for="recover-student-name">Enter Your Name</label>
+                    <input type="text" id="recover-student-name" class="form-input" placeholder="Ex: RAM" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="recover-father-name">Father's Name</label>
+                    <input type="text" id="recover-father-name" class="form-input" placeholder="Ex: MAHADEV PRASAD" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="recover-class-select">Select Class</label>
+                    <select id="recover-class-select" class="form-input" required>
+                        <option value="" disabled selected>-- Choose your class --</option>
+                        <option value="VI">Class VI</option>
+                        <option value="VII">Class VII</option>
+                        <option value="VIII">Class VIII</option>
+                        <option value="IX">Class IX</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-action">Verify Details</button>
+                <a class="link-alternate" onclick="handleNavigateToScreen('main-gate-screen')">Back to Search Gate</a>
+            </form>
+        </div>
+
+        <div id="dashboard-results-screen" class="portal-card wide-card screen-view">
+            <div class="card-heading" style="text-align: left; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h2 style="font-size: 1.6rem;">Detailed Performance Scoreboard</h2>
+                    <p>Academic Assessment Ledger Repository</p>
+                </div>
+                <button class="btn-action" onclick="executeNativePrintJobTrigger()" style="width: auto; margin-top: 0; padding: 10px 20px; background-color: var(--accent); color: var(--primary);">
+                    🖨️ Print Report Card
+                </button>
+            </div>
+
+            <div class="dashboard-grid">
+                <div>
+                    <div class="student-profile-info">
+                        <div class="profile-row"><span class="profile-label">Student UID:</span><span class="profile-value" id="dash-uid">-</span></div>
+                        <div class="profile-row"><span class="profile-label">Student Full Name:</span><span class="profile-value" id="dash-name">-</span></div>
+                        <div class="profile-row"><span class="profile-label">Father's Name:</span><span class="profile-value" id="dash-father">-</span></div>
+                        <div class="profile-row"><span class="profile-label">Assigned Class:</span><span class="profile-value" id="dash-class">-</span></div>
+                        <div class="profile-row"><span class="profile-label">Exam Description:</span><span class="profile-value" id="dash-exam">-</span></div>
+                    </div>
+
+                    <div class="marks-block-title">PART - I Marks Log</div>
+                    <table class="marks-summary-table">
+                        <thead>
+                            <tr><th>Subject</th><th>Full Marks</th><th>Obtained Marks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Science</td><td>15</td><td id="dash-p1-sci">-</td></tr>
+                            <tr><td>English</td><td>15</td><td id="dash-p1-eng">-</td></tr>
+                            <tr><td>Math</td><td>15</td><td id="dash-p1-mat">-</td></tr>
+                            <tr><td>Social Studies</td><td>15</td><td id="dash-p1-soc">-</td></tr>
+                            <tr class="total-row"><td>TOTAL</td><td>60</td><td id="dash-p1-tot">-</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="marks-block-title">PART - II Marks Log</div>
+                    <table class="marks-summary-table">
+                        <thead>
+                            <tr><th>Subject</th><th>Full Marks</th><th>Obtained Marks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Science</td><td>10</td><td id="dash-p2-sci">-</td></tr>
+                            <tr><td>English</td><td>10</td><td id="dash-p2-eng">-</td></tr>
+                            <tr><td>Math</td><td>10</td><td id="dash-p2-mat">-</td></tr>
+                            <tr><td>Social Studies</td><td>10</td><td id="dash-p2-soc">-</td></tr>
+                            <tr class="total-row"><td>TOTAL</td><td>40</td><td id="dash-p2-tot">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <div class="student-profile-info" style="border-left-color: var(--accent); background-color: #FFFDF5; margin-bottom: 1.5rem;">
+                        <div class="profile-row"><span class="profile-label">Sub Total - PART I & PART II:</span><span class="profile-value" id="dash-subtotal" style="color: var(--primary); font-size: 1.05rem;">-</span></div>
+                        <div class="profile-row"><span class="profile-label">Calculated Percentage:</span><span class="profile-value" id="dash-percentage" style="color: var(--primary); font-size: 1.05rem;">-</span></div>
+                        <div class="profile-row"><span class="profile-label">Institutional Pool Rank:</span><span class="profile-value" id="dash-rank" style="color: var(--error); font-size: 1.05rem;">-</span></div>
+                    </div>
+
+                    <div class="analytics-container">
+                        <div class="chart-title">📊 Part-I vs Part-II Performance Comparison Graph</div>
+                        <div class="svg-chart-wrapper">
+                            <svg id="dashboard-svg-vector-node" viewBox="0 0 300 220" style="width: 100%; height: auto; display: block; background: #ffffff;">
+                                <defs>
+                                    <linearGradient id="grad-part1" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#0A2540" />
+                                        <stop offset="100%" stop-color="#1E3A8A" />
+                                    </linearGradient>
+                                    <linearGradient id="grad-part2" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#D4AF37" />
+                                        <stop offset="100%" stop-color="#F59E0B" />
+                                    </linearGradient>
+                                </defs>
+                                <line class="grid-line" x1="40" y1="30" x2="280" y2="30" />
+                                <line class="grid-line" x1="40" y1="65" x2="280" y2="65" />
+                                <line class="grid-line" x1="40" y1="100" x2="280" y2="100" />
+                                <line class="grid-line" x1="40" y1="135" x2="280" y2="135" />
+                                <line class="grid-line" x1="40" y1="170" x2="280" y2="170" />
+                                <text class="chart-text" x="30" y="34" style="text-anchor: end;">15</text>
+                                <text class="chart-text" x="30" y="69" style="text-anchor: end;">12</text>
+                                <text class="chart-text" x="30" y="104" style="text-anchor: end;">9</text>
+                                <text class="chart-text" x="30" y="139" style="text-anchor: end;">6</text>
+                                <text class="chart-text" x="30" y="174" style="text-anchor: end;">3</text>
+                                <text class="chart-text" x="30" y="193" style="text-anchor: end; font-weight: 700;">0</text>
+                                <line class="axis-line" x1="40" y1="190" x2="280" y2="190" />
+                                <line class="axis-line" x1="40" y1="20" x2="40" y2="190" />
+                                <g class="bar-group">
+                                    <rect id="svg-b-p1-sci" class="bar-part1" x="55" y="185" width="16" height="5" />
+                                    <rect id="svg-b-p2-sci" class="bar-part2" x="73" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="72" y="205">SCI</text>
+                                </g>
+                                <g class="bar-group">
+                                    <rect id="svg-b-p1-eng" class="bar-part1" x="115" y="185" width="16" height="5" />
+                                    <rect id="svg-b-p2-eng" class="bar-part2" x="133" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="132" y="205">ENG</text>
+                                </g>
+                                <g class="bar-group">
+                                    <rect id="svg-b-p1-mat" class="bar-part1" x="175" y="185" width="16" height="5" />
+                                    <rect id="svg-b-p2-mat" class="bar-part2" x="193" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="192" y="205">MATH</text>
+                                </g>
+                                <g class="bar-group">
+                                    <rect id="svg-b-p1-soc" class="bar-part1" x="235" y="185" width="16" height="5" />
+                                    <rect id="svg-b-p2-soc" class="bar-part2" x="253" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="252" y="205">SOC</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item"><div class="legend-color" style="background-color: var(--primary);"></div>Part I (Max 15)</div>
+                            <div class="legend-item"><div class="legend-color" style="background-color: var(--accent);"></div>Part II (Max 10)</div>
+                        </div>
+                    </div>
+
+                    <div class="student-profile-info" style="margin-top: 1.25rem;">
+                        <span class="profile-label" style="display: block; margin-bottom: 4px;">Director Remarks:</span>
+                        <p id="dash-remarks-text" style="font-size: 0.9rem; font-style: italic; color: #475569; line-height: 1.4;">-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="printable-report-wrapper">
+        <div class="print-border-container">
+            <div class="print-text-border-line-top">LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY</div>
+            <div class="print-text-border-line-bottom">LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY &bull; LAKSHYA ACADEMY</div>
+            
+            <div class="print-content-canvas">
+                <img class="print-header-graphic-frame" src="https://github.com/techbaricade-sudo/lakshya/blob/main/WhatsApp%20Image%202026-06-14%20at%2011.03.50%20PM.jpeg?raw=true" alt="Lakshya Academy Banner Header">
+                
+                <div class="print-sheet-body">
+                    <div class="print-document-title-box">
+                        <h2>REPORT CARD</h2>
+                    </div>
+
+                    <div class="print-metadata-layout-grid">
+                        <div class="print-meta-cell"><span class="print-meta-label">Student UID -</span><span id="prnt-uid" class="print-meta-value">-</span></div>
+                        <div class="print-meta-cell"><span class="print-meta-label">Class -</span><span id="prnt-class" class="print-meta-value">-</span></div>
+                        <div class="print-meta-cell"><span class="print-meta-label">Name of Student -</span><span id="prnt-name" class="print-meta-value">-</span></div>
+                        <div class="print-meta-cell"><span class="print-meta-label">Exam Name -</span><span id="prnt-exam" class="print-meta-value">-</span></div>
+                        <div class="print-meta-cell"><span class="print-meta-label">Father's Name -</span><span id="prnt-father" class="print-meta-value">-</span></div>
+                    </div>
+
+                    <div style="font-size: 9.5pt; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 2mm; border-bottom: 1px solid var(--primary); letter-spacing: 0.5px;">MARKS STATEMENT</div>
+
+                    <div class="print-table-sections-container">
+                        <div class="print-ledger-table-block">
+                            <h3>PART - I</h3>
+                            <table class="print-ledger-table">
+                                <thead>
+                                    <tr><th>Sub</th><th>FULL MARK</th><th>OBTAINED MARK</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>SCIENCE</td><td>15</td><td id="prnt-p1-sci">-</td></tr>
+                                    <tr><td>ENGLISH</td><td>15</td><td id="prnt-p1-eng">-</td></tr>
+                                    <tr><td>MATH</td><td>15</td><td id="prnt-p1-mat">-</td></tr>
+                                    <tr><td>SOCIAL</td><td>15</td><td id="prnt-p1-soc">-</td></tr>
+                                    <tr class="print-total-row"><td>TOTAL</td><td>60</td><td id="prnt-p1-tot">-</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="print-ledger-table-block">
+                            <h3>PART - II</h3>
+                            <table class="print-ledger-table">
+                                <thead>
+                                    <tr><th>Sub</th><th>FULL MARK</th><th>OBTAINED MARK</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>SCIENCE</td><td>10</td><td id="prnt-p2-sci">-</td></tr>
+                                    <tr><td>ENGLISH</td><td>10</td><td id="prnt-p2-eng">-</td></tr>
+                                    <tr><td>MATH</td><td>10</td><td id="prnt-p2-mat">-</td></tr>
+                                    <tr><td>SOCIAL</td><td>10</td><td id="prnt-p2-soc">-</td></tr>
+                                    <tr class="print-total-row"><td>TOTAL</td><td>40</td><td id="prnt-p2-tot">-</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="print-aggregate-banner-row">
+                        <div class="print-aggregate-cell">
+                            <div class="print-aggregate-label">Sub Total - PART I & PART II</div>
+                            <div id="prnt-subtotal" class="print-aggregate-value">-</div>
+                        </div>
+                        <div class="print-aggregate-cell">
+                            <div class="print-aggregate-label">PERCENTAGE</div>
+                            <div id="prnt-percentage" class="print-aggregate-value">-</div>
+                        </div>
+                        <div class="print-aggregate-cell">
+                            <div class="print-aggregate-label">RANK</div>
+                            <div id="prnt-rank" class="print-aggregate-value">-</div>
+                        </div>
+                    </div>
+
+                    <div class="print-analytics-panel">
+                        <h4>📊 Performance Analytics Chart</h4>
+                        <div class="svg-chart-wrapper" style="max-width: 250px;">
+                            <svg id="print-svg-vector-node" viewBox="0 0 300 220" style="width: 100%; height: auto; display: block; background: #ffffff;">
+                                <line class="grid-line" x1="40" y1="30" x2="280" y2="30" />
+                                <line class="grid-line" x1="40" y1="65" x2="280" y2="65" />
+                                <line class="grid-line" x1="40" y1="100" x2="280" y2="100" />
+                                <line class="grid-line" x1="40" y1="135" x2="280" y2="135" />
+                                <line class="grid-line" x1="40" y1="170" x2="280" y2="170" />
+                                <text class="chart-text" x="30" y="34" style="text-anchor: end;">15</text>
+                                <text class="chart-text" x="30" y="69" style="text-anchor: end;">12</text>
+                                <text class="chart-text" x="30" y="104" style="text-anchor: end;">9</text>
+                                <text class="chart-text" x="30" y="139" style="text-anchor: end;">6</text>
+                                <text class="chart-text" x="30" y="174" style="text-anchor: end;">3</text>
+                                <text class="chart-text" x="30" y="193" style="text-anchor: end; font-weight: 700;">0</text>
+                                <line class="axis-line" x1="40" y1="190" x2="280" y2="190" />
+                                <line class="axis-line" x1="40" y1="20" x2="40" y2="190" />
+                                <g class="bar-group">
+                                    <rect id="svg-prnt-p1-sci" fill="#0A2540" x="55" y="185" width="16" height="5" />
+                                    <rect id="svg-prnt-p2-sci" fill="#D4AF37" x="73" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="72" y="205">SCI</text>
+                                </g>
+                                <g class="bar-group">
+                                    <rect id="svg-prnt-p1-eng" fill="#0A2540" x="115" y="185" width="16" height="5" />
+                                    <rect id="svg-prnt-p2-eng" fill="#D4AF37" x="133" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="132" y="205">ENG</text>
+                                </g>
+                                <g class="bar-group">
+                                    <rect id="svg-prnt-p1-mat" fill="#0A2540" x="175" y="185" width="16" height="5" />
+                                    <rect id="svg-prnt-p2-mat" fill="#D4AF37" x="193" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="192" y="205">MATH</text>
+                                </g>
+                                <g class="bar-group">
+                                    <rect id="svg-prnt-p1-soc" fill="#0A2540" x="235" y="185" width="16" height="5" />
+                                    <rect id="svg-prnt-p2-soc" fill="#D4AF37" x="253" y="185" width="16" height="5" />
+                                    <text class="chart-text" x="252" y="205">SOC</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="print-remarks-container">
+                        <div class="print-remarks-label">Remark -</div>
+                        <div id="prnt-remarks-text" class="print-remarks-text">-</div>
+                    </div>
+
+                    <div class="print-signature-executive-row">
+                        <div class="print-sig-block">
+                            <div class="print-sig-image-wrapper">
+                                <img src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1781333996599.jpg" alt="Managing Director Signature">
+                            </div>
+                            <div class="print-sig-line">Managing Director</div>
+                            <div class="print-sig-name">AMIT KUMAR</div>
+                        </div>
+                        <div class="print-sig-block">
+                            <div class="print-sig-image-wrapper">
+                                <img src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/69eba4b91fdb9c954f8804d4/sh_1781334015180.jpg" alt="Academic Director Signature">
+                            </div>
+                            <div class="print-sig-line">Academic Director</div>
+                            <div class="print-sig-name">SHIVAM KR. SINGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <img class="print-footer-graphic-frame" src="https://github.com/techbaricade-sudo/lakshya/blob/main/WhatsApp%20Image%202026-06-14%20at%2011.03.47%20PM.jpeg?raw=true" alt="Lakshya Academy Banner Footer">
+            </div>
+        </div>
+    </div>
+
+    <footer class="portal-footer">
+        &copy; 2026 Lakshya Academy Learning Management Systems. All Rights Reserved.
+    </footer>
+
+    <script>
+        // GOOGLE SHEETS DEPLOYED LIVE WEB APP ENDPOINT
+        const GOOGLE_SHEET_API_ENDPOINT = "https://script.google.com/macros/s/AKfycbxrp7v12-OJwz9T9CdeR9ITqgjGO1tkWW79WjoKQsJcA-FN_EY_E1UCXgIDwsim0irp/exec";
+
+        let GLOBAL_STUDENTS_LOCAL_CACHE = {};
+
+        // Fetch records list from active cloud spreadsheet backend middleware
+        async function prefetchDatabaseRepositoryFromCloud() {
+            try {
+                const response = await fetch(GOOGLE_SHEET_API_ENDPOINT);
+                const recordsList = await response.json();
+                
+                GLOBAL_STUDENTS_LOCAL_CACHE = {};
+                recordsList.forEach(item => {
+                    // Force compute dynamic structural values locally for safety
+                    item.subTotal = item.marksPart1.science + item.marksPart1.english + item.marksPart1.math + item.marksPart1.social +
+                                    item.marksPart2.science + item.marksPart2.english + item.marksPart2.math + item.marksPart2.social;
+                    GLOBAL_STUDENTS_LOCAL_CACHE[item.uid] = item;
+                });
+                console.log("Database transaction sync verified with live Google Sheet architecture.");
+            } catch (err) {
+                console.error("Critical connection failure trying to sync cloud spreadsheet data:", err);
+            }
+        }
+
+        function handleNavigateToScreen(targetScreenId) {
+            document.querySelectorAll('.screen-view').forEach(screenNode => {
+                screenNode.classList.remove('active-view');
+            });
+            const targetedNode = document.getElementById(targetScreenId);
+            if (targetedNode) {
+                targetedNode.classList.add('active-view');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        async function handleResetPortalState() {
+            document.getElementById('search-uid-form').reset();
+            document.getElementById('recover-uid-form').reset();
+            document.getElementById('main-gate-error').style.display = 'none';
+            document.getElementById('forget-uid-alert').style.display = 'none';
+            
+            const submitBtn = document.getElementById('btn-submit-search');
+            submitBtn.textContent = "Syncing Sheets...";
+            await prefetchDatabaseRepositoryFromCloud();
+            submitBtn.textContent = "VIEW Results";
+            
+            handleNavigateToScreen('main-gate-screen');
+        }
+
+        async function executeStudentUidSearch(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('btn-submit-search');
+            const userSuppliedUidInput = document.getElementById('input-student-uid').value.trim();
+            const alertErrorNode = document.getElementById('main-gate-error');
+            
+            alertErrorNode.style.display = 'none';
+            submitBtn.textContent = "Connecting to Database...";
+            submitBtn.disabled = true;
+
+            // Fetch live to prevent stale cache row reads
+            await prefetchDatabaseRepositoryFromCloud();
+
+            submitBtn.textContent = "VIEW Results";
+            submitBtn.disabled = false;
+
+            if (GLOBAL_STUDENTS_LOCAL_CACHE.hasOwnProperty(userSuppliedUidInput)) {
+                const targetStudentProfileObject = GLOBAL_STUDENTS_LOCAL_CACHE[userSuppliedUidInput];
+                populateInterfaceUisWithDataRecord(targetStudentProfileObject);
+                handleNavigateToScreen('dashboard-results-screen');
+                
+                setTimeout(() => {
+                    triggerVectorGraphicsAnimateCycle(targetStudentProfileObject);
+                }, 100);
+            } else {
+                alertErrorNode.textContent = "Error: System could not find UID '" + userSuppliedUidInput + "' inside Google Sheets rows. Verify that the ID is exact and try again.";
+                alertErrorNode.style.display = 'block';
+            }
+        }
+
+        function executeUidRecoveryVerification(event) {
+            event.preventDefault();
+            const checkedName = document.getElementById('recover-student-name').value.trim().toUpperCase();
+            const checkedFather = document.getElementById('recover-father-name').value.trim().toUpperCase();
+            const checkedClass = document.getElementById('recover-class-select').value;
+            const statusNotificationBoxNode = document.getElementById('forget-uid-alert');
+
+            statusNotificationBoxNode.className = "alert-box";
+            statusNotificationBoxNode.style.display = "none";
+
+            let structuralMatchTargetRecord = null;
+            for (let primaryRecordKey in GLOBAL_STUDENTS_LOCAL_CACHE) {
+                if (GLOBAL_STUDENTS_LOCAL_CACHE.hasOwnProperty(primaryRecordKey)) {
+                    const structuralCursor = GLOBAL_STUDENTS_LOCAL_CACHE[primaryRecordKey];
+                    if (structuralCursor.studentName.trim().toUpperCase() === checkedName && 
+                        structuralCursor.fatherName.trim().toUpperCase() === checkedFather && 
+                        structuralCursor.classLevel.trim().toUpperCase() === checkedClass.toUpperCase()) {
+                        structuralMatchTargetRecord = structuralCursor;
+                        break;
+                    }
+                }
+            }
+
+            if (structuralMatchTargetRecord) {
+                statusNotificationBoxNode.classList.add('alert-success');
+                statusNotificationBoxNode.innerHTML = `<strong>Verification Successful!</strong><br>UID Record Located: <span style="font-size:1.15rem; font-weight:800; color:var(--primary); text-decoration:underline; cursor:pointer;" onclick="autofillAndQueryTargetUid('${structuralMatchTargetRecord.uid}')">${structuralMatchTargetRecord.uid}</span>`;
+            } else {
+                statusNotificationBoxNode.classList.add('alert-error');
+                statusNotificationBoxNode.textContent = "Error: Mismatch criteria. No verified enrollment match records identified in active Google Sheets cache.";
+            }
+        }
+
+        function autofillAndQueryTargetUid(extractedTargetUid) {
+            document.getElementById('input-student-uid').value = extractedTargetUid;
+            handleNavigateToScreen('main-gate-screen');
+            document.getElementById('main-gate-error').style.display = 'none';
+        }
+
+        function populateInterfaceUisWithDataRecord(dataRecordRef) {
+            // Dashboard Data Population
+            document.getElementById('dash-uid').textContent = dataRecordRef.uid;
+            document.getElementById('dash-name').textContent = dataRecordRef.studentName;
+            document.getElementById('dash-father').textContent = dataRecordRef.fatherName;
+            document.getElementById('dash-class').textContent = dataRecordRef.classLevel;
+            document.getElementById('dash-exam').textContent = dataRecordRef.examLabel;
+
+            document.getElementById('dash-p1-sci').textContent = dataRecordRef.marksPart1.science;
+            document.getElementById('dash-p1-eng').textContent = dataRecordRef.marksPart1.english;
+            document.getElementById('dash-p1-mat').textContent = dataRecordRef.marksPart1.math;
+            document.getElementById('dash-p1-soc').textContent = dataRecordRef.marksPart1.social;
+            const cumulativeP1Sum = dataRecordRef.marksPart1.science + dataRecordRef.marksPart1.english + dataRecordRef.marksPart1.math + dataRecordRef.marksPart1.social;
+            document.getElementById('dash-p1-tot').textContent = cumulativeP1Sum;
+
+            document.getElementById('dash-p2-sci').textContent = dataRecordRef.marksPart2.science;
+            document.getElementById('dash-p2-eng').textContent = dataRecordRef.marksPart2.english;
+            document.getElementById('dash-p2-mat').textContent = dataRecordRef.marksPart2.math;
+            document.getElementById('dash-p2-soc').textContent = dataRecordRef.marksPart2.social;
+            const cumulativeP2Sum = dataRecordRef.marksPart2.science + dataRecordRef.marksPart2.english + dataRecordRef.marksPart2.math + dataRecordRef.marksPart2.social;
+            document.getElementById('dash-p2-tot').textContent = cumulativeP2Sum;
+
+            document.getElementById('dash-subtotal').textContent = dataRecordRef.subTotal;
+            document.getElementById('dash-percentage').textContent = dataRecordRef.percentage;
+            document.getElementById('dash-rank').textContent = dataRecordRef.classRank;
+            document.getElementById('dash-remarks-text').textContent = dataRecordRef.remarks;
+
+            // Print Report Card Data Population
+            document.getElementById('prnt-uid').textContent = dataRecordRef.uid;
+            document.getElementById('prnt-name').textContent = dataRecordRef.studentName;
+            document.getElementById('prnt-father').textContent = dataRecordRef.fatherName;
+            document.getElementById('prnt-class').textContent = dataRecordRef.classLevel;
+            document.getElementById('prnt-exam').textContent = dataRecordRef.examLabel;
+
+            document.getElementById('prnt-p1-sci').textContent = dataRecordRef.marksPart1.science;
+            document.getElementById('prnt-p1-eng').textContent = dataRecordRef.marksPart1.english;
+            document.getElementById('prnt-p1-mat').textContent = dataRecordRef.marksPart1.math;
+            document.getElementById('prnt-p1-soc').textContent = dataRecordRef.marksPart1.social;
+            document.getElementById('prnt-p1-tot').textContent = cumulativeP1Sum;
+
+            document.getElementById('prnt-p2-sci').textContent = dataRecordRef.marksPart2.science;
+            document.getElementById('prnt-p2-eng').textContent = dataRecordRef.marksPart2.english;
+            document.getElementById('prnt-p2-mat').textContent = dataRecordRef.marksPart2.math;
+            document.getElementById('prnt-p2-soc').textContent = dataRecordRef.marksPart2.social;
+            document.getElementById('prnt-p2-tot').textContent = cumulativeP2Sum;
+
+            document.getElementById('prnt-subtotal').textContent = dataRecordRef.subTotal;
+            document.getElementById('prnt-percentage').textContent = dataRecordRef.percentage;
+            document.getElementById('prnt-rank').textContent = dataRecordRef.classRank;
+            document.getElementById('prnt-remarks-text').textContent = dataRecordRef.remarks;
+        }
+
+        function triggerVectorGraphicsAnimateCycle(profileDataRef) {
+            const coordinateScaleMultiplierFactor = 10.5; 
+            const systemAxisBaselineYPixelCoordinate = 190;
+            const subjectsIterationList = ['sci', 'eng', 'mat', 'soc'];
+
+            subjectsIterationList.forEach(subjectKeyString => {
+                const scoreValueP1 = profileDataRef.marksPart1[subjectKeyString] || 0;
+                const scoreValueP2 = profileDataRef.marksPart2[subjectKeyString] || 0;
+
+                const computedPixelHeightP1 = Math.round(scoreValueP1 * coordinateScaleMultiplierFactor);
+                const computedPixelHeightP2 = Math.round(scoreValueP2 * coordinateScaleMultiplierFactor);
+
+                const dynamicTargetYPositionP1 = systemAxisBaselineYPixelCoordinate - computedPixelHeightP1;
+                const dynamicTargetYPositionP2 = systemAxisBaselineYPixelCoordinate - computedPixelHeightP2;
+
+                setVectorElementAttributes('svg-b-p1-' + subjectKeyString, dynamicTargetYPositionP1, computedPixelHeightP1);
+                setVectorElementAttributes('svg-b-p2-' + subjectKeyString, dynamicTargetYPositionP2, computedPixelHeightP2);
+                setVectorElementAttributes('svg-prnt-p1-' + subjectKeyString, dynamicTargetYPositionP1, computedPixelHeightP1);
+                setVectorElementAttributes('svg-prnt-p2-' + subjectKeyString, dynamicTargetYPositionP2, computedPixelHeightP2);
+            });
+        }
+
+        function setVectorElementAttributes(elementIdentifierKey, targetedYPosition, heightVectorDimension) {
+            const targetedDomNode = document.getElementById(elementIdentifierKey);
+            if (targetedDomNode) {
+                targetedDomNode.setAttribute('y', targetedYPosition);
+                targetedDomNode.setAttribute('height', heightVectorDimension > 0 ? heightVectorDimension : 1);
+            }
+        }
+
+        function executeNativePrintJobTrigger() {
+            window.print();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            prefetchDatabaseRepositoryFromCloud(); // Background trigger cache init
+            setTimeout(function() {
+                const globalSplashContainerNode = document.getElementById('splash-screen');
+                if (globalSplashContainerNode) {
+                    globalSplashContainerNode.style.opacity = '0';
+                    globalSplashContainerNode.style.visibility = 'hidden';
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
