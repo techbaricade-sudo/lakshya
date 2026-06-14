@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <link rel="icon" type="image/png" href="https://github.com/techbaricade-sudo/lakshya/blob/main/365e3e8c-0502-4751-85e5-db747d5f0326.png?raw=true">
   <meta charset="UTF-8">
@@ -17,6 +17,7 @@
   <style>
     /* Premium High-Contrast Color Variables */
     :root {
+      /* Dark Theme Variables (Default) */
       --bg-dark: #090d16;
       --bg-card: #131926;
       --accent-glow: #3b82f6;
@@ -26,6 +27,19 @@
       --glass-panel: rgba(19, 25, 38, 0.7);
       --glass-border: rgba(255, 255, 255, 0.08);
       --neo-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      --nav-bg: rgba(9, 13, 22, 0.75);
+    }
+
+    /* Light Theme Overrides */
+    [data-theme="light"] {
+      --bg-dark: #f1f5f9;
+      --bg-card: #ffffff;
+      --text-white: #0f172a;
+      --text-gray: #475569;
+      --glass-panel: rgba(255, 255, 255, 0.8);
+      --glass-border: rgba(15, 23, 42, 0.08);
+      --neo-shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
+      --nav-bg: rgba(241, 245, 249, 0.85);
     }
 
     * {
@@ -41,6 +55,7 @@
       color: var(--text-white);
       overflow-x: hidden;
       line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     h1, h2, h3, .heading-font {
@@ -72,7 +87,7 @@
 
     /* Glassmorphism Header Bar Layout */
     nav {
-      background: rgba(9, 13, 22, 0.75);
+      background: var(--nav-bg);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       position: sticky;
@@ -97,7 +112,7 @@
     .logo h1 {
       font-size: 1.8rem;
       letter-spacing: -1px;
-      background: linear-gradient(135deg, #fff 30%, var(--accent-glow));
+      background: linear-gradient(135deg, var(--text-white) 30%, var(--accent-glow));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -113,7 +128,7 @@
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 24px;
       align-items: center;
     }
 
@@ -129,6 +144,63 @@
       color: var(--text-white);
     }
 
+    /* Highlight Result Link */
+    .nav-links a.result-link {
+      color: var(--accent-emerald);
+      font-weight: 600;
+    }
+
+    /* Controls Styling */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .control-select {
+      background: var(--bg-card);
+      color: var(--text-white);
+      border: 1px solid var(--glass-border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .color-picker-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .color-picker-wrapper input[type="color"] {
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: none;
+    }
+
+    .theme-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      color: var(--text-white);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+    }
+
     /* Smart Neon Action UI Buttons */
     .btn-portal-trigger {
       background: linear-gradient(135deg, var(--accent-glow), #1d4ed8);
@@ -142,7 +214,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      text-decoration: none; /* Added to keep design intact for anchor tags */
+      text-decoration: none; 
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -173,6 +245,18 @@
     .mobile-hamburger {
       display: none;
       font-size: 1.6rem;
+      background: none;
+      border: none;
+      color: var(--text-white);
+      cursor: pointer;
+    }
+
+    .sidebar-close-btn {
+      display: none;
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 1.8rem;
       background: none;
       border: none;
       color: var(--text-white);
@@ -252,7 +336,7 @@
 
     .metric-panel:hover {
       transform: translateY(-6px);
-      border-color: rgba(59, 130, 246, 0.3);
+      border-color: var(--accent-glow);
       box-shadow: 0 20px 40px rgba(59, 130, 246, 0.05);
     }
 
@@ -303,10 +387,14 @@
       overflow: hidden;
     }
 
+    [data-theme="light"] .feature-card-modern {
+      background: var(--bg-card);
+    }
+
     .feature-card-modern:hover {
       transform: translateY(-8px);
-      border-color: rgba(16, 185, 129, 0.3);
-      box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+      border-color: var(--accent-emerald);
+      box-shadow: var(--neo-shadow);
     }
 
     .feature-card-modern::before {
@@ -406,7 +494,7 @@
     }
 
     .form-panel-enquiry {
-      background: rgba(19, 25, 38, 0.6);
+      background: var(--glass-panel);
       border: 1px solid var(--glass-border);
       backdrop-filter: blur(20px);
       padding: 48px;
@@ -420,7 +508,7 @@
 
     .form-input-group input, .form-input-group select {
       width: 100%;
-      background: rgba(9, 13, 22, 0.6);
+      background: rgba(9, 13, 22, 0.1);
       border: 1px solid var(--glass-border);
       padding: 16px 20px;
       border-radius: 14px;
@@ -429,6 +517,11 @@
       font-size: 1rem;
       outline: none;
       transition: all 0.2s ease;
+    }
+
+    [data-theme="light"] .form-input-group input, [data-theme="light"] .form-input-group select {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0,0,0,0.15);
     }
 
     .form-input-group input:focus, .form-input-group select:focus {
@@ -483,6 +576,12 @@
       font-size: 0.95rem;
     }
 
+    footer a {
+      color: var(--accent-glow);
+      text-decoration: none;
+    }
+
+    /* Responsive Controls & Sidebar Animations */
     @media (max-width: 1024px) {
       .hero-split { grid-template-columns: 1fr; text-align: center; gap: 40px; }
       .hero-text h2 { font-size: 3rem; }
@@ -494,22 +593,47 @@
 
     @media (max-width: 768px) {
       nav { padding: 14px 0; }
+      .mobile-hamburger { display: block; }
+      .sidebar-close-btn { display: block; }
+
+      /* Improved Slide-Out Sidebar Design */
       .nav-links {
         position: fixed;
         top: 0;
-        left: -100%;
-        width: 100%;
+        right: -100%; /* Right side se slide hoga */
+        left: auto;
+        width: 280px; /* Clean structured drawer width */
         height: 100vh;
-        background: #090d16;
+        background: var(--bg-card);
         flex-direction: column;
-        justify-content: center;
-        gap: 36px;
-        z-index: 400;
-        transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        padding: 40px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 20px;
+        z-index: 999;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 80px 30px;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+        border-left: 1px solid var(--glass-border);
       }
-      .nav-links.show { left: 0; }
-      .mobile-hamburger { display: block; }
+      
+      .nav-links.show { 
+        right: 0; 
+      }
+      
+      .nav-controls {
+        flex-direction: row;
+        width: 100%;
+        justify-content: flex-start;
+        margin: 15px 0;
+        padding-top: 15px;
+        border-top: 1px solid var(--glass-border);
+      }
+      
+      .btn-portal-trigger {
+        width: 100%;
+        justify-content: center;
+      }
+      
       .hero-text h2 { font-size: 2.4rem; }
       section { padding: 60px 0; }
     }
@@ -520,17 +644,38 @@
 <nav>
   <div class="container nav-flex">
     <div class="logo">
-      <h1>LAKSHYA <span>ACADEMY</span></h1>
+      <h1>LAKSHYA <span id="logo-sub">ACADEMY</span></h1>
     </div>
     <button class="mobile-hamburger" id="navTrigger" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
     <div class="nav-links" id="menuMenu">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#courses">Courses</a>
-      <a href="#board">The Board</a>
-      <a href="#admission">Admissions</a>
-      <a href="#contact">Contact</a>
-      <a href="login.html" class="btn-portal-trigger"><i class="fas fa-lock-open"></i> Portal Login</a>
+      <button class="sidebar-close-btn" id="navClose" aria-label="Close Menu"><i class="fas fa-times"></i></button>
+      
+      <a href="#home" id="lnk-home">Home</a>
+      <a href="#about" id="lnk-about">About</a>
+      <a href="#courses" id="lnk-courses">Courses</a>
+      <a href="#board" id="lnk-board">The Board</a>
+      <a href="#admission" id="lnk-admission">Admissions</a>
+      
+      <a href="result.html" class="result-link" id="lnk-result">Result</a>
+      
+      <a href="#contact" id="lnk-contact">Contact</a>
+      
+      <div class="nav-controls">
+        <select class="control-select" id="langSelect" onchange="switchLanguage(this.value)">
+          <option value="en">EN</option>
+          <option value="hi">HI</option>
+        </select>
+        
+        <div class="color-picker-wrapper">
+          <input type="color" id="accentPicker" value="#3b82f6" oninput="updateAccentColor(this.value)">
+        </div>
+
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle Theme">
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+
+      <a href="login.html" class="btn-portal-trigger" id="btn-login"><i class="fas fa-lock-open"></i> Portal Login</a>
     </div>
   </div>
 </nav>
@@ -540,11 +685,11 @@
   <div class="container">
     <div class="hero-split">
       <div class="hero-text" data-aos="fade-right">
-        <h2>Nurturing Elite <span>Intelligence</span> & Logic</h2>
-        <p>Premium standard development coaching paradigms for Classes 6th to 9th across fundamental domains.</p>
+        <h2 id="hero-title">Nurturing Elite <span>Intelligence</span> & Logic</h2>
+        <p id="hero-desc">Premium standard development coaching paradigms for Classes 6th to 9th across fundamental domains.</p>
         <div class="hero-action-row">
-          <a href="#admission" class="btn-portal-trigger">Apply Online Now <i class="fas fa-arrow-right"></i></a>
-          <a href="#about" class="btn-secondary">Explore Methodology</a>
+          <a href="#admission" class="btn-portal-trigger" id="btn-apply">Apply Online Now <i class="fas fa-arrow-right"></i></a>
+          <a href="#about" class="btn-secondary" id="btn-explore">Explore Methodology</a>
         </div>
       </div>
       <div class="interactive-media-box" data-aos="fade-left">
@@ -553,9 +698,9 @@
     </div>
 
     <div class="metrics-row" data-aos="fade-up">
-      <div class="metric-panel"><i class="fas fa-user-tie"></i><h3>Core Mentors</h3><p>Elite subject specialists.</p></div>
-      <div class="metric-panel"><i class="fas fa-shield-halved"></i><h3>Weekly Audits</h3><p>Detailed performance matrices.</p></div>
-      <div class="metric-panel"><i class="fas fa-cubes"></i><h3>Root Logic</h3><p>Conceptual clarity models.</p></div>
+      <div class="metric-panel"><i class="fas fa-user-tie"></i><h3 id="m1-title">Core Mentors</h3><p id="m1-desc">Elite subject specialists.</p></div>
+      <div class="metric-panel"><i class="fas fa-shield-halved"></i><h3 id="m2-title">Weekly Audits</h3><p id="m2-desc">Detailed performance matrices.</p></div>
+      <div class="metric-panel"><i class="fas fa-cubes"></i><h3 id="m3-title">Root Logic</h3><p id="m3-desc">Conceptual clarity models.</p></div>
     </div>
   </div>
 </section>
@@ -564,12 +709,12 @@
   <div class="glow-sphere" style="bottom: 5%; left: 2%;"></div>
   <div class="container">
     <div class="center-header" data-aos="fade-up">
-      <h2>Academic Paradigm</h2>
-      <p>Building trusted foundational growth parameters since 2014.</p>
+      <h2 id="about-title">Academic Paradigm</h2>
+      <p id="about-sub">Building trusted foundational growth parameters since 2014.</p>
     </div>
     <div class="feature-card-modern" style="max-width: 900px; margin: 0 auto; text-align: center;" data-aos="zoom-in">
-      <p style="font-size: 1.25rem; color: var(--text-white); margin-bottom: 24px; font-weight: 300;">"Located comprehensively at New Colony Ward No. 09/13, Sarahi Road, Saharsa, our focus remains targeted toward creating structural analytical strength in our pupils."</p>
-      <h4 style="color: var(--accent-emerald)">— Governing Directorate Desk</h4>
+      <p style="font-size: 1.25rem; color: var(--text-white); margin-bottom: 24px; font-weight: 300;" id="about-quote">"Located comprehensively at New Colony Ward No. 09/13, Sarahi Road, Saharsa, our focus remains targeted toward creating structural analytical strength in our pupils."</p>
+      <h4 style="color: var(--accent-emerald)" id="about-author">— Governing Directorate Desk</h4>
     </div>
   </div>
 </section>
@@ -577,13 +722,13 @@
 <section id="courses">
   <div class="container">
     <div class="center-header" data-aos="fade-up">
-      <h2>Target Disciplines</h2>
-      <p>Comprehensive syllabi tracks for high school foundations.</p>
+      <h2 id="courses-title">Target Disciplines</h2>
+      <p id="courses-sub">Comprehensive syllabi tracks for high school foundations.</p>
     </div>
     <div class="cards-layout-grid" data-aos="fade-up">
-      <div class="feature-card-modern"><i class="fas fa-square-root-variable"></i><h3>Mathematics</h3><p>Core algebraic frameworks, arithmetic geometry rules, and logic execution tracks.</p></div>
-      <div class="feature-card-modern"><i class="fas fa-atom"></i><h3>Natural Sciences</h3><p>Structured analysis across Physics frameworks, chemical behaviors, and biology.</p></div>
-      <div class="feature-card-modern"><i class="fas fa-feather-pointed"></i><h3>English & Syntax</h3><p>Grammar mechanics, composition architecture, and structural expression clarity.</p></div>
+      <div class="feature-card-modern"><i class="fas fa-square-root-variable"></i><h3 id="c1-title">Mathematics</h3><p id="c1-desc">Core algebraic frameworks, arithmetic geometry rules, and logic execution tracks.</p></div>
+      <div class="feature-card-modern"><i class="fas fa-atom"></i><h3 id="c2-title">Natural Sciences</h3><p id="c2-desc">Structured analysis across Physics frameworks, chemical behaviors, and biology.</p></div>
+      <div class="feature-card-modern"><i class="fas fa-feather-pointed"></i><h3 id="c3-title">English & Syntax</h3><p id="c3-desc">Grammar mechanics, composition architecture, and structural expression clarity.</p></div>
     </div>
   </div>
 </section>
@@ -591,21 +736,21 @@
 <section id="board">
   <div class="container">
     <div class="center-header" data-aos="fade-up">
-      <h2>The Governing Board</h2>
-      <p>Architecting pedagogical framework delivery models.</p>
+      <h2 id="board-title">The Governing Board</h2>
+      <p id="board-sub">Architecting pedagogical framework delivery models.</p>
     </div>
     <div class="executive-grid" data-aos="fade-up">
       <div class="exec-profile-card">
         <div class="profile-avatar-frame"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Amit Kumar"></div>
-        <h3>Amit Kumar</h3><div class="role-lbl">Managing Director</div><p>Overseeing system administration & platform expansion maps.</p>
+        <h3>Amit Kumar</h3><div class="role-lbl" id="r1-title">Managing Director</div><p id="r1-desc">Overseeing system administration & platform expansion maps.</p>
       </div>
       <div class="exec-profile-card">
         <div class="profile-avatar-frame"><img src="https://surveyheartmedia.s3.ap-south-1.amazonaws.com/files/c5147741a29f92f14076a39cd375d4/690f4a08860f444952205611/sh_1764594280693.jpg" alt="Shivam Kr. Singh" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png'"></div>
-        <h3>Shivam Kr. Singh</h3><div class="role-lbl">Academic Director</div><p>Structuring strategic pedagogic workflows and mentor validation.</p>
+        <h3>Shivam Kr. Singh</h3><div class="role-lbl" id="r2-title">Academic Director</div><p id="r2-desc">Structuring strategic pedagogic workflows and mentor validation.</p>
       </div>
       <div class="exec-profile-card">
         <div class="profile-avatar-frame"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png" alt="Nikhil Jha"></div>
-        <h3>Mr. Nikhil Jha</h3><div class="role-lbl">Academic Superintendent</div><p>Supervising micro evaluation cycles and student analytics tracking.</p>
+        <h3>Mr. Nikhil Jha</h3><div class="role-lbl" id="r3-title">Academic Superintendent</div><p id="r3-desc">Supervising micro evaluation cycles and student analytics tracking.</p>
       </div>
     </div>
   </div>
@@ -615,16 +760,16 @@
   <div class="container">
     <div class="admission-dual-box">
       <div data-aos="fade-right">
-        <h2 style="font-size: 3rem; line-height: 1.1; margin-bottom: 20px;">Merit Evaluations & <br><span style="color:var(--accent-glow)">Enrollment 2026</span></h2>
-        <p style="color:var(--text-gray); margin-bottom: 30px;">Lock priority candidate listings. High-performing results on our forthcoming metrics award up to 50% fee waivers.</p>
+        <h2 style="font-size: 3rem; line-height: 1.1; margin-bottom: 20px;" id="admit-title">Merit Evaluations & <br><span style="color:var(--accent-glow)">Enrollment 2026</span></h2>
+        <p style="color:var(--text-gray); margin-bottom: 30px;" id="admit-desc">Lock priority candidate listings. High-performing results on our forthcoming metrics award up to 50% fee waivers.</p>
         <div class="feature-card-modern" style="border-left: 4px solid var(--accent-emerald);">
-          <h4 style="margin-bottom: 8px;"><i class="far fa-calendar-check" style="color:var(--accent-emerald); margin-right: 8px;"></i> Test Window Info</h4>
-          <p>Evaluation Matrix: <strong>25th May 2026</strong>. Syllabus parameters cover general processing logic and fundamental quant metrics.</p>
+          <h4 style="margin-bottom: 8px;" id="test-title"><i class="far fa-calendar-check" style="color:var(--accent-emerald); margin-right: 8px;"></i> Test Window Info</h4>
+          <p id="test-desc">Evaluation Matrix: <strong>25th May 2026</strong>. Syllabus parameters cover general processing logic and fundamental quant metrics.</p>
         </div>
       </div>
        
       <div class="form-panel-enquiry" data-aos="fade-left">
-        <h3 style="font-size: 1.6rem; margin-bottom: 28px;"><i class="far fa-paper-plane" style="color:var(--accent-glow)"></i> Direct Admission Link</h3>
+        <h3 style="font-size: 1.6rem; margin-bottom: 28px;" id="form-title"><i class="far fa-paper-plane" style="color:var(--accent-glow)"></i> Direct Admission Link</h3>
         <form id="studentEnquiryForm">
           <div class="form-input-group"><input type="text" id="candidateName" placeholder="Candidate's Full Name" required></div>
           <div class="form-input-group"><input type="tel" id="candidateLine" placeholder="Primary Contact Line" required></div>
@@ -647,11 +792,11 @@
   <div class="container">
     <div class="contact-map-layout">
       <div data-aos="fade-right">
-        <h2 style="font-size: 2.4rem; margin-bottom: 16px;">Connect with Campus</h2>
-        <p style="color: var(--text-gray); margin-bottom: 32px;">Direct communication channels to our administrative desk operations.</p>
+        <h2 style="font-size: 2.4rem; margin-bottom: 16px;" id="contact-title">Connect with Campus</h2>
+        <p style="color: var(--text-gray); margin-bottom: 32px;" id="contact-sub">Direct communication channels to our administrative desk operations.</p>
         <p style="margin-bottom: 12px;"><i class="fas fa-map-location-dot" style="color:var(--accent-glow); margin-right: 12px;"></i> New Colony Ward 09/13, Saharsa, Bihar</p>
         <p style="margin-bottom: 32px;"><i class="fas fa-headset" style="color:var(--accent-glow); margin-right: 12px;"></i> +91 7004931491, 9709316822</p>
-        <a href="tel:+917004931491" class="btn-portal-trigger">Call Desk Line</a>
+        <a href="tel:+917004931491" class="btn-portal-trigger" id="btn-call">Call Desk Line</a>
       </div>
       <div data-aos="fade-left">
         <iframe width="100%" height="340" style="border-radius: 24px; border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" loading="lazy" src="https://maps.google.com/maps?q=New+Colony+Ward+No.+09%2F13+Sarahi+Road+Saharsa+Bihar&z=15&output=embed"></iframe>
@@ -662,7 +807,7 @@
 
 <footer>
   <div class="container">
-    <p>© 2026 Lakshya Academy. This site is Designed , Develoed and Hosted by <a href="https://techbaricade.com" target="_blank">Tech Baricade</a>.</p>
+    <p id="footer-text">© 2026 Lakshya Academy. This site is Designed , Developed and Hosted by <a href="https://techbaricade.com" target="_blank">Tech Baricade</a>.</p>
   </div>
 </footer>
 
@@ -673,18 +818,180 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Mobile Menu Toggle Script (Pure JS Setup)
+  // Mobile Sidebar Menu Open/Close Script
   const navTrigger = document.getElementById('navTrigger');
+  const navClose = document.getElementById('navClose');
   const menuMenu = document.getElementById('menuMenu');
   
   if(navTrigger && menuMenu) {
     navTrigger.addEventListener('click', () => {
-      menuMenu.classList.toggle('show');
+      menuMenu.classList.add('show'); // Opens Sidebar
     });
   }
 
+  if(navClose && menuMenu) {
+    navClose.addEventListener('click', () => {
+      menuMenu.classList.remove('show'); // Closes Sidebar
+    });
+  }
+
+  // Auto Close Sidebar when any anchor link is clicked
+  const navLinksList = document.querySelectorAll('.nav-links a');
+  navLinksList.forEach(link => {
+    link.addEventListener('click', () => {
+      menuMenu.classList.remove('show');
+    });
+  });
+
   // Initialize Scroll Motion
   AOS.init({ duration: 800, once: true, easing: 'ease-out-quad' });
+
+  // 1. Theme Logic
+  function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', nextTheme);
+    
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.innerHTML = nextTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  }
+
+  // 2. Dynamic Millions Color Palette Logic
+  function updateAccentColor(colorHex) {
+    document.documentElement.style.setProperty('--accent-glow', colorHex);
+  }
+
+  // 3. Complete Dual Language Array Setup
+  const translations = {
+    en: {
+      logoSub: "ACADEMY",
+      home: "Home", about: "About", courses: "Courses", board: "The Board", admission: "Admissions", result: "Result", contact: "Contact",
+      login: "Portal Login",
+      heroTitle: "Nurturing Elite <span>Intelligence</span> & Logic",
+      heroDesc: "Premium standard development coaching paradigms for Classes 6th to 9th across fundamental domains.",
+      apply: "Apply Online Now", explore: "Explore Methodology",
+      m1T: "Core Mentors", m1D: "Elite subject specialists.",
+      m2T: "Weekly Audits", m2D: "Detailed performance matrices.",
+      m3T: "Root Logic", m3D: "Conceptual clarity models.",
+      abT: "Academic Paradigm", abS: "Building trusted foundational growth parameters since 2014.",
+      abQ: `"Located comprehensively at New Colony Ward No. 09/13, Sarahi Road, Saharsa, our focus remains targeted toward creating structural analytical strength in our pupils."`,
+      abA: "— Governing Directorate Desk",
+      cT: "Target Disciplines", cS: "Comprehensive syllabi tracks for high school foundations.",
+      c1T: "Mathematics", c1D: "Core algebraic frameworks, arithmetic geometry rules, and logic execution tracks.",
+      c2T: "Natural Sciences", c2D: "Structured analysis across Physics frameworks, chemical behaviors, and biology.",
+      c3T: "English & Syntax", c3D: "Grammar mechanics, composition architecture, and structural expression clarity.",
+      bT: "The Governing Board", bS: "Architecting pedagogical framework delivery models.",
+      r1T: "Managing Director", r1D: "Overseeing system administration & platform expansion maps.",
+      r2T: "Academic Director", r2D: "Structuring strategic pedagogic workflows and mentor validation.",
+      r3T: "Academic Superintendent", r3D: "Supervising micro evaluation cycles and student analytics tracking.",
+      adT: "Merit Evaluations & <br><span style='color:var(--accent-glow)'>Enrollment 2026</span>",
+      adD: "Lock priority candidate listings. High-performing results on our forthcoming metrics award up to 50% fee waivers.",
+      tT: "Test Window Info", tD: "Evaluation Matrix: 25th May 2026. Syllabus parameters cover general processing logic and fundamental quant metrics.",
+      fT: "Direct Admission Link", fBtn: "Transmit Direct Request",
+      conT: "Connect with Campus", conS: "Direct communication channels to our administrative desk operations.",
+      callB: "Call Desk Line",
+      footer: '© 2026 Lakshya Academy. This site is Designed , Developed and Hosted by <a href="https://techbaricade.com" target="_blank">Tech Baricade</a>.'
+    },
+    hi: {
+      logoSub: "एकेडमी",
+      home: "होम", about: "हमारे बारे में", courses: "कोर्सेस", board: "बोर्ड मेंबर्स", admission: "प्रवेश", result: "परिणाम", contact: "संपर्क",
+      login: "पोर्टल लॉगिन",
+      heroTitle: "कुशाग्र <span>बुद्धिमत्ता</span> और तर्कशक्ति का विकास",
+      heroDesc: "कक्षा 6वीं से 9वीं के लिए मुख्य विषयों में प्रीमियम स्तर का वैचारिक कोचिंग मॉडल।",
+      apply: "अभी ऑनलाइन आवेदन करें", explore: "पद्धति का अन्वेषण करें",
+      m1T: "मुख्य सलाहकार", m1D: "उत्कृष्ट विषय विशेषज्ञ शिक्षक।",
+      m2T: "साप्ताहिक मूल्यांकन", m2D: "विस्तृत प्रदर्शन रिपोर्ट कार्ड।",
+      m3T: "मूल तर्कशक्ति", m3D: "अवधारणात्मक स्पष्टता मॉडल।",
+      abT: "शैक्षणिक ढांचा", abS: "2014 से लगातार छात्रों में भरोसेमंद प्रगति का निर्माण।",
+      abQ: `"न्यू कॉलोनी वार्ड नंबर 09/13, सरहाइ रोड, सहरसा में स्थित, हमारा ध्यान हमारे छात्रों में संरचनात्मक विश्लेषणात्मक शक्ति बनाने पर केंद्रित है।"`,
+      abA: "— शासी निदेशालय डेस्क",
+      cT: "लक्षित विषय", cS: "हाई स्कूल की नींव के लिए व्यापक पाठ्यक्रम ट्रैक।",
+      c1T: "गणित", c1D: "मुख्य बीजगणितीय संरचनाएं, अंकगणितीय ज्यामिति नियम, और तर्क निष्पादन ट्रैक।",
+      c2T: "प्राकृतिक विज्ञान", c2D: "भौतिकी, रासायनिक व्यवहार और जीव विज्ञान का संरचित विश्लेषण।",
+      c3T: "अंग्रेजी और वाक्यविन्यास", c3D: "व्याकरण यांत्रिकी, संरचना और स्पष्ट अभिव्यक्ति का विकास।",
+      bT: "शासी बोर्ड", bS: "शैक्षणिक ढांचे के वितरण मॉडल का निर्माण।",
+      r1T: "प्रबंध निदेशक", r1D: "सिस्टम प्रशासन और प्लेटफॉर्म विस्तार मानचित्रों की देखरेख।",
+      r2T: "शैक्षणिक निदेशक", r2D: "रणनीतिक शैक्षणिक वर्कफ़्लो और शिक्षक सत्यापन का ढांचा बनाना।",
+      r3T: "शैक्षणिक अधीक्षक", r3D: "सूक्ष्म मूल्यांकन चक्र और छात्र विश्लेषिकी ट्रैकिंग की देखरेख।",
+      adT: "योग्यता मूल्यांकन एवं <br><span style='color:var(--accent-glow)'>नामांकन 2026</span>",
+      adD: "प्राथमिकता उम्मीदवार सूची सुरक्षित करें। हमारे आगामी मूल्यांकन परीक्षा में उच्च प्रदर्शन करने वाले छात्रों को 50% तक शुल्क छूट दी जाएगी।",
+      tT: "परीक्षा विंडो की जानकारी", tD: "मूल्यांकन मैट्रिक्स: 25 मई 2026। पाठ्यक्रम मापदंडों में सामान्य प्रसंस्करण तर्क और मौलिक क्वांट शामिल हैं।",
+      fT: "सीधा प्रवेश लिंक", fBtn: "सीधा अनुरोध भेजें",
+      conT: "कैंपस से जुड़ें", conS: "हमारे प्रशासनिक डेस्क संचालन के लिए सीधे संचार चैनल।",
+      callB: "डेस्क लाइन पर कॉल करें",
+      footer: '© 2026 लक्ष्य एकेडमी। यह साइट <a href="https://techbaricade.com" target="_blank">Tech Baricade</a> द्वारा डिज़ाइन, विकसित और होस्ट की गई है।'
+    }
+  };
+
+  function switchLanguage(lang) {
+    const t = translations[lang];
+    
+    // Navbar & Sidebar Links
+    document.getElementById('logo-sub').innerText = t.logoSub;
+    document.getElementById('lnk-home').innerText = t.home;
+    document.getElementById('lnk-about').innerText = t.about;
+    document.getElementById('lnk-courses').innerText = t.courses;
+    document.getElementById('lnk-board').innerText = t.board;
+    document.getElementById('lnk-admission').innerText = t.admission;
+    document.getElementById('lnk-result').innerText = t.result;
+    document.getElementById('lnk-contact').innerText = t.contact;
+    document.getElementById('btn-login').innerHTML = `<i class="fas fa-lock-open"></i> ${t.login}`;
+    
+    // Hero
+    document.getElementById('hero-title').innerHTML = t.heroTitle;
+    document.getElementById('hero-desc').innerText = t.heroDesc;
+    document.getElementById('btn-apply').innerHTML = `${t.apply} <i class="fas fa-arrow-right"></i>`;
+    document.getElementById('btn-explore').innerText = t.explore;
+    
+    // Metrics
+    document.getElementById('m1-title').innerText = t.m1T;
+    document.getElementById('m1-desc').innerText = t.m1D;
+    document.getElementById('m2-title').innerText = t.m2T;
+    document.getElementById('m2-desc').innerText = t.m2D;
+    document.getElementById('m3-title').innerText = t.m3T;
+    document.getElementById('m3-desc').innerText = t.m3D;
+    
+    // About
+    document.getElementById('about-title').innerText = t.abT;
+    document.getElementById('about-sub').innerText = t.abS;
+    document.getElementById('about-quote').innerText = t.abQ;
+    document.getElementById('about-author').innerText = t.abA;
+    
+    // Courses
+    document.getElementById('courses-title').innerText = t.cT;
+    document.getElementById('courses-sub').innerText = t.cS;
+    document.getElementById('c1-title').innerText = t.c1T;
+    document.getElementById('c1-desc').innerText = t.c1D;
+    document.getElementById('c2-title').innerText = t.c2T;
+    document.getElementById('c2-desc').innerText = t.c2D;
+    document.getElementById('c3-title').innerText = t.c3T;
+    document.getElementById('c3-desc').innerText = t.c3D;
+    
+    // Board
+    document.getElementById('board-title').innerText = t.bT;
+    document.getElementById('board-sub').innerText = t.bS;
+    document.getElementById('r1-title').innerText = t.r1T;
+    document.getElementById('r1-desc').innerText = t.r1D;
+    document.getElementById('r2-title').innerText = t.r2T;
+    document.getElementById('r2-desc').innerText = t.r2D;
+    document.getElementById('r3-title').innerText = t.r3T;
+    document.getElementById('r3-desc').innerText = t.r3D;
+    
+    // Admissions
+    document.getElementById('admit-title').innerHTML = t.adT;
+    document.getElementById('admit-desc').innerText = t.adD;
+    document.getElementById('test-title').innerHTML = `<i class="far fa-calendar-check" style="color:var(--accent-emerald); margin-right: 8px;"></i> ${t.tT}`;
+    document.getElementById('test-desc').innerText = t.tD;
+    document.getElementById('form-title').innerHTML = `<i class="far fa-paper-plane" style="color:var(--accent-glow)"></i> ${t.fT}`;
+    document.getElementById('enquirySubmitBtn').innerText = t.fBtn;
+    
+    // Contact & Footer
+    document.getElementById('contact-title').innerText = t.conT;
+    document.getElementById('contact-sub').innerText = t.conS;
+    document.getElementById('btn-call').innerText = t.callB;
+    document.getElementById('footer-text').innerHTML = t.footer;
+  }
 </script>
 
 </body>
